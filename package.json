@@ -22,11 +22,9 @@
         "@radix-ui/react-tooltip": "^1.1.8",
         "matter-js": "^0.20.0",
         "next": "15.3.3",
-        "next-themes": "^0.3.0",
         "@radix-ui/react-toast": "^1.2.6",
         "react": "19.1.0",
         "react-dom": "19.1.0",
-        "sonner": "^1.5.0",
         "tailwind-merge": "^2.4.0",
         "tailwindcss-animate": "^1.0.7",
         "zustand": "^5.0.8"
@@ -37,7 +35,7 @@
         "@types/react": "19.1.6",
         "@types/react-dom": "19.1.5",
         "autoprefixer": "^10.4.20",
-        "eslint": "^8.57.0",
+        "eslint": "8.57.1",
         "eslint-config-next": "15.3.3",
         "postcss": "^8.4.41",
         "prettier": "^3.3.3",
@@ -45,9 +43,5 @@
         "tailwindcss": "^4.1.8",
         "typescript": "^5.5.4"
     },
-    "overrides": {
-        "@types/react": "19.1.6",
-        "@types/react-dom": "19.1.5",
-        "eslint": "8.57.1"
-    }
+    "overrides": {}
 }
