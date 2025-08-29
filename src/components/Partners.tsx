@@ -23,7 +23,7 @@ const Partners: React.FC<PartnersProps> = ({ className }) => {
       <div className="container mx-auto px-4 md:px-6">
         <div className="max-w-3xl mx-auto mb-16">
           <FadeIn>
-            <h2 className="text-3xl md:text-4xl font-serif mb-8 text-center">Powered by Collaboration</h2>
+            <h2 className="text-3xl md:text-4xl font-instrument mb-8 text-center">Powered by Collaboration</h2>
           </FadeIn>
           <FadeIn delay={100}>
             <p className="text-lg text-center text-muted-foreground mb-8">
@@ -38,7 +38,7 @@ const Partners: React.FC<PartnersProps> = ({ className }) => {
               <Card className="border-0 shadow-lg h-full hover:shadow-xl transition-all duration-300">
                 <CardContent className="p-6 text-center">
                   <div className="text-4xl mb-4">{partner.logo}</div>
-                  <h3 className="text-xl font-serif font-medium mb-2">{partner.name}</h3>
+                  <h3 className="text-xl font-instrument font-medium mb-2">{partner.name}</h3>
                   <p className="text-blue-600 font-medium text-sm mb-3">{partner.type}</p>
                   <p className="text-sm text-muted-foreground">{partner.description}</p>
                 </CardContent>

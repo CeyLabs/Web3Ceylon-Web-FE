@@ -34,7 +34,7 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
           <div className="rounded-3xl border border-white/20 bg-white/10 backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.35)] p-6 sm:p-8">
             <div className="text-center">
               <FadeIn delay={150}>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-medium tracking-tight text-white leading-tight mb-4">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-instrument font-medium tracking-tight text-white leading-tight mb-4">
                   Web3Ceylon 2025
                 </h1>
               </FadeIn>

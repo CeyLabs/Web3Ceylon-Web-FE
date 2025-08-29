@@ -132,17 +132,18 @@ export default function PhysicsContactButtons({
     });
 
     const interactiveBodies = [ctaA, ctaB, ctaC, ctaD, ctaE, ctaF];
-    let clickStartBody: Matter.Body | null = null;
+    // Loose typing to avoid dependency on @types/matter-js during build
+    let clickStartBody: any | null = null;
     let clickStartTime = 0;
     let isDragging = false;
 
-    Events.on(mouseConstraint, "mousedown", (event) => {
+    Events.on(mouseConstraint, "mousedown", (event: any) => {
       const mousePosition = event.mouse.position;
       clickStartBody = Matter.Query.point(interactiveBodies, mousePosition)[0];
       clickStartTime = Date.now();
       isDragging = false;
     });
-    Events.on(mouseConstraint, "mousemove", (event) => {
+    Events.on(mouseConstraint, "mousemove", (event: any) => {
       const mousePosition = event.mouse.position;
       const hoveredBody = Matter.Query.point(
         interactiveBodies,
@@ -153,7 +154,7 @@ export default function PhysicsContactButtons({
         isDragging = true;
       }
     });
-    Events.on(mouseConstraint, "mouseup", (event) => {
+    Events.on(mouseConstraint, "mouseup", (event: any) => {
       const mousePosition = event.mouse.position;
       const releasedBody = Matter.Query.point(
         interactiveBodies,

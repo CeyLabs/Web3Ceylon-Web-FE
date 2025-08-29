@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import FadeIn from "./animations/FadeIn";
 import { motion } from "framer-motion";
@@ -42,14 +42,14 @@ const Intro: React.FC<IntroProps> = ({ className }) => {
     []
   );
 
-  const currentTime = useMemo(() => {
+  const [currentTime, setCurrentTime] = useState("");
+  useEffect(() => {
     try {
-      return new Date().toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-      });
+      setCurrentTime(
+        new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+      );
     } catch {
-      return "";
+      setCurrentTime("");
     }
   }, []);
 
@@ -128,12 +128,12 @@ const Intro: React.FC<IntroProps> = ({ className }) => {
                           {(project as { emoji?: string }).emoji}
                         </div>
                       )}
-                      <h3 className="text-2xl font-bold text-white mb-2">
+                      <h3 className="text-2xl font-instrument font-bold text-white mb-2">
                         {project.title}
                       </h3>
                       <p className="text-white/80 mb-6">{project.subtitle}</p>
                       <div className="flex items-center justify-between">
-                        <span className="text-white/60 text-sm">
+                        <span className="text-white/60 text-sm" suppressHydrationWarning>
                           {currentTime} — Est. Aug
                         </span>
                         <div className="bg-black/50 backdrop-blur-sm rounded-full px-4 py-2">

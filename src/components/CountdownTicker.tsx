@@ -166,6 +166,9 @@ const CountdownTicker: React.FC<TickerProps> = ({
 
   const event = cityEvents[index];
   const { isLive, countdown } = useEventState(event);
+  // Prevent hydration mismatches: render static snapshot until mounted
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   const bgBaseInflow =
     "rounded-2xl border border-white/20 backdrop-blur-3xl bg-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.25)]";
@@ -203,8 +206,11 @@ const CountdownTicker: React.FC<TickerProps> = ({
             Live now
           </span>
         ) : (
-          <span className="text-[11px] sm:text-xs md:text-sm font-mono tabular-nums opacity-90 whitespace-nowrap">
-            {countdown}
+          <span
+            className="text-[11px] sm:text-xs md:text-sm font-mono tabular-nums opacity-90 whitespace-nowrap"
+            suppressHydrationWarning
+          >
+            {mounted ? countdown : ""}
           </span>
         )}
       </div>

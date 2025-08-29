@@ -18,7 +18,7 @@ const Connecting: React.FC<ConnectingProps> = ({ className }) => {
       <div className="container mx-auto px-4 md:px-6">
         <div className="max-w-3xl mx-auto">
           <FadeIn>
-            <h2 className="text-3xl md:text-4xl font-serif mb-12 text-center">Connecting</h2>
+            <h2 className="text-3xl md:text-4xl font-instrument mb-12 text-center">Connecting</h2>
           </FadeIn>
           
           <FadeIn delay={100}>

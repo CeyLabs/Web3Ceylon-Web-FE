@@ -3,7 +3,7 @@ import type { Config } from "tailwindcss";
 import animatePlugin from "tailwindcss-animate";
 
 export default {
-	darkMode: ["class"],
+	darkMode: "class",
 	content: [
 		"./index.html",
 		"./pages/**/*.{ts,tsx}",
@@ -21,12 +21,13 @@ export default {
 			}
 		},
 		extend: {
-			fontFamily: {
-				sans: ['Figtree', 'SF Pro Display', 'system-ui', 'sans-serif'],
-				serif: ['"Instrument Serif"', 'Georgia', 'serif'],
-				figtree: ['Figtree', 'system-ui', 'sans-serif'],
-				instrument: ['"Instrument Serif"', 'Georgia', 'serif'],
-			},
+            fontFamily: {
+                // Use next/font variables exposed on <html>
+                sans: ['var(--font-figtree)', 'SF Pro Display', 'system-ui', 'sans-serif'],
+                serif: ['var(--font-instrument)', 'Georgia', 'serif'],
+                figtree: ['var(--font-figtree)', 'system-ui', 'sans-serif'],
+                instrument: ['var(--font-instrument)', 'Georgia', 'serif'],
+            },
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',

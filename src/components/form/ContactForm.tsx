@@ -68,8 +68,10 @@ const ContactForm = forwardRef<ContactFormRef>((_, ref) => {
     if (Object.values(newErrors).some(Boolean)) return;
 
     try {
-      const web3Key = import.meta.env.VITE_WEB3FORMS_KEY as string | undefined;
-      const endpointEnv = import.meta.env.VITE_CONTACT_ENDPOINT as
+      const web3Key = process.env.NEXT_PUBLIC_WEB3FORMS_KEY as
+        | string
+        | undefined;
+      const endpointEnv = process.env.NEXT_PUBLIC_CONTACT_ENDPOINT as
         | string
         | undefined;
 
@@ -123,7 +125,7 @@ const ContactForm = forwardRef<ContactFormRef>((_, ref) => {
       } else {
         // Dev fallback
         console.warn(
-          "No endpoint configured. Set VITE_WEB3FORMS_KEY or VITE_CONTACT_ENDPOINT."
+          "No endpoint configured. Set NEXT_PUBLIC_WEB3FORMS_KEY or NEXT_PUBLIC_CONTACT_ENDPOINT."
         );
         await new Promise((res) => setTimeout(res, 300));
         console.log("Form submitted (dev):", {
@@ -158,7 +160,7 @@ const ContactForm = forwardRef<ContactFormRef>((_, ref) => {
 
   return (
     <div className="flex flex-col h-full">
-      <h2 className="text-[clamp(32px,5vw,72px)] font-semibold tracking-tight mb-[clamp(16px,3vw,32px)] leading-[1]">
+      <h2 className="text-[clamp(32px,5vw,72px)] font-instrument font-semibold tracking-tight mb-[clamp(16px,3vw,32px)] leading-[1]">
         <span className="text-[#9A5A3A]">Volunteer</span>{" "}
         <span className="text-[#5E2A1B]">with Web3Ceylon 2025</span>
       </h2>
