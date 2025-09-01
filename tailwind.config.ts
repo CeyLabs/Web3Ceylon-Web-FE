@@ -87,7 +87,12 @@ export default {
 					700: '#374151',
 					800: '#1f2937',
 					900: '#111827',
-				}
+				},
+				sandBeige: '#F6F4D5',
+				ice: '#DFEFFF',
+				mint: '#DEFFE0',
+				ivoryCream: '#FFF2E4',
+				blushRed: '#FFE5E5',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
