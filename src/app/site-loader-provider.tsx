@@ -42,6 +42,13 @@ export function SiteLoaderProvider({
     const start = performance.now();
     let safety: number | undefined;
     safety = window.setTimeout(() => setShow(false), maxWait);
+    // Remove SSR overlay once client overlay is mounted
+    const ssr = document.getElementById("ssr-site-loader");
+    if (ssr) {
+      ssr.style.transition = "opacity 300ms ease";
+      ssr.style.opacity = "0";
+      window.setTimeout(() => ssr.remove(), 320);
+    }
     return () => {
       if (safety) window.clearTimeout(safety);
     };
@@ -60,12 +67,23 @@ export function SiteLoaderProvider({
       <div className="relative">{children}</div>
       {show && (
         <div
-          className={[
-            "pointer-events-none fixed inset-0 z-[9999] transition-opacity duration-400",
-            exiting ? "opacity-0" : "opacity-100",
-          ].join(" ")}
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 9999,
+            pointerEvents: "none",
+            opacity: exiting ? 0 : 1,
+            transition: "opacity 400ms ease",
+          }}
         >
-          <div className="pointer-events-auto h-full w-full bg-[radial-gradient(circle,hsl(38_55%_94%)_0%,hsl(30_35%_82%)_100%)]">
+          <div
+            style={{
+              pointerEvents: "auto",
+              width: "100%",
+              height: "100%",
+              background: "radial-gradient(circle, hsl(38 55% 94%) 0%, hsl(30 35% 82%) 100%)",
+            }}
+          >
             <SiteLoader
               images={images}
               logoSrc={logoSrc}

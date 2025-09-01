@@ -44,14 +44,15 @@ export default function SiteLoader({
         let cancelled = false;
 
         const preload = async () => {
+            const toLoad = [...images];
+            if (logoSrc) toLoad.push(logoSrc);
             await Promise.all(
-                images.map(
+                toLoad.map(
                     (src) =>
                         new Promise<void>((resolve) => {
                             const img = new Image();
                             img.onload = () => resolve();
                             img.onerror = () => resolve();
-                            // Encode to ensure spaces and special chars are valid
                             img.src = encodeURI(src);
                         })
                 )
@@ -97,9 +98,11 @@ export default function SiteLoader({
                     const isDesktop = c.conditions?.isDesktop;
                     const radius2 = isDesktop ? 250 - radius1 : 180 - radius1;
 
-                    const tl = gsap
-                        .timeline({ defaults: { ease: "power1.out" } })
-                        .from(cardList, {
+                                const tl = gsap
+                                    .timeline({ defaults: { ease: "power1.out" } })
+                                    // reveal group at the exact moment the timeline starts to avoid pre-paint flicker
+                                    .set(group, { autoAlpha: 1, visibility: "visible" })
+                                    .from(cardList, {
                             y: window.innerHeight / 2 + imgH * 1.5,
                             rotateX: -180,
                             stagger: 0.1,
@@ -140,7 +143,12 @@ export default function SiteLoader({
                         );
 
                     if (centerEl) {
-                        tl.from(centerEl, { opacity: 0, filter: "blur(60px)", duration: 1 }, "<");
+                                    tl.fromTo(
+                                        centerEl,
+                                        { autoAlpha: 0, filter: "blur(60px)" },
+                                        { autoAlpha: 1, filter: "blur(0px)", duration: 1 },
+                                        "<"
+                                    );
                     }
 
                     // Signal that the intro portion has completed
@@ -230,18 +238,27 @@ export default function SiteLoader({
             {/* Background like original: subtle radial with noise can be themed via parent */}
 
             {/* Scene container */}
-            <div className="pointer-events-none absolute inset-0 flex h-full w-full items-center justify-center [perspective:1000px]">
-                <div ref={groupRef} className="relative h-full w-full">
+                    <div className="pointer-events-none absolute inset-0 flex h-full w-full items-center justify-center [perspective:1000px]">
+                        <div
+                                    ref={groupRef}
+                                    className="relative h-full w-full"
+                                    style={{ opacity: 0, visibility: "hidden" }}
+                                >
                     {cards.map((src, i) => (
                         <div
                             key={i}
                             data-card
-                            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 will-change-transform"
                         >
                             <div
                                 data-card-img
-                                className="aspect-[2/3] w-20 rounded-md bg-cover bg-center md:w-24"
-                                style={{ backgroundImage: `url("${encodeURI(src)}")` }}
+                                    className="aspect-[2/3] w-20 rounded-md bg-center bg-cover md:w-24"
+                                    style={{
+                                        backgroundImage: `url("${encodeURI(src)}")`,
+                                        backfaceVisibility: "hidden",
+                                        WebkitBackfaceVisibility: "hidden",
+                                        willChange: "transform, opacity",
+                                    }}
                             />
                         </div>
                     ))}
@@ -249,10 +266,11 @@ export default function SiteLoader({
             </div>
 
             {/* Center content: logo or text headings */}
-            <div
-                ref={centerRef}
-                className="relative z-10 flex flex-col items-center justify-center text-center"
-            >
+                <div
+                        ref={centerRef}
+                        className="relative z-10 flex flex-col items-center justify-center text-center"
+                        style={{ opacity: 0, visibility: "hidden", willChange: "transform, opacity" }}
+                    >
                 {logoSrc ? (
                     // Use a plain img to avoid requiring Next/Image in downstream envs
                     <img

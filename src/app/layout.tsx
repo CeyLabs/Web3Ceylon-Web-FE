@@ -12,6 +12,29 @@ export default function RootLayout({
     return (
         <html lang="en" className={`${figtree.variable} ${instrumentSerif.variable}`}>
             <body className="font-sans antialiased">
+                {/* SSR overlay to prevent initial flash before client hydration */}
+                <div
+                    id="ssr-site-loader"
+                    style={{
+                        position: "fixed",
+                        inset: 0,
+                        zIndex: 9998,
+                        pointerEvents: "none",
+                        background:
+                            "radial-gradient(circle, hsl(38 55% 94%) 0%, hsl(30 35% 82%) 100%)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                    }}
+                >
+                    <img
+                        src="/Main-Logo.svg"
+                        alt="Site logo"
+                        style={{ height: "min(96px, 12vh)", width: "auto" }}
+                        draggable={false}
+                    />
+                </div>
+
                 <AppProviders>
                     <SiteLoaderProvider>{children}</SiteLoaderProvider>
                 </AppProviders>
