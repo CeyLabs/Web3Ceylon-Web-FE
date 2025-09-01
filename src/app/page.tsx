@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
+import dynamic from "next/dynamic";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Intro from "@/components/Intro";
@@ -8,8 +9,9 @@ import Speakers from "@/components/Speakers";
 import Partners from "@/components/Partners";
 import Registration from "@/components/Community";
 import About from "@/components/About";
-import Footer from "@/components/Footer";
 import ContactModal from "@/components/modal/ContactModal";
+
+const Footer = dynamic(() => import("@/components/Footer"), { ssr: false });
 
 const Home = () => {
     useEffect(() => {
