@@ -97,7 +97,7 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
                                 <img
                                     src="/assets/Ceylon_Cash_White-01.png"
                                     alt="CeylonCash"
-                                    className="h-[60%] w-auto object-contain md:h-[60%]"
+                                    className="max-h-12 w-auto max-w-[80%] object-contain md:max-h-16"
                                     loading="eager"
                                     decoding="async"
                                 />
@@ -107,7 +107,7 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
                                 <img
                                     src="/assets/Bybit_Logotype_250x250_Transparent_Darkmode-Duo.png"
                                     alt="Bybit"
-                                    className="h-[70%] w-auto md:h-[70%]"
+                                    className="h-28 max-h-full w-auto object-contain md:h-28"
                                     loading="eager"
                                     decoding="async"
                                 />
