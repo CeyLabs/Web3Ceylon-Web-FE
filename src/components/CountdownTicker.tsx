@@ -42,9 +42,10 @@ const useEventState = (event: CityEvent) => {
   );
 
   const isLive = now >= startsAt && now <= endsAt;
+  const ended = now > endsAt;
   const msToStart = startsAt - now;
   const countdown = formatTimeLeft(msToStart);
-  return { isLive, countdown };
+  return { isLive, ended, countdown };
 };
 
 const CountdownTicker: React.FC<TickerProps> = ({
@@ -70,6 +71,8 @@ const CountdownTicker: React.FC<TickerProps> = ({
     }, intervalMs);
     return () => clearInterval(id);
   }, [intervalMs]);
+
+  
 
   // event state derived from current index
 
@@ -165,7 +168,7 @@ const CountdownTicker: React.FC<TickerProps> = ({
   }, [stickyActive]);
 
   const event = cityEvents[index];
-  const { isLive, countdown } = useEventState(event);
+  const { isLive, ended, countdown } = useEventState(event);
   // Prevent hydration mismatches: render static snapshot until mounted
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
@@ -204,6 +207,11 @@ const CountdownTicker: React.FC<TickerProps> = ({
           <span className="inline-flex items-center gap-1 sm:gap-2 text-[11px] sm:text-xs md:text-sm font-semibold text-green-300 whitespace-nowrap">
             <span className="inline-block w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-green-400 animate-pulse" />
             Live now
+          </span>
+        ) : ended ? (
+          <span className="inline-flex items-center gap-1 sm:gap-2 text-[11px] sm:text-xs md:text-sm font-semibold text-white/90 whitespace-nowrap">
+            <span className="inline-block w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white/70" />
+            Ended
           </span>
         ) : (
           <span

@@ -70,16 +70,19 @@ const Intro: React.FC<IntroProps> = ({ className }) => {
     };
 
     return (
-        <section id="intro" className={cn("relative overflow-hidden bg-white py-20", className)}>
-            {/* Background decorative SVG */}
+        <section
+            id="intro"
+            className={cn("relative overflow-hidden bg-[#FFF2E4] py-20", className)}
+        >
+            {/* Background decorative SVG
             <div className="pointer-events-none absolute inset-0 -z-10 select-none">
                 <img
-                    src="/assets/Group-427318255-1.svg"
+                    src=""
                     alt=""
                     aria-hidden="true"
                     className="h-full w-full object-cover"
                 />
-            </div>
+            </div> */}
             <div className="container mx-auto px-4 md:px-6">
                 <div className="mx-auto max-w-4xl">
                     <FadeIn>

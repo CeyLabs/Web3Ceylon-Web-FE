@@ -12,15 +12,8 @@ export const cityEvents: CityEvent[] = [
   {
     id: 'galle',
     city: 'Galle',
-    startsAt: '2025-09-02T09:00:00+05:30', // Sep 2, 9:00 AM IST
-    endsAt: '2025-09-02T17:00:00+05:30',
-    link: 'https://lu.ma/CeyCashEvents',
-  },
-  {
-    id: 'kandy',
-    city: 'Kandy',
-    startsAt: '2025-09-10T09:00:00+05:30', // Sep 10, 9:00 AM IST
-    endsAt: '2025-09-10T17:00:00+05:30',
+    startsAt: '2025-09-17T09:00:00+05:30', // Sep 17, 9:00 AM IST
+    endsAt: '2025-09-17T17:00:00+05:30',
     link: 'https://lu.ma/CeyCashEvents',
   },
   {
@@ -30,5 +23,18 @@ export const cityEvents: CityEvent[] = [
     endsAt: '2025-09-20T17:00:00+05:30',
     link: 'https://lu.ma/CeyCashEvents',
   },
- 
+  {
+    id: 'kandy',
+    city: 'Kandy',
+    startsAt: '2025-09-28T09:00:00+05:30', // Sep 28, 9:00 AM IST
+    endsAt: '2025-09-28T17:00:00+05:30',
+    link: 'https://lu.ma/CeyCashEvents',
+  },
+  {
+    id: 'ella',
+    city: 'Ella',
+    startsAt: '2025-10-12T10:00:00+05:30', // Oct 12, 10:00 AM IST
+    endsAt: '2025-10-12T18:00:00+05:30',
+    link: 'https://lu.ma/CeyCashEvents',
+  },
 ];
