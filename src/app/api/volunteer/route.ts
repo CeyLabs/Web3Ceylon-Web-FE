@@ -7,9 +7,18 @@ type Bucket = { count: number; resetAt: number };
 const buckets = new Map<string, Bucket>();
 
 function getClientIp(req: Request) {
-  // Best-effort IP extraction behind proxies
+  // Prefer platform-provided headers; fall back to first XFF item.
+  const cf = req.headers.get("cf-connecting-ip");
+  if (cf) return cf;
+  const xr = req.headers.get("x-real-ip");
+  if (xr) return xr;
+  const fwd = req.headers.get("forwarded");
+  if (fwd) {
+    const m = fwd.match(/for="?([^;,"]+)/i);
+    if (m) return m[1].replace(/^\[|\]$/g, "");
+  }
   const xff = req.headers.get("x-forwarded-for");
-  if (xff) return xff.split(",")[0].trim();
+  if (xff) return xff.split(",")[0]!.trim();
   const xfClientIp = req.headers.get("x-client-ip");
   if (xfClientIp) return xfClientIp;
   // Node fetch doesn't expose remoteAddress; fall back to a stable key
@@ -32,7 +41,7 @@ function checkRateLimit(ip: string) {
 
 function sanitize(input: unknown, max = 1000): string {
   const s = typeof input === "string" ? input : "";
-  return s.replace(/\u0000/g, "").slice(0, max).trim();
+  return s.replaceAll("\0", "").slice(0, max).trim();
 }
 
 export async function POST(req: Request) {
@@ -55,19 +64,19 @@ export async function POST(req: Request) {
   if (!rl.ok) {
     return NextResponse.json(
       { error: "Too many requests", retry_after: rl.retryAfter },
-      { status: 429 }
+      { status: 429, headers: { "Retry-After": String(rl.retryAfter) } }
     );
   }
 
-  let body: any;
+  let body: Record<string, unknown>;
   try {
-    body = await req.json();
+    body = (await req.json()) as Record<string, unknown>;
   } catch {
     return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
   }
 
   // Extract and sanitize expected fields
-  const program = sanitize(body.program, 120);
+  const event = sanitize(body.program, 120);
   const name = sanitize(body.name, 120);
   const email = sanitize(body.email, 160);
   const phone = sanitize(body.phone, 60);
@@ -96,7 +105,7 @@ export async function POST(req: Request) {
 
   const textLines = [
     "📝 New Volunteer Submission",
-    program ? `🎯 Program: ${program}` : undefined,
+    event ? `🎯 Event: ${event}` : undefined,
     "",
     `👤 Name: ${name}`,
     "",
@@ -121,6 +130,8 @@ export async function POST(req: Request) {
     disable_web_page_preview: true,
   };
 
+  const ac = new AbortController();
+  const timeout = setTimeout(() => ac.abort(), 10_000);
   try {
     const tg = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
       method: "POST",
@@ -128,6 +139,7 @@ export async function POST(req: Request) {
       body: JSON.stringify(payload),
       // No caching of sensitive requests
       cache: "no-store",
+      signal: ac.signal,
     });
 
     const data = await tg.json().catch(() => ({}));
@@ -140,11 +152,20 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json({ success: true, message: "Message sent successfully" });
-  } catch (err) {
+  } catch (err: unknown) {
+    const aborted = (() => {
+      if (err && typeof err === "object" && "name" in err) {
+        const n = (err as Record<string, unknown>).name;
+        return typeof n === "string" && n === "AbortError";
+      }
+      return false;
+    })();
     return NextResponse.json(
-      { success: false, message: "Error sending message" },
-      { status: 500 }
+      { success: false, message: aborted ? "Telegram request timed out" : "Error sending message" },
+      { status: aborted ? 504 : 500 }
     );
+  } finally {
+    clearTimeout(timeout);
   }
 }
 
