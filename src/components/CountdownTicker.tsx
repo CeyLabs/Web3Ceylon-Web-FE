@@ -200,8 +200,17 @@ const CountdownTicker: React.FC<TickerProps> = ({
         aria-atomic="true"
       >
         <div className="flex-1 min-w-0 text-xs sm:text-sm md:text-base font-medium whitespace-nowrap truncate">
-          <span className="opacity-80 mr-1 sm:mr-2">{event.city}</span>
-          <span className="opacity-60">— Web3Ceylon</span>
+          {event.image ? (
+            <img
+              src={event.image}
+              alt={`${event.city} icon`}
+              className="inline-block align-middle size-6 sm:size-7 rounded-md border border-white/30 mr-2 object-cover"
+              loading="lazy"
+              decoding="async"
+            />
+          ) : null}
+          <span className="opacity-80 mr-1 sm:mr-2 align-middle">{event.city}</span>
+          <span className="opacity-60 align-middle">— Web3Ceylon</span>
         </div>
         {isLive ? (
           <span className="inline-flex items-center gap-1 sm:gap-2 text-[11px] sm:text-xs md:text-sm font-semibold text-green-300 whitespace-nowrap">

@@ -4,6 +4,7 @@ export type CityEvent = {
   startsAt: string; // ISO string
   endsAt: string; // ISO string
   link?: string; // optional Luma link
+  image?: string; // small square badge image
 };
 
 // TODO: Replace dates below with real Lu.ma event times.
@@ -15,6 +16,7 @@ export const cityEvents: CityEvent[] = [
     startsAt: '2025-09-17T09:00:00+05:30', // Sep 17, 9:00 AM IST
     endsAt: '2025-09-17T17:00:00+05:30',
     link: 'https://lu.ma/CeyCashEvents',
+    image: '/assets/events/Galle_GBG.png',
   },
   {
     id: 'colombo',
@@ -22,6 +24,7 @@ export const cityEvents: CityEvent[] = [
     startsAt: '2025-09-20T09:00:00+05:30', // Sep 20, 9:00 AM IST
     endsAt: '2025-09-20T17:00:00+05:30',
     link: 'https://lu.ma/CeyCashEvents',
+    image: '/assets/events/Colombo_GBG.png',
   },
   {
     id: 'kandy',
@@ -29,6 +32,7 @@ export const cityEvents: CityEvent[] = [
     startsAt: '2025-09-28T09:00:00+05:30', // Sep 28, 9:00 AM IST
     endsAt: '2025-09-28T17:00:00+05:30',
     link: 'https://lu.ma/CeyCashEvents',
+    image: '/assets/events/Kandy_GBG.png',
   },
   {
     id: 'ella',
@@ -36,5 +40,6 @@ export const cityEvents: CityEvent[] = [
     startsAt: '2025-10-12T10:00:00+05:30', // Oct 12, 10:00 AM IST
     endsAt: '2025-10-12T18:00:00+05:30',
     link: 'https://lu.ma/CeyCashEvents',
+    image: '/assets/events/Ella_GBG.png',
   },
 ];
