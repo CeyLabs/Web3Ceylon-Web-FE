@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "@/styles/theme.css";
 import { AppProviders } from "@/app/providers";
-import { figtree, instrumentSerif, carena } from "@/app/fonts";
+import { figtree, instrumentSerif, carena, fredoka } from "@/app/fonts";
 import { SiteLoaderProvider } from "@/app/site-loader-provider";
 import JsonLd from "@/components/seo/JsonLd";
 import { EVENT_JSONLD } from "@/lib/seo";
@@ -12,7 +12,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" className={`${figtree.variable} ${instrumentSerif.variable} ${carena.variable}`}>
+    <html lang="en" className={`${figtree.variable} ${instrumentSerif.variable} ${carena.variable} ${fredoka.variable}`}>
             <body className="font-sans antialiased">
                 <JsonLd id="event-jsonld" data={EVENT_JSONLD} />
                 {/* SSR overlay to prevent initial flash before client hydration */}

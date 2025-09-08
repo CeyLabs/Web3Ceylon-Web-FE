@@ -1,4 +1,4 @@
-import { Figtree, Instrument_Serif } from "next/font/google";
+import { Figtree, Instrument_Serif, Fredoka } from "next/font/google";
 import localFont from "next/font/local";
 
 export const figtree = Figtree({
@@ -35,4 +35,13 @@ export const carena = localFont({
   ],
   display: "swap",
   variable: "--font-carena",
+});
+
+// Google Fredoka font as secondary
+export const fredoka = Fredoka({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal"],
+  display: "swap",
+  variable: "--font-fredoka",
 });

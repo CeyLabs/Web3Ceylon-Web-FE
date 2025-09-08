@@ -171,4 +171,10 @@
   .font-carena {
     font-family: var(--font-carena), Georgia, serif;
   }
+  .font-fredoka {
+    font-family: var(--font-fredoka), system-ui, sans-serif;
+  }
+  /* Aliases */
+  .font-primary { font-family: var(--font-carena), Georgia, serif; }
+  .font-secondary { font-family: var(--font-fredoka), system-ui, sans-serif; }
 }

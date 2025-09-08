@@ -96,7 +96,7 @@ const Intro: React.FC<IntroProps> = ({ className }) => {
                         enableBlur
                         blurStrength={6}
                         containerClassName="mb-8 text-center"
-                        textClassName="text-2xl font-medium font-figtree md:text-2xl text-gray-700"
+                        textClassName="text-2xl font-medium font-secondary md:text-2xl text-gray-700"
                         distancePx={600}
                         start="top 85%"
                         scrub={0.6}

@@ -92,7 +92,7 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
       }
     );
 
-    let blurTween: any;
+  let blurTween: gsap.core.Tween | undefined;
     if (enableBlur) {
       blurTween = gsap.fromTo(
         wordElements,
@@ -124,7 +124,7 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
     };
   }, [scrollContainerRef, enableBlur, baseOpacity, wordAnimationEnd, blurStrength, distancePx, start, markers, scrub]);  return (
     <h2 ref={containerRef} className={`my-5 ${containerClassName}`}>
-      <p className={`text-[clamp(1.6rem,4vw,3rem)] leading-[1.5] font-semibold ${textClassName}`}>{splitText}</p>
+      <p className={`text-[clamp(1.6rem,4vw,3rem)] leading-[1.5] ${textClassName}`}>{splitText}</p>
     </h2>
   );
 };

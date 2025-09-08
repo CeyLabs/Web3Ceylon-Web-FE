@@ -21,14 +21,18 @@ export default {
 			}
 		},
 		extend: {
-            fontFamily: {
-                // Use next/font variables exposed on <html>
-                sans: ['var(--font-figtree)', 'SF Pro Display', 'system-ui', 'sans-serif'],
-                serif: ['var(--font-instrument)', 'Georgia', 'serif'],
-                figtree: ['var(--font-figtree)', 'system-ui', 'sans-serif'],
-                instrument: ['var(--font-instrument)', 'Georgia', 'serif'],
+			fontFamily: {
+				// Use next/font variables exposed on <html>
+				sans: ['var(--font-figtree)', 'SF Pro Display', 'system-ui', 'sans-serif'],
+				serif: ['var(--font-instrument)', 'Georgia', 'serif'],
+				figtree: ['var(--font-figtree)', 'system-ui', 'sans-serif'],
+				instrument: ['var(--font-instrument)', 'Georgia', 'serif'],
 				carena: ['var(--font-carena)', 'Georgia', 'serif'],
-            },
+				fredoka: ['var(--font-fredoka)', 'system-ui', 'sans-serif'],
+				// Aliases
+				primary: ['var(--font-carena)', 'Georgia', 'serif'],
+				secondary: ['var(--font-fredoka)', 'system-ui', 'sans-serif'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
