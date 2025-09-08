@@ -51,7 +51,7 @@ const Cities: React.FC<CitiesProps> = ({ className }) => {
       <div className="container mx-auto px-4 md:px-6">
         <div className="max-w-3xl mx-auto mb-16">
           <FadeIn>
-            <h2 className="text-3xl md:text-4xl font-serif mb-8 text-center">Tour Cities</h2>
+            <h2 className="text-3xl md:text-4xl font-instrument mb-8 text-center">Tour Cities</h2>
           </FadeIn>
           
           <FadeIn delay={100}>
@@ -69,7 +69,7 @@ const Cities: React.FC<CitiesProps> = ({ className }) => {
                   <div className="flex items-center mb-4">
                     <span className="text-4xl mr-4">{city.icon}</span>
                     <div>
-                      <h3 className="text-2xl font-serif font-medium mb-1">{city.name}</h3>
+                      <h3 className="text-2xl font-instrument font-medium mb-1">{city.name}</h3>
                       <h4 className="text-lg font-medium text-blue-600">{city.title}</h4>
                     </div>
                   </div>

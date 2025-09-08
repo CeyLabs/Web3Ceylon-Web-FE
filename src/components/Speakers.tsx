@@ -58,7 +58,7 @@ const Speakers: React.FC<SpeakersProps> = ({ className }) => {
       <div className="container mx-auto px-4 md:px-6">
         <div className="max-w-3xl mx-auto mb-16">
           <FadeIn>
-            <h2 className="text-3xl md:text-4xl font-serif mb-8 text-center">Meet the Builders & Visionaries</h2>
+            <h2 className="text-3xl md:text-4xl font-instrument mb-8 text-center">Meet the Builders & Visionaries</h2>
           </FadeIn>
           <FadeIn delay={100}>
             <p className="text-lg text-center text-muted-foreground">
@@ -73,7 +73,7 @@ const Speakers: React.FC<SpeakersProps> = ({ className }) => {
               <Card className="border-0 shadow-lg h-full hover:shadow-xl transition-all duration-300 hover:scale-105">
                 <CardContent className="p-6 text-center">
                   <div className="text-6xl mb-4">{speaker.image}</div>
-                  <h3 className="text-xl font-serif font-medium mb-2">{speaker.name}</h3>
+                  <h3 className="text-xl font-instrument font-medium mb-2">{speaker.name}</h3>
                   <p className="text-blue-600 font-medium mb-3">{speaker.title}</p>
                   <p className="text-gray-700 font-medium mb-3 text-sm">"{speaker.topic}"</p>
                   <p className="text-sm text-muted-foreground">{speaker.bio}</p>

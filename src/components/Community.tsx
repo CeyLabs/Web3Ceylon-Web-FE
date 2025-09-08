@@ -14,7 +14,7 @@ const Registration: React.FC<RegistrationProps> = ({ className }) => {
         <div className="max-w-4xl mx-auto">
           <FadeIn>
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-serif mb-6">
+              <h2 className="text-3xl md:text-4xl font-instrument mb-6">
                 Join Web3Ceylon 2025
               </h2>
               <p className="text-xl text-gray-700 mb-4">
@@ -31,7 +31,7 @@ const Registration: React.FC<RegistrationProps> = ({ className }) => {
           <FadeIn delay={100}>
             <div className="bg-gradient-to-br from-blue-50 to-orange-50 p-8 md:p-12 rounded-2xl shadow-lg">
               <div className="text-center mb-8">
-                <h3 className="text-2xl font-serif mb-4">
+                <h3 className="text-2xl font-instrument mb-4">
                   Whitelist Registration
                 </h3>
                 <p className="text-gray-600 mb-6">

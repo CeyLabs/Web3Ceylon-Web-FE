@@ -1,0 +1,36 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: en-US
+reviews:
+    request_changes_workflow: true
+    poem: false
+    high_level_summary_placeholder: <gen>
+    auto_title_placeholder: <gen>
+    collapse_walkthrough: true
+    sequence_diagrams: false
+    changed_files_summary: false
+    labeling_instructions:
+        - label: feature
+          instructions: Implementation of a new feature.
+        - label: ci
+          instructions: Github workflow related change.
+        - label: documentation
+          instructions: Change related to a documentation. Commonly a .md file or jsDocs related.
+        - label: bug
+          instructions: Fix for a bug
+        - label: improvement
+          instructions: Improvement or optimization of an existing feature. Could also be
+              a refactor of code.
+    path_filters:
+        - "!.githooks/**"
+        - "!.vscode/**"
+        - "!.github/**"
+        - "!package-lock.json"
+        - "!timestamp.txt"
+    auto_review:
+        labels:
+            - rabbit:auto-review
+        base_branches:
+            - .*
+        drafts: false
+chat:
+    auto_reply: false

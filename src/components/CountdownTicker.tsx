@@ -42,9 +42,10 @@ const useEventState = (event: CityEvent) => {
   );
 
   const isLive = now >= startsAt && now <= endsAt;
+  const ended = now > endsAt;
   const msToStart = startsAt - now;
   const countdown = formatTimeLeft(msToStart);
-  return { isLive, countdown };
+  return { isLive, ended, countdown };
 };
 
 const CountdownTicker: React.FC<TickerProps> = ({
@@ -70,6 +71,8 @@ const CountdownTicker: React.FC<TickerProps> = ({
     }, intervalMs);
     return () => clearInterval(id);
   }, [intervalMs]);
+
+  
 
   // event state derived from current index
 
@@ -165,7 +168,10 @@ const CountdownTicker: React.FC<TickerProps> = ({
   }, [stickyActive]);
 
   const event = cityEvents[index];
-  const { isLive, countdown } = useEventState(event);
+  const { isLive, ended, countdown } = useEventState(event);
+  // Prevent hydration mismatches: render static snapshot until mounted
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   const bgBaseInflow =
     "rounded-2xl border border-white/20 backdrop-blur-3xl bg-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.25)]";
@@ -194,17 +200,34 @@ const CountdownTicker: React.FC<TickerProps> = ({
         aria-atomic="true"
       >
         <div className="flex-1 min-w-0 text-xs sm:text-sm md:text-base font-medium whitespace-nowrap truncate">
-          <span className="opacity-80 mr-1 sm:mr-2">{event.city}</span>
-          <span className="opacity-60">— Web3Ceylon</span>
+          {event.image ? (
+            <img
+              src={event.image}
+              alt={`${event.city} icon`}
+              className="inline-block align-middle size-6 sm:size-7 rounded-md border border-white/30 mr-2 object-cover"
+              loading="lazy"
+              decoding="async"
+            />
+          ) : null}
+          <span className="opacity-80 mr-1 sm:mr-2 align-middle">{event.city}</span>
+          <span className="opacity-60 align-middle">— Web3Ceylon</span>
         </div>
         {isLive ? (
           <span className="inline-flex items-center gap-1 sm:gap-2 text-[11px] sm:text-xs md:text-sm font-semibold text-green-300 whitespace-nowrap">
             <span className="inline-block w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-green-400 animate-pulse" />
             Live now
           </span>
+        ) : ended ? (
+          <span className="inline-flex items-center gap-1 sm:gap-2 text-[11px] sm:text-xs md:text-sm font-semibold text-white/90 whitespace-nowrap">
+            <span className="inline-block w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white/70" />
+            Ended
+          </span>
         ) : (
-          <span className="text-[11px] sm:text-xs md:text-sm font-mono tabular-nums opacity-90 whitespace-nowrap">
-            {countdown}
+          <span
+            className="text-[11px] sm:text-xs md:text-sm font-mono tabular-nums opacity-90 whitespace-nowrap"
+            suppressHydrationWarning
+          >
+            {mounted ? countdown : ""}
           </span>
         )}
       </div>

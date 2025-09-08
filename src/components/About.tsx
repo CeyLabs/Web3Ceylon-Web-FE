@@ -16,7 +16,7 @@ const About: React.FC<AboutProps> = ({ className }) => {
             <div className="flex flex-col space-y-6">
               <div>
                 <span className="text-sm md:text-base font-medium text-blue-600 mb-2 inline-block">Why Web3Ceylon?</span>
-                <h2 className="text-3xl md:text-5xl font-serif font-medium tracking-tight mb-6">Connecting global knowledge with local innovation</h2>
+                <h2 className="text-3xl md:text-5xl font-instrument font-medium tracking-tight mb-6">Connecting global knowledge with local innovation</h2>
               </div>
               
               <p className="text-lg text-gray-700">
