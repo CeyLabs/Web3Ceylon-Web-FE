@@ -6,6 +6,7 @@ import DesktopSocials from "@/components/layout/DesktopSocials";
 import { useRef } from "react";
 import useWindowSize from "@/hooks/useWindowSize";
 import { useFooter } from "@/contexts/footer-context";
+import { socialLinks } from "@/data/socialLinks";
 
 const FooterCTAMobile = dynamic(() => import("@/components/layout/FooterCTAMobile"), {
     ssr: false,
@@ -51,24 +52,19 @@ export default function Footer() {
                 {/* Mobile */}
                 <div className="flex items-end justify-between md:hidden">
                     <ul className="flex w-full flex-col gap-1">
-                        <li>
-                            <a
-                                href="https://www.instagram.com/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                <p className="font-semibold text-[#7B3F00]">Instagram</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="https://www.youtube.com/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                <p className="font-semibold text-[#7B3F00]">YouTube</p>
-                            </a>
-                        </li>
+                        {socialLinks
+                            .slice(0, Math.ceil(socialLinks.length / 2))
+                            .map((social) => (
+                                <li key={social.title}>
+                                    <a
+                                        href={social.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <p className="font-semibold text-[#7B3F00]">{social.title}</p>
+                                    </a>
+                                </li>
+                            ))}
                     </ul>
 
                     <p className="w-full text-center font-semibold text-[#7B3F00]">
@@ -76,24 +72,19 @@ export default function Footer() {
                     </p>
 
                     <ul className="flex w-full flex-col items-end gap-1">
-                        <li>
-                            <a
-                                href="https://www.facebook.com/#"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                <p className="font-semibold text-[#7B3F00]">Facebook</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="https://www.tiktok.com/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                <p className="font-semibold text-[#7B3F00]">TikTok</p>
-                            </a>
-                        </li>
+                        {socialLinks
+                            .slice(Math.ceil(socialLinks.length / 2))
+                            .map((social) => (
+                                <li key={social.title}>
+                                    <a
+                                        href={social.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <p className="font-semibold text-[#7B3F00]">{social.title}</p>
+                                    </a>
+                                </li>
+                            ))}
                     </ul>
                 </div>
 

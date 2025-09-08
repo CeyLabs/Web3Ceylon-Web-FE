@@ -5,19 +5,19 @@ type SocialLink = {
 
 export const socialLinks: SocialLink[] = [
   {
-    title: "Instagram",
-    url: "https://www.instagram.com/#",
+    title: "WhatsApp",
+    url: "https://chat.whatsapp.com/HgVUN0oMANG0Kl1CJ64TSS?mode=ac_t",
   },
   {
-    title: "YouTube",
-    url: "https://www.youtube.com/#",
+    title: "Instagram",
+    url: "https://www.instagram.com/web3ceylon/",
   },
   {
     title: "Facebook",
-    url: "https://www.facebook.com/#",
+    url: "https://web.facebook.com/profile.php?id=61579752610238",
   },
   {
-    title: "LinkedIn",
-    url: "https://www.linkedin.com/#",
+    title: "X",
+    url: "https://x.com/web3ceylontour",
   },
 ];
