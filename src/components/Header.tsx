@@ -59,9 +59,13 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
                 aria-label="Main"
             >
                 <Link href="/" className="flex items-center gap-2">
-                    <p className="font-sans text-2xl font-medium tracking-tighter text-black">
-                        Web3Ceylon
-                    </p>
+                    <img
+                        src="/Main-Logo.svg"
+                        alt="Web3Ceylon Logo"
+                        className="h-10 w-28 min-w-[112px] object-contain"
+                        loading="eager"
+                        decoding="async"
+                    />
                 </Link>
 
                 <ul className="flex list-none items-center justify-center gap-1">
@@ -105,9 +109,13 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
                 data-header="floating"
             >
                 <Link href="/">
-                    <p className="font-sans text-2xl font-medium tracking-tighter text-black">
-                        Web3Ceylon
-                    </p>
+                    <img
+                        src="/Main-Logo.svg"
+                        alt="Web3Ceylon Logo"
+                        className="h-8 w-24 min-w-[96px] object-contain"
+                        loading="eager"
+                        decoding="async"
+                    />
                 </Link>
                 <div className="relative" ref={mobileMenuRef}>
                     <button

@@ -43,6 +43,27 @@ export default function FixedContactButton({ formRef }: FixedContactButtonProps)
     useEffect(() => setMounted(true), []);
     const iconSize = mounted && width < 728 ? 20 : 30;
 
+    // Slideshow of logos inside the circle
+    const slideImages = [
+        "/assets/logos/Main_Circle.png",
+        "/assets/logos/Colombo_Circle.png",
+        "/assets/logos/Ella_Circle.png",
+        "/assets/logos/Galle_Circle.png",
+        "/assets/logos/Kandy_Circle.png",
+    ];
+    const [slideIndex, setSlideIndex] = useState(0);
+    useEffect(() => {
+        // Preload to avoid flashes
+        slideImages.forEach((src) => {
+            const img = new Image();
+            img.src = encodeURI(src);
+        });
+        const id = setInterval(() => {
+            setSlideIndex((i) => (i + 1) % slideImages.length);
+        }, 2500);
+        return () => clearInterval(id);
+    }, []);
+
     return (
         <motion.button
             initial={{ y: 200, scale: 0.8 }}
@@ -57,7 +78,7 @@ export default function FixedContactButton({ formRef }: FixedContactButtonProps)
             transformTemplate={(_, generated) => `translateX(-50%) ${generated}`}
             className={`${
                 isModalOpen ? "bg-[#7B3F00]" : "bg-[rgba(238,228,215,0.5)] backdrop-blur-md"
-            } group fixed bottom-8 left-1/2 z-[10001] flex cursor-pointer items-center gap-2 rounded-full py-1 pr-4 pl-1 shadow-2xl transition-colors delay-100 duration-700 ease-in-out origin-center xl:gap-3 xl:pr-6 xl:pl-1.5`}
+            } group fixed bottom-8 left-1/2 z-[10001] flex origin-center cursor-pointer items-center gap-2 rounded-full py-1 pr-4 pl-1 shadow-2xl transition-colors delay-100 duration-700 ease-in-out xl:gap-3 xl:pr-6 xl:pl-1.5`}
         >
             <div className="relative h-12 w-12 rounded-full xl:h-16 xl:w-16">
                 <div
@@ -66,9 +87,11 @@ export default function FixedContactButton({ formRef }: FixedContactButtonProps)
                     } relative h-full w-full overflow-hidden rounded-full transition-all duration-200 ease-[cubic-bezier(0.64,0.57,0.67,1.53)] group-hover:scale-70 group-hover:opacity-0`}
                 >
                     <img
-                        src={"/assets/hero-cover.webp"}
-                        alt="logo"
-                        className="h-full w-full object-cover object-center"
+                        src={slideImages[slideIndex]}
+                        alt="contact-logo"
+                        className="absolute inset-0 h-full w-full origin-center animate-spin object-cover object-center will-change-transform [animation-duration:12s]"
+                        draggable={false}
+                        decoding="async"
                     />
                 </div>
 
@@ -77,11 +100,7 @@ export default function FixedContactButton({ formRef }: FixedContactButtonProps)
                         isModalOpen ? "opacity-0" : ""
                     } absolute top-1/2 left-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 scale-0 items-center justify-center rounded-full bg-[#EEE4D7] transition-all duration-200 ease-[cubic-bezier(0.64,0.57,0.67,1.53)] group-hover:scale-100 xl:h-16 xl:w-16`}
                 >
-                    <IconMail
-                        className="text-[#7B3F00]"
-                        stroke={2.5}
-                        size={iconSize}
-                    />
+                    <IconMail className="text-[#7B3F00]" stroke={2.5} size={iconSize} />
                 </span>
 
                 <span
