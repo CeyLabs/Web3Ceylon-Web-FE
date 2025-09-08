@@ -68,71 +68,29 @@ const ContactForm = forwardRef<ContactFormRef>((_, ref) => {
     if (Object.values(newErrors).some(Boolean)) return;
 
     try {
-      const web3Key = process.env.NEXT_PUBLIC_WEB3FORMS_KEY as
-        | string
-        | undefined;
-      const endpointEnv = process.env.NEXT_PUBLIC_CONTACT_ENDPOINT as
-        | string
-        | undefined;
-
-      if (web3Key) {
-        // Web3Forms path (no backend needed)
-        const resp = await fetch("https://api.web3forms.com/submit", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify({
-            access_key: web3Key,
-            subject: "Volunteer with Web3Ceylon 2025",
-            program: "Volunteer with Web3Ceylon 2025",
-            name: clientData.name,
-            email: clientData.email,
-            phone: clientData.phone,
-            company: clientData.company || "",
-            message: clientData.message,
-            areas: areas.join(", "),
-            availability: availability.join(", "),
-          }),
-        });
-        const data = await resp.json().catch(() => ({}));
-        if (!resp.ok || (data && data.success === false)) {
-          throw new Error(
-            `Submit failed: ${resp.status} ${data?.message || "Unknown error"}`
-          );
-        }
-      } else if (endpointEnv) {
-        // Custom backend endpoint path
-        const resp = await fetch(endpointEnv, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            program: "Volunteer with Web3Ceylon 2025",
-            name: clientData.name,
-            email: clientData.email,
-            phone: clientData.phone,
-            company: clientData.company || undefined,
-            message: clientData.message,
-            areas,
-            availability,
-          }),
-        });
-        if (!resp.ok) {
-          const text = await resp.text();
-          throw new Error(`Submit failed: ${resp.status} ${text}`);
-        }
-      } else {
-        // Dev fallback
-        console.warn(
-          "No endpoint configured. Set NEXT_PUBLIC_WEB3FORMS_KEY or NEXT_PUBLIC_CONTACT_ENDPOINT."
-        );
-        await new Promise((res) => setTimeout(res, 300));
-        console.log("Form submitted (dev):", {
-          clientData,
+      const resp = await fetch("/api/volunteer", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          program: "Volunteer with Web3Ceylon 2025",
+          name: clientData.name,
+          email: clientData.email,
+          phone: clientData.phone,
+          company: clientData.company || undefined,
+          message: clientData.message,
           areas,
           availability,
-        });
+        }),
+      });
+
+      // Try to parse JSON; if not JSON, treat as error text
+      const payload = await resp
+        .json()
+        .catch(async () => ({ error: await resp.text() }));
+
+      if (!resp.ok || (payload && payload.success === false)) {
+        const message = (payload && (payload.message || payload.error)) || `HTTP ${resp.status}`;
+        throw new Error(`Submit failed: ${message}`);
       }
       setClientData({
         name: "",
