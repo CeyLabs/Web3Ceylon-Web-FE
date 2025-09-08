@@ -31,12 +31,12 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
                     <div className="rounded-3xl border border-white/20 bg-white/10 p-6 shadow-[0_10px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:p-8">
                         <div className="text-center">
                             <FadeIn delay={150}>
-                                <h1 className="font-instrument mb-4 text-4xl leading-tight font-medium tracking-tight text-white md:text-5xl lg:text-6xl">
+                                <h1 className="font-carena mb-4 text-4xl leading-tight font-medium tracking-tight text-white md:text-5xl lg:text-6xl">
                                     Web3Ceylon 2025
                                 </h1>
                             </FadeIn>
                             <FadeIn delay={250}>
-                                <p className="text-lg font-medium text-white/95 md:text-xl">
+                                <p className="font-carena text-lg font-normal text-white/95 sm:text-base md:text-lg">
                                     Sri Lanka's Largest Web3 Developer & Community Tour
                                 </p>
                             </FadeIn>
@@ -89,7 +89,7 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
                 {/* Partner logos: two equal large blurred cards with an × between */}
                 <FadeIn delay={400}>
                     <div className="mt-6 w-[92vw] max-w-3xl md:mt-8">
-                        <p className="mb-3 text-center text-sm text-white/80 md:mb-4 md:text-base">
+                        <p className="font-carena mb-3 text-center text-sm text-white/80 md:mb-4 md:text-base">
                             Powered by
                         </p>
                         <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3 md:gap-4">

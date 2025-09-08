@@ -27,6 +27,7 @@ export default {
                 serif: ['var(--font-instrument)', 'Georgia', 'serif'],
                 figtree: ['var(--font-figtree)', 'system-ui', 'sans-serif'],
                 instrument: ['var(--font-instrument)', 'Georgia', 'serif'],
+				carena: ['var(--font-carena)', 'Georgia', 'serif'],
             },
 			colors: {
 				border: 'hsl(var(--border))',

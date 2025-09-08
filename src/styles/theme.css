@@ -168,4 +168,7 @@
   .font-instrument {
     font-family: var(--font-instrument), Georgia, serif;
   }
+  .font-carena {
+    font-family: var(--font-carena), Georgia, serif;
+  }
 }
