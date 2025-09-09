@@ -22,8 +22,28 @@ export default function FixedContactButton({ formRef }: FixedContactButtonProps)
     const [isInitialLoad, setIsInitialLoad] = useState(true);
 
     const isFooterInView = useInView(footerRef as React.RefObject<Element>, {
-        amount: 0.2,
+        amount: 0.01,
+        margin: "0px 0px 320px 0px", // start hiding ~320px before footer enters
     });
+
+    // Fallback: also hide when we're within N px of footer even if InView misses
+    const [isNearFooter, setIsNearFooter] = useState(false);
+    useEffect(() => {
+        const updateProximity = () => {
+            const el = footerRef?.current as HTMLElement | null;
+            if (!el) return;
+            const top = el.getBoundingClientRect().top;
+            const near = top - window.innerHeight < 340; // approx same as margin above
+            setIsNearFooter(near);
+        };
+        updateProximity();
+        window.addEventListener("scroll", updateProximity, { passive: true });
+        window.addEventListener("resize", updateProximity);
+        return () => {
+            window.removeEventListener("scroll", updateProximity);
+            window.removeEventListener("resize", updateProximity);
+        };
+    }, [footerRef]);
 
     useEffect(() => {
         const t = setTimeout(() => setIsInitialLoad(false), 3000);
@@ -66,8 +86,12 @@ export default function FixedContactButton({ formRef }: FixedContactButtonProps)
 
     return (
         <motion.button
-            initial={{ y: 200, scale: 0.8 }}
-            animate={isFooterInView && !isModalOpen ? { y: 200, scale: 0.8 } : { y: 0, scale: 1 }}
+            initial={{ y: 200, scale: 0.8, opacity: 0 }}
+            animate={
+                (isFooterInView || isNearFooter) && !isModalOpen
+                    ? { y: 160, scale: 0.85, opacity: 0 }
+                    : { y: 0, scale: 1, opacity: 1 }
+            }
             transition={{
                 duration: 1,
                 ease: [0.22, 1, 0.36, 1],
@@ -75,10 +99,12 @@ export default function FixedContactButton({ formRef }: FixedContactButtonProps)
             }}
             onClick={handleClick}
             ref={buttonRef}
+            aria-hidden={(isFooterInView || isNearFooter) && !isModalOpen}
             transformTemplate={(_, generated) => `translateX(-50%) ${generated}`}
             className={`${
                 isModalOpen ? "bg-[#7B3F00]" : "bg-[rgba(238,228,215,0.5)] backdrop-blur-md"
             } group fixed bottom-8 left-1/2 z-[10001] flex origin-center cursor-pointer items-center gap-2 rounded-full py-1 pr-4 pl-1 shadow-2xl transition-colors delay-100 duration-700 ease-in-out xl:gap-3 xl:pr-6 xl:pl-1.5`}
+            style={{ pointerEvents: (isFooterInView || isNearFooter) && !isModalOpen ? "none" : "auto" }}
         >
             <div className="relative h-12 w-12 rounded-full xl:h-16 xl:w-16">
                 <div

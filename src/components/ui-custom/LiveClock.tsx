@@ -3,27 +3,27 @@
 import { useEffect, useState } from "react";
 
 export default function LiveClock() {
-  const [time, setTime] = useState(new Date());
+    const [time, setTime] = useState(new Date());
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTime(new Date());
-    }, 1000);
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setTime(new Date());
+        }, 1000);
 
-    return () => clearInterval(interval);
-  }, []);
+        return () => clearInterval(interval);
+    }, []);
 
-  const hours = time.getHours();
-  const minutes = time.getMinutes();
+    const hours = time.getHours();
+    const minutes = time.getMinutes();
 
-  const hours12 = hours % 12 || 12;
-  const amPm = hours >= 12 ? "PM" : "AM";
+    const hours12 = hours % 12 || 12;
+    const amPm = hours >= 12 ? "PM" : "AM";
 
-  return (
-    <p className="font-semibold text-[clamp(16px,1.6vw,24px)] text-[#7B3F00]">
-      <span>{hours12.toString().padStart(2, "0")}</span>
-      <span className="blink-animation">:</span>
-      <span>{minutes.toString().padStart(2, "0")}</span> <span>{amPm}</span>
-    </p>
-  );
+    return (
+        <p className="text-[clamp(16px,1.6vw,18px)] font-semibold text-[#7B3F00]">
+            <span>{hours12.toString().padStart(2, "0")}</span>
+            <span className="blink-animation">:</span>
+            <span>{minutes.toString().padStart(2, "0")}</span> <span>{amPm}</span>
+        </p>
+    );
 }
