@@ -94,12 +94,15 @@ const FeaturedEvents: React.FC = () => {
                                     className="h-full w-full object-cover mix-blend-overlay transition-transform duration-700 group-hover:scale-105"
                                 />
                                 <div className="absolute right-8 bottom-8 left-8">
-                                    <h3 className="font-instrument mb-2 text-2xl font-bold text-white">
+                                    <h3 className="font-primary mb-2 text-2xl font-bold text-white">
                                         {project.title}
                                     </h3>
                                     <p className="mb-6 text-white/85">{project.subtitle}</p>
                                     <div className="flex items-center justify-between">
-                                        <span className="text-sm text-white/70" suppressHydrationWarning>
+                                        <span
+                                            className="text-sm text-white/70"
+                                            suppressHydrationWarning
+                                        >
                                             {currentTime} — Est. Aug
                                         </span>
                                         <div className="rounded-full bg-black/50 px-4 py-2 backdrop-blur-sm">

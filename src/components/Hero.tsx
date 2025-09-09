@@ -31,12 +31,12 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
                     <div className="rounded-3xl border border-white/20 bg-white/10 p-6 shadow-[0_10px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:p-8">
                         <div className="text-center">
                             <FadeIn delay={150}>
-                                <h1 className="font-carena mb-4 text-4xl leading-tight font-medium tracking-tight text-white md:text-5xl lg:text-6xl">
+                                <h1 className="font-primary mb-4 text-3xl leading-tight tracking-tight text-white sm:text-xl md:text-5xl lg:text-6xl">
                                     Web3Ceylon 2025
                                 </h1>
                             </FadeIn>
                             <FadeIn delay={250}>
-                                <p className="font-carena text-lg font-normal text-white/95 sm:text-base md:text-lg">
+                                <p className="font-primary text-lg font-normal text-white/95 sm:text-base md:text-lg">
                                     Sri Lanka's Largest Web3 Developer & Community Tour
                                 </p>
                             </FadeIn>
@@ -65,7 +65,7 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 style={shimmerVars}
-                                                className="group relative z-0 mx-auto flex w-[210px] transform-gpu cursor-pointer items-center justify-center overflow-hidden [border-radius:var(--radius)] border border-white/10 px-6 py-3 text-sm font-medium whitespace-nowrap text-white transition-transform duration-300 ease-in-out [background:var(--bg)] active:translate-y-px"
+                                                className="group font-secondary relative z-0 mx-auto flex w-[210px] transform-gpu cursor-pointer items-center justify-center overflow-hidden [border-radius:var(--radius)] border border-white/10 px-6 py-3 text-sm font-medium whitespace-nowrap text-white transition-transform duration-300 ease-in-out [background:var(--bg)] active:translate-y-px"
                                                 role="button"
                                                 aria-label="Apply for whitelist"
                                             >
