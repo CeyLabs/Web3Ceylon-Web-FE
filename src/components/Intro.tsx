@@ -1,5 +1,5 @@
 "use client";
-import React, { useMemo, useEffect, useState } from "react";
+import React, { useMemo } from "react";
 import { cn } from "@/lib/utils";
 import FadeIn from "./animations/FadeIn";
 import ScrollReveal from "./animations/ScrollReveal";
@@ -44,16 +44,7 @@ const Intro: React.FC<IntroProps> = ({ className }) => {
         []
     );
 
-    const [currentTime, setCurrentTime] = useState("");
-    useEffect(() => {
-        try {
-            setCurrentTime(
-                new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
-            );
-        } catch {
-            setCurrentTime("");
-        }
-    }, []);
+    // Removed time badge in favor of a simple city hashtag pill
 
     const handleNavigation = (link: string) => {
         if (link.startsWith("#")) {
@@ -86,7 +77,7 @@ const Intro: React.FC<IntroProps> = ({ className }) => {
             <div className="container mx-auto px-4 md:px-6">
                 <div className="mx-auto max-w-4xl">
                     <FadeIn>
-                        <h2 className="font-instrument mb-10 text-center text-3xl md:text-4xl">
+                        <h2 className="font-primary mb-10 text-center text-3xl md:text-4xl">
                             About Web3Ceylon
                         </h2>
                     </FadeIn>
@@ -133,16 +124,15 @@ const Intro: React.FC<IntroProps> = ({ className }) => {
                                                     {(project as { emoji?: string }).emoji}
                                                 </div>
                                             )}
-                                            <h3 className="font-instrument mb-2 text-2xl font-bold text-white">
+                                            <h3 className="font-primary mb-2 text-2xl text-white">
                                                 {project.title}
                                             </h3>
-                                            <p className="mb-6 text-white/80">{project.subtitle}</p>
+                                            <p className="font-secondary mb-6 text-white/80">
+                                                {project.subtitle}
+                                            </p>
                                             <div className="flex items-center justify-between">
-                                                <span
-                                                    className="text-sm text-white/60"
-                                                    suppressHydrationWarning
-                                                >
-                                                    {currentTime} — Est. Aug
+                                                <span className="font-secondary rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-light text-white/80 backdrop-blur-sm">
+                                                    {`#${project.id.charAt(0).toUpperCase()}${project.id.slice(1)}`}
                                                 </span>
                                                 <div className="rounded-full bg-black/50 px-4 py-2 backdrop-blur-sm">
                                                     <span className="text-sm text-white">
