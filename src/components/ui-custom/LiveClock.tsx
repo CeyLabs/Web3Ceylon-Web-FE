@@ -20,7 +20,7 @@ export default function LiveClock() {
     const amPm = hours >= 12 ? "PM" : "AM";
 
     return (
-        <p className="text-[clamp(16px,1.6vw,18px)] font-semibold text-[#7B3F00]">
+        <p className="font-secondary text-[clamp(16px,1.6vw,18px)] font-medium text-[#7B3F00]">
             <span>{hours12.toString().padStart(2, "0")}</span>
             <span className="blink-animation">:</span>
             <span>{minutes.toString().padStart(2, "0")}</span> <span>{amPm}</span>

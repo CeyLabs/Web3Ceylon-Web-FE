@@ -47,7 +47,7 @@ export default function Footer() {
         <section id="footer" className="bg-[#f8f6f3] px-4 pt-14 pb-10">
             <footer ref={footerRef} className="mx-auto flex max-w-3xl flex-col items-center gap-8">
                 <div className="flex w-full items-center justify-between">
-                    <p className="text-[clamp(14px,1.2vw,18px)] font-semibold text-[#7B3F00]">
+                    <p className="font-secondary text-[clamp(14px,1.2vw,18px)] font-medium text-[#7B3F00]">
                         Colombo, LK
                     </p>
                     <LiveClock />
@@ -74,13 +74,13 @@ export default function Footer() {
                                 rel={
                                     item.href.startsWith("http") ? "noopener noreferrer" : undefined
                                 }
-                                className="flex w-full items-center justify-between rounded-2xl px-5 py-4 text-left transition-colors hover:bg-[#e5e2dc] focus:bg-[#e5e2dc]"
+                                className="font-secondary flex w-full items-center justify-between rounded-2xl px-5 py-4 text-left font-normal transition-colors hover:bg-[#e5e2dc] focus:bg-[#e5e2dc]"
                                 aria-label={`${item.label}: ${item.display}`}
                             >
                                 <span className="text-[15px] text-[#3b3b3b] sm:text-[16px]">
                                     {item.label}
                                 </span>
-                                <span className="text-[15px] font-semibold text-[#4a4a4a] sm:text-[16px]">
+                                <span className="text-[15px] font-medium text-[#4a4a4a] sm:text-[16px]">
                                     {item.display}
                                 </span>
                             </a>
@@ -94,7 +94,7 @@ export default function Footer() {
                         width={120}
                         height={48}
                         alt="Web3Ceylon logo"
-                        className="h-8 sm:h-10 w-auto select-none"
+                        className="h-8 w-auto select-none sm:h-10"
                     />
                 </div>
                 <p className="text-center text-sm text-[#7B3F00]">© {new Date().getFullYear()}</p>
