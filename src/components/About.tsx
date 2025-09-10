@@ -1,6 +1,7 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import FadeIn from "./animations/FadeIn";
+import Web3CircuitRoadmap from "./Web3CircuitRoadmap";
 
 interface AboutProps {
     className?: string;
@@ -47,23 +48,8 @@ const About: React.FC<AboutProps> = ({ className }) => {
                     </FadeIn>
 
                     <FadeIn delay={150} className="md:col-span-7">
-                        <div className="relative h-[500px] w-full overflow-hidden rounded-lg lg:h-[600px]">
-                            <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-blue-100 to-orange-100">
-                                <div className="text-center">
-                                    <div className="mb-4 text-8xl">🇱🇰</div>
-                                    <div className="mb-4 text-6xl">
-                                        <span className="mr-4">🏙️</span>
-                                        <span className="mr-4">🏛️</span>
-                                    </div>
-                                    <div className="text-6xl">
-                                        <span className="mr-4">🎨</span>
-                                        <span>🏔️</span>
-                                    </div>
-                                    <p className="font-primary mt-6 font-medium text-gray-600">
-                                        Four Cities, One Vision
-                                    </p>
-                                </div>
-                            </div>
+                        <div className="h-[500px] w-full lg:h-[600px]">
+                            <Web3CircuitRoadmap className="h-full w-full" />
                         </div>
                     </FadeIn>
                 </div>
