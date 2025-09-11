@@ -6,6 +6,8 @@ import Image from "next/image";
 import { useFooter } from "@/contexts/footer-context";
 import { socialLinks } from "@/data/socialLinks";
 import { SITE_URL } from "@/lib/seo";
+import { ArrowUpRight } from "lucide-react";
+import { useContactModalStore } from "@/lib/zustand/stores";
 
 type Item = { label: string; href: string; display: string };
 
@@ -23,6 +25,8 @@ function displayUrl(url: string) {
 export default function Footer() {
     const { footerRef } = useFooter();
 
+    const toggleModal = useContactModalStore((s) => s.toggleModal);
+
     const items: Item[] = useMemo(() => {
         const email = "hello@web3ceylon.com";
         const website = SITE_URL;
@@ -39,7 +43,8 @@ export default function Footer() {
         return [
             { label: "Email", href: `mailto:${email}`, display: email },
             ...socials,
-            { label: "Website", href: website, display: displayUrl(website) },
+            // Replace Website with Volunteer action which will open ContactModal
+            { label: "Volunteer", href: "#volunteer", display: "Volunteer with Web3Ceylon 2025" },
         ];
     }, []);
 
@@ -68,22 +73,40 @@ export default function Footer() {
                             key={`${item.label}-${item.display}`}
                             className="rounded-2xl bg-[#ebe9e4] ring-1 ring-black/5"
                         >
-                            <a
-                                href={item.href}
-                                target={item.href.startsWith("http") ? "_blank" : undefined}
-                                rel={
-                                    item.href.startsWith("http") ? "noopener noreferrer" : undefined
-                                }
-                                className="font-secondary flex w-full items-center justify-between rounded-2xl px-5 py-4 text-left font-normal transition-colors hover:bg-[#e5e2dc] focus:bg-[#e5e2dc]"
-                                aria-label={`${item.label}: ${item.display}`}
-                            >
-                                <span className="text-[15px] text-[#3b3b3b] sm:text-[16px]">
-                                    {item.label}
-                                </span>
-                                <span className="text-[15px] font-medium text-[#4a4a4a] sm:text-[16px]">
-                                    {item.display}
-                                </span>
-                            </a>
+                            {item.label === "Volunteer" ? (
+                                <button
+                                    onClick={() => toggleModal()}
+                                    className="font-secondary flex w-full items-center justify-between rounded-2xl px-5 py-4 text-left font-normal transition-colors hover:bg-[#e5e2dc] focus:bg-[#e5e2dc]"
+                                    aria-label={`${item.label}: ${item.display}`}
+                                >
+                                    <span className="text-[15px] text-[#3b3b3b] sm:text-[16px]">
+                                        {item.label}
+                                    </span>
+                                    <span className="text-[15px] font-medium text-[#4a4a4a] sm:text-[16px] flex items-center justify-end gap-2">
+                                        {item.display}
+                                        <ArrowUpRight className="inline-block h-4 w-4" aria-hidden />
+                                    </span>
+                                </button>
+                            ) : (
+                                <a
+                                    href={item.href}
+                                    target={item.href.startsWith("http") ? "_blank" : undefined}
+                                    rel={
+                                        item.href.startsWith("http")
+                                            ? "noopener noreferrer"
+                                            : undefined
+                                    }
+                                    className="font-secondary flex w-full items-center justify-between rounded-2xl px-5 py-4 text-left font-normal transition-colors hover:bg-[#e5e2dc] focus:bg-[#e5e2dc]"
+                                    aria-label={`${item.label}: ${item.display}`}
+                                >
+                                    <span className="text-[15px] text-[#3b3b3b] sm:text-[16px]">
+                                        {item.label}
+                                    </span>
+                                    <span className="text-[15px] font-medium text-[#4a4a4a] sm:text-[16px]">
+                                        {item.display}
+                                    </span>
+                                </a>
+                            )}
                         </li>
                     ))}
                 </ul>
