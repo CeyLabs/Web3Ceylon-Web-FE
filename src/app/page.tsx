@@ -7,7 +7,7 @@ import Intro from "@/components/Intro";
 import Cities from "@/components/Cities";
 import Speakers from "@/components/Speakers";
 import Partners from "@/components/Partners";
-import Registration from "@/components/Community";
+import FooterCTA from "@/components/Community";
 import About from "@/components/About";
 import AnimatedFAQ from "@/components/sections/AnimatedFAQ";
 import ContactModal from "@/components/modal/ContactModal";
@@ -52,7 +52,7 @@ const Home = () => {
                 <Partners />
                 <About />
                 <AnimatedFAQ />
-                <Registration />
+                <FooterCTA />
                 <Footer />
             </main>
         </>
