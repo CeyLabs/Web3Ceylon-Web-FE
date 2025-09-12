@@ -128,13 +128,13 @@ const Cities: React.FC<CitiesProps> = ({ className }) => {
                                 <div className="mb-8 flex items-start justify-between lg:mb-12">
                                     <div>
                                         <p
-                                            className="font-secondary text-xs tracking-wider uppercase"
+                                            className="font-secondary mb-2 text-xs tracking-wider uppercase"
                                             style={smallLabelStyle}
                                         >
                                             {c.city} – {c.group}
                                         </p>
                                         <h3
-                                            className="font-carena text-[clamp(24px,5vw,48px)] leading-tight font-semibold tracking-tight"
+                                            className="font-carena text-[clamp(20px,4vw,36px)] leading-tight font-semibold tracking-tight"
                                             style={headingStyle}
                                         >
                                             {c.headline}
