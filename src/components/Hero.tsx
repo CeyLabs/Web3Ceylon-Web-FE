@@ -13,7 +13,7 @@ type CSSVars = React.CSSProperties & { [key: string]: string | number };
 const Hero: React.FC<HeroProps> = ({ className }) => {
     return (
         <section
-            className={cn("relative flex min-h-screen items-center overflow-hidden", className)}
+            className={cn("relative flex min-h-screen items-center overflow-hidden pb-20", className)}
         >
             {/* Background */}
             <div className="absolute inset-0 -z-10">
@@ -23,9 +23,13 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
                     className="h-full w-full object-cover object-left md:object-center"
                 />
                 {/* Sand beige fading from top */}
-                <div className="absolute top-0 right-0 left-0 h-full bg-gradient-to-b from-[#F6F4D5] to-transparent md:h-1/3 md:from-[#F6F4D5]/60"></div>
+                <div className="absolute top-0 right-0 left-0 h-1/2 bg-gradient-to-b from-[#F6F4D5] to-transparent md:h-1/3 md:from-[#F6F4D5]/60"></div>
                 {/* Sand beige fading from bottom */}
-                <div className="absolute right-0 bottom-0 left-0 h-full bg-gradient-to-t from-[#F6F4D5] to-transparent md:h-1/3 md:from-[#F6F4D5]/60"></div>
+                <div className="absolute right-0 bottom-0 left-0 h-1/2 bg-gradient-to-t from-[#F6F4D5] to-transparent md:h-1/3 md:from-[#F6F4D5]/60"></div>
+                {/* Sand beige fading from left */}
+                <div className="absolute left-0 top-0 bottom-0 w-3/5 bg-gradient-to-r from-[#F6F4D5] to-transparent md:w-1/6 md:from-[#F6F4D5]/40 md:to-[#F6F4D5]/10 md:rounded-none"></div>
+                {/* Sand beige fading from right */}
+                <div className="absolute right-0 top-0 bottom-0 w-3/5 bg-gradient-to-l from-[#F6F4D5] to-transparent md:w-1/6 md:from-[#F6F4D5]/40 md:to-[#F6F4D5]/10 md:rounded-none"></div>
             </div>
 
             {/* Centered Glass/Blur Information Card */}
@@ -92,7 +96,7 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
                 {/* Rotating countdown ticker for city events (original position) */}
                 <FadeIn delay={500}>
                     <div className="mt-4 w-[92vw] max-w-3xl">
-                        <CountdownTicker />
+                        <CountdownTicker showMultiple={true} />
                     </div>
                 </FadeIn>
             </div>

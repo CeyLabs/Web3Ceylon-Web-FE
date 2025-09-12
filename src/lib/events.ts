@@ -11,14 +11,6 @@ export type CityEvent = {
 
 export const cityEvents: CityEvent[] = [
   {
-    id: 'galle',
-    city: 'Galle',
-    startsAt: '2025-09-17T09:00:00+05:30', // Sep 17, 9:00 AM IST
-    endsAt: '2025-09-17T17:00:00+05:30',
-    link: 'https://lu.ma/CeyCashEvents',
-    image: '/assets/events/Galle_GBG.png',
-  },
-  {
     id: 'colombo',
     city: 'Colombo',
     startsAt: '2025-09-20T09:00:00+05:30', // Sep 20, 9:00 AM IST
@@ -33,6 +25,14 @@ export const cityEvents: CityEvent[] = [
     endsAt: '2025-09-28T17:00:00+05:30',
     link: 'https://lu.ma/CeyCashEvents',
     image: '/assets/events/Kandy_GBG.png',
+  },
+   {
+    id: 'galle',
+    city: 'Galle',
+    startsAt: '2025-10-08T09:00:00+05:30', // Oct 8, 9:00 AM IST
+    endsAt: '2025-10-08T17:00:00+05:30',
+    link: 'https://lu.ma/CeyCashEvents',
+    image: '/assets/events/Galle_GBG.png',
   },
   {
     id: 'ella',

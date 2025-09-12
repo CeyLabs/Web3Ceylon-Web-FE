@@ -3,11 +3,10 @@ import { createPortal } from "react-dom";
 import { cityEvents, type CityEvent } from "@/lib/events";
 
 type TickerProps = {
-    intervalMs?: number; // how fast to cycle
-    className?: string;
-};
-
-const formatTimeLeft = (ms: number) => {
+  intervalMs?: number; // how fast to cycle
+  className?: string;
+  showMultiple?: boolean; // show multiple events in inflow
+};const formatTimeLeft = (ms: number) => {
     if (ms <= 0) return "00D : 00H : 00M : 00S";
     const totalSeconds = Math.floor(ms / 1000);
     const days = Math.floor(totalSeconds / 86400)
@@ -42,7 +41,7 @@ const useEventState = (event: CityEvent) => {
     return { isLive, ended, countdown };
 };
 
-const CountdownTicker: React.FC<TickerProps> = ({ intervalMs = 3500, className }) => {
+const CountdownTicker: React.FC<TickerProps> = ({ intervalMs = 3500, className, showMultiple = false }) => {
     const [index, setIndex] = useState(0);
     const tickerRef = useRef<HTMLDivElement>(null); // wrapper div in-flow
     const [stickyActive, setStickyActive] = useState(false);
@@ -161,62 +160,74 @@ const CountdownTicker: React.FC<TickerProps> = ({ intervalMs = 3500, className }
     useEffect(() => setMounted(true), []);
 
     const bgBaseInflow = "rounded-2xl border border-white/20 backdrop-blur-3xl bg-white/30";
-    const inFlowWrapperClasses = `transition-[opacity,max-height] duration-200 overflow-hidden ${
+    const inFlowWrapperClasses = `fixed bottom-0 left-0 right-0 z-50 px-4 py-3 sm:px-6 sm:py-4 md:px-8 md:py-5 sm:bg-[#F6F4D5] transition-[opacity,max-height] duration-200 overflow-hidden relative ${
         stickyActive ? "opacity-0" : "opacity-100"
-    }`;
-    const contentClassesInflow = `group block w-full ${bgBaseInflow} px-5 py-2.5 sm:px-5 sm:py-3 min-h-10 text-black hover:bg-white/15 transition-colors ${
+    } ${showMultiple ? "flex gap-2 justify-center" : ""}`;
+    const contentClassesInflow = `group block ${showMultiple ? "flex-1" : "w-full"} ${bgBaseInflow} px-6 py-3 sm:px-6 sm:py-4 min-h-12 text-black hover:bg-white/15 transition-all duration-300 ${
         className ?? ""
     }`;
     const contentClassesSticky = `group block w-full px-5 py-2.5 sm:px-5 sm:py-3 min-h-10`;
 
-    const renderContent = (variant: "inflow" | "sticky") => (
-        <a
-            href={event.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={variant === "inflow" ? contentClassesInflow : contentClassesSticky}
-            aria-label={`Event status for ${event.city}`}
-        >
-            <div
-                className="flex flex-nowrap items-center justify-between gap-3 sm:gap-4"
-                role="status"
-                aria-live="polite"
-                aria-atomic="true"
+    const event1 = event;
+    const event2 = cityEvents[(index + 1) % cityEvents.length];
+    const event3 = cityEvents[(index + 2) % cityEvents.length];
+
+    const { isLive: isLive1, ended: ended1, countdown: countdown1 } = useEventState(event1);
+    const { isLive: isLive2, ended: ended2, countdown: countdown2 } = useEventState(event2);
+    const { isLive: isLive3, ended: ended3, countdown: countdown3 } = useEventState(event3);
+
+    const renderEventContent = (event: CityEvent, variant: "inflow" | "sticky", isLive: boolean, ended: boolean, countdown: string) => {
+        return (
+            <a
+                href={event.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={variant === "inflow" ? contentClassesInflow : contentClassesSticky}
+                aria-label={`Event status for ${event.city}`}
             >
-                <div className="min-w-0 flex-1 truncate text-xs font-medium whitespace-nowrap sm:text-sm md:text-base">
-                    {event.image ? (
-                        <img
-                            src={event.image}
-                            alt={`${event.city} icon`}
-                            className="mr-2 inline-block size-6 rounded-md border border-white/30 object-cover align-middle sm:size-7"
-                            loading="lazy"
-                            decoding="async"
-                        />
-                    ) : null}
-                    <span className="mr-1 align-middle opacity-80 sm:mr-2">{event.city}</span>
-                    <span className="align-middle opacity-60">— Web3Ceylon</span>
+                <div
+                    className={`flex flex-nowrap items-center justify-between gap-3 sm:gap-4 ${variant === "inflow" ? "gap-4 sm:gap-5" : "gap-3 sm:gap-4"}`}
+                    role="status"
+                    aria-live="polite"
+                    aria-atomic="true"
+                >
+                    <div className={`min-w-0 flex-1 truncate font-medium whitespace-nowrap ${variant === "inflow" ? "text-sm sm:text-base md:text-lg" : "text-xs sm:text-sm md:text-base"}`}>
+                        {event.image ? (
+                            <img
+                                src={event.image}
+                                alt={`${event.city} icon`}
+                                className={`inline-block align-middle rounded-md border border-white/30 object-cover mr-2 ${variant === "inflow" ? "size-8 sm:size-9" : "size-6 sm:size-7"}`}
+                                loading="lazy"
+                                decoding="async"
+                            />
+                        ) : null}
+                        <span className="mr-1 align-middle opacity-80 sm:mr-2">{event.city}</span>
+                        <span className="align-middle opacity-60">— Web3Ceylon</span>
+                    </div>
+                    {isLive ? (
+                        <span className={`inline-flex items-center font-semibold whitespace-nowrap text-black ${variant === "inflow" ? "gap-2 text-xs sm:text-sm md:text-base" : "gap-1 text-[11px] sm:text-xs md:text-sm"} sm:gap-2`}>
+                            <span className={`inline-block animate-pulse rounded-full bg-green-400 ${variant === "inflow" ? "h-2 w-2" : "h-1.5 w-1.5"} sm:h-2 sm:w-2`} />
+                            Live now
+                        </span>
+                    ) : ended ? (
+                        <span className={`inline-flex items-center font-semibold whitespace-nowrap text-black ${variant === "inflow" ? "gap-2 text-xs sm:text-sm md:text-base" : "gap-1 text-[11px] sm:text-xs md:text-sm"} sm:gap-2`}>
+                            <span className={`inline-block rounded-full bg-white/70 ${variant === "inflow" ? "h-2 w-2" : "h-1.5 w-1.5"} sm:h-2 sm:w-2`} />
+                            Ended
+                        </span>
+                    ) : (
+                        <span
+                            className={`font-mono whitespace-nowrap tabular-nums opacity-90 ${variant === "inflow" ? "text-xs sm:text-sm md:text-base" : "text-[11px] sm:text-xs md:text-sm"}`}
+                            suppressHydrationWarning
+                        >
+                            {mounted ? countdown : ""}
+                        </span>
+                    )}
                 </div>
-                {isLive ? (
-                    <span className="inline-flex items-center gap-1 text-[11px] font-semibold whitespace-nowrap text-black sm:gap-2 sm:text-xs md:text-sm">
-                        <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-green-400 sm:h-2 sm:w-2" />
-                        Live now
-                    </span>
-                ) : ended ? (
-                    <span className="inline-flex items-center gap-1 text-[11px] font-semibold whitespace-nowrap text-black sm:gap-2 sm:text-xs md:text-sm">
-                        <span className="inline-block h-1.5 w-1.5 rounded-full bg-white/70 sm:h-2 sm:w-2" />
-                        Ended
-                    </span>
-                ) : (
-                    <span
-                        className="font-mono text-[11px] whitespace-nowrap tabular-nums opacity-90 sm:text-xs md:text-sm"
-                        suppressHydrationWarning
-                    >
-                        {mounted ? countdown : ""}
-                    </span>
-                )}
-            </div>
-        </a>
-    );
+            </a>
+        );
+    };
+
+    const renderContent = (variant: "inflow" | "sticky") => renderEventContent(event, variant, isLive, ended, countdown);
 
     return (
         <>
@@ -228,7 +239,22 @@ const CountdownTicker: React.FC<TickerProps> = ({ intervalMs = 3500, className }
                 style={{ maxHeight: stickyActive ? 0 : undefined }}
                 aria-hidden={stickyActive}
             >
-                {renderContent("inflow")}
+                {/* Left shading */}
+                <div className="absolute left-0 top-0 bottom-0 w-20 sm:w-28 md:w-40 bg-gradient-to-r from-[#F6F4D5] to-transparent pointer-events-none z-10"></div>
+                {/* Right shading */}
+                <div className="absolute right-0 top-0 bottom-0 w-20 sm:w-28 md:w-40 bg-gradient-to-l from-[#F6F4D5] to-transparent pointer-events-none z-10"></div>
+                {/* Content */}
+                <div className="relative z-20">
+                    {showMultiple ? (
+                        <div className="flex gap-2 justify-center">
+                            {renderEventContent(event1, "inflow", isLive1, ended1, countdown1)}
+                            {renderEventContent(event2, "inflow", isLive2, ended2, countdown2)}
+                            {renderEventContent(event3, "inflow", isLive3, ended3, countdown3)}
+                        </div>
+                    ) : (
+                        renderContent("inflow")
+                    )}
+                </div>
             </div>
             {/* Portal sticky version when out of view */}
             {showSticky && portalEl
