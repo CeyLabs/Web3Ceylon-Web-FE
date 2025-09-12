@@ -63,7 +63,7 @@ const Intro: React.FC<IntroProps> = ({ className }) => {
     return (
         <section
             id="intro"
-            className={cn("relative overflow-hidden bg-[#FFF2E4] py-20", className)}
+            className={cn("relative overflow-hidden bg-background py-20", className)}
         >
             {/* Background decorative SVG
             <div className="pointer-events-none absolute inset-0 -z-10 select-none">

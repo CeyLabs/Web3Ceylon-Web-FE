@@ -68,7 +68,7 @@ const Partners: React.FC<PartnersProps> = ({ className }) => {
     ];
 
     return (
-        <section id="partners" className={cn("bg-gray-50 py-24", className)}>
+        <section id="partners" className={cn("bg-background py-24", className)}>
             <div className="container mx-auto px-4 md:px-6">
                 <div className="mb-14 flex flex-col gap-8 md:mb-20 md:flex-row md:items-end md:justify-between">
                     <FadeIn className="max-w-2xl">

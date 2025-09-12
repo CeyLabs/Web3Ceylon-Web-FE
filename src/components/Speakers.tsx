@@ -54,7 +54,7 @@ const Speakers: React.FC<SpeakersProps> = ({ className }) => {
     ];
 
     return (
-        <section id="speakers" className={cn("bg-white py-20", className)}>
+        <section id="speakers" className={cn("bg-background py-20", className)}>
             <div className="container mx-auto px-4 md:px-6">
                 <div className="mx-auto mb-16 max-w-3xl">
                     <FadeIn>

@@ -49,7 +49,7 @@ export default function Footer() {
     }, []);
 
     return (
-        <section id="footer" className="bg-[#f8f6f3] px-4 pt-14 pb-10">
+        <section id="footer" className="bg-background px-4 pt-14 pb-10">
             <footer ref={footerRef} className="mx-auto flex max-w-3xl flex-col items-center gap-8">
                 <div className="flex w-full items-center justify-between">
                     <p className="font-secondary text-[clamp(14px,1.2vw,18px)] font-medium text-[#7B3F00]">

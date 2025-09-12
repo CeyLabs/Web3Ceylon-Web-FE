@@ -81,7 +81,8 @@ export function SiteLoaderProvider({
               pointerEvents: "auto",
               width: "100%",
               height: "100%",
-              background: "radial-gradient(circle, hsl(38 55% 94%) 0%, hsl(30 35% 82%) 100%)",
+              // Match sitewide background
+              background: "hsl(var(--background))",
             }}
           >
             <SiteLoader
