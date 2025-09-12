@@ -35,13 +35,21 @@ const About: React.FC<AboutProps> = ({ className }) => {
                             </p>
 
                             <div className="mt-8 grid grid-cols-2 gap-4">
-                                <div className="rounded-lg bg-white/30 backdrop-blur-3xl p-4 text-center">
-                                    <div className="font-primary text-2xl font-bold text-blue-600">4</div>
-                                    <div className="font-secondary text-sm text-gray-600">Cities</div>
+                                <div className="rounded-lg bg-white/30 p-4 text-center backdrop-blur-3xl">
+                                    <div className="font-primary text-2xl font-bold text-blue-600">
+                                        4
+                                    </div>
+                                    <div className="font-secondary text-sm text-gray-600">
+                                        Cities
+                                    </div>
                                 </div>
-                                <div className="rounded-lg bg-white/30 backdrop-blur-3xl p-4 text-center">
-                                    <div className="font-primary text-2xl font-bold text-orange-600">500+</div>
-                                    <div className="font-secondary text-sm text-gray-600">Expected Attendees</div>
+                                <div className="rounded-lg bg-white/30 p-4 text-center backdrop-blur-3xl">
+                                    <div className="font-primary text-2xl font-bold text-orange-600">
+                                        500+
+                                    </div>
+                                    <div className="font-secondary text-sm text-gray-600">
+                                        Expected Attendees
+                                    </div>
                                 </div>
                             </div>
                         </div>

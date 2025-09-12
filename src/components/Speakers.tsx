@@ -54,7 +54,7 @@ const Speakers: React.FC<SpeakersProps> = ({ className }) => {
     ];
 
     return (
-        <section id="speakers" className={cn("relative bg-background py-20", className)}>
+        <section id="speakers" className={cn("bg-background relative py-20", className)}>
             {/* Subtle radial gradient background */}
             <div className="pointer-events-none absolute inset-0 mx-auto max-w-5xl opacity-40 [background:radial-gradient(circle_at_center,#dbeafe_0%,transparent_70%)]" />
             <div className="relative container mx-auto px-4 md:px-6">
@@ -75,7 +75,7 @@ const Speakers: React.FC<SpeakersProps> = ({ className }) => {
                 <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-2 lg:grid-cols-3">
                     {speakers.map((speaker, index) => (
                         <FadeIn key={index} delay={150 + index * 50}>
-                            <Card className="h-full bg-white/30 backdrop-blur-3xl border-0 transition-all duration-300 hover:scale-105">
+                            <Card className="h-full border-0 bg-white/30 backdrop-blur-3xl transition-all duration-300 hover:scale-105">
                                 <CardContent className="p-6 text-center">
                                     <div className="mb-4 text-6xl">{speaker.image}</div>
                                     <h3 className="font-instrument mb-2 text-xl font-medium">

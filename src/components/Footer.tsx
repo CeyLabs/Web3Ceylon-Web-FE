@@ -40,17 +40,17 @@ export default function Footer() {
             return { label: s.title, href, display } as Item;
         });
 
-        return [
-            { label: "Email", href: `mailto:${email}`, display: email },
-            ...socials,
-        ];
+        return [{ label: "Email", href: `mailto:${email}`, display: email }, ...socials];
     }, []);
 
     return (
-        <section id="footer" className="relative bg-background px-4 pt-14 pb-10">
+        <section id="footer" className="bg-background relative px-4 pt-14 pb-10">
             {/* Subtle radial gradient background */}
             <div className="pointer-events-none absolute inset-0 mx-auto max-w-5xl opacity-40 [background:radial-gradient(circle_at_center,#dbeafe_0%,transparent_70%)]" />
-            <footer ref={footerRef} className="relative mx-auto flex max-w-3xl flex-col items-center gap-8">
+            <footer
+                ref={footerRef}
+                className="relative mx-auto flex max-w-3xl flex-col items-center gap-8"
+            >
                 <div className="flex w-full items-center justify-between">
                     <p className="font-secondary text-[clamp(14px,1.2vw,18px)] font-medium text-[#7B3F00]">
                         Colombo, LK
@@ -82,9 +82,12 @@ export default function Footer() {
                                     <span className="text-[15px] text-[#3b3b3b] sm:text-[16px]">
                                         {item.label}
                                     </span>
-                                    <span className="text-[15px] font-medium text-[#4a4a4a] sm:text-[16px] flex items-center justify-end gap-2">
+                                    <span className="flex items-center justify-end gap-2 text-[15px] font-medium text-[#4a4a4a] sm:text-[16px]">
                                         {item.display}
-                                        <ArrowUpRight className="inline-block h-4 w-4" aria-hidden />
+                                        <ArrowUpRight
+                                            className="inline-block h-4 w-4"
+                                            aria-hidden
+                                        />
                                     </span>
                                 </button>
                             ) : (
