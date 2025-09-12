@@ -72,7 +72,7 @@ const Cities: React.FC<CitiesProps> = ({ className }) => {
                     Four unique experiences across Sri Lanka
                 </p>
             </div>
-            <div className="city-cards mb-12 flex flex-col gap-4 lg:mb-56 lg:gap-2">
+            <div className="city-cards mx-auto mb-12 flex max-w-5xl flex-col gap-4 lg:mb-56 lg:gap-2">
                 {[
                     // Explicit display order
                     "colombo",
@@ -97,7 +97,7 @@ const Cities: React.FC<CitiesProps> = ({ className }) => {
                     };
                     // Derived utility strings
                     const cardClasses = cn(
-                        "city-card-inner group relative w-full h-full rounded-xl p-6 lg:rounded-2xl lg:p-8 will-change-transform",
+                        "city-card-inner group relative w-full h-full rounded-xl p-8 lg:rounded-2xl lg:p-12 will-change-transform",
                         "border-[3px]",
                         bgMap[c.id]
                     );
