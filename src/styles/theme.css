@@ -176,10 +176,10 @@
     }
 
     /* City card color accents */
-    #city-card-0 .city-card-inner { @apply bg-[#ffbed6]/30 backdrop-blur-3xl text-[#4B0018]; }
-    #city-card-1 .city-card-inner { @apply bg-[#BAD6DA]/30 backdrop-blur-3xl text-[#1A4A4A]; }
-    #city-card-2 .city-card-inner { @apply bg-[#A5C572]/30 backdrop-blur-3xl text-[#3D7337]; }
-    #city-card-3 .city-card-inner { @apply bg-[#F4E89B]/30 backdrop-blur-3xl text-[#EF4A74]; }
+    #city-card-0 .city-card-inner { @apply bg-[#DFEFFF] text-[#1976D2]; }
+    #city-card-1 .city-card-inner { @apply bg-[#FFE5E5] text-[#C62828]; }
+    #city-card-2 .city-card-inner { @apply bg-[#FFF2E4] text-[#F57C00]; }
+    #city-card-3 .city-card-inner { @apply bg-[#DEFFE0] text-[#388E3C]; }
 }
 
 /* Ensure custom font utilities exist even if config is ignored */
