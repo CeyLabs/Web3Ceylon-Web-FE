@@ -1,9 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
-import FadeIn from "./animations/FadeIn";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 
 interface CitiesProps {
     className?: string;
@@ -12,114 +10,119 @@ interface CitiesProps {
 const Cities: React.FC<CitiesProps> = ({ className }) => {
     const cities = [
         {
-            name: "Colombo",
-            title: "Web3 Dev Fest",
-            tagline: "Sri Lanka's commercial heart turns into a Web3 innovation hub",
-            icon: "🏙️",
-            description:
-                "Comprehensive developer workshops, technical sessions, and blockchain fundamentals",
-            highlights: [
-                "Smart Contract Development",
-                "DeFi Protocols",
-                "Developer Networking",
-                "Tech Talks",
-            ],
+            id: "galle",
+            city: "Galle",
+            group: "Creators & Storytellers",
+            headline: "Create, Connect, and Inspire",
+            subtitle: "Celebrating creativity with Creators & Storytellers in Galle",
+            bottomLine: "Let’s Connect!",
+            imageUrl: "/assets/stamps/Stamp - Galle.png",
+            tags: ["Galle", "Creators", "Storytellers"],
         },
         {
-            name: "Kandy",
-            title: "Blockchain Fundamentals & Crypto Essentials",
-            tagline: "Web3 meets the hill capital",
-            icon: "🏛️",
-            description: "Essential crypto knowledge, wallet setup, and blockchain basics",
-            highlights: [
-                "Wallet Security",
-                "Bitcoin Basics",
-                "Stablecoin Education",
-                "Crypto Trading",
-            ],
+            id: "colombo",
+            city: "Colombo",
+            group: "Developers & Builders",
+            headline: "Code, Build, and Innovate",
+            subtitle: "Building the future with Developers & Builders in Colombo",
+            bottomLine: "Let’s Create!",
+            imageUrl: "/assets/stamps/Stamp - Colombo.png",
+            tags: ["Colombo", "Developers", "Builders"],
         },
         {
-            name: "Galle",
-            title: "Web3 for Creators & Entrepreneurs",
-            tagline: "Coastal vibes, creative minds",
-            icon: "🎨",
-            description: "NFT creation, DAO governance, and creator economy exploration",
-            highlights: ["NFT Creation", "Creator Economy", "DAO Governance", "Digital Art"],
+            id: "kandy",
+            city: "Kandy",
+            group: "Businesses & Freelancers",
+            headline: "Learn, Explore, and Grow",
+            subtitle: "Unlocking opportunities for Businesses & Freelancers in Kandy",
+            bottomLine: "Let’s Grow!",
+            imageUrl: "/assets/stamps/Stamp - Kandy.png",
+            tags: ["Kandy", "Businesses", "Freelancers"],
         },
         {
-            name: "Ella",
-            title: "Web3 Community Retreat",
-            tagline: "Unwind, connect, and build in Sri Lanka's scenic highlands",
-            icon: "🏔️",
-            description: "Fireside chats, networking sessions, and community bonding",
-            highlights: [
-                "Fireside Chats",
-                "Network Building",
-                "Community Bonding",
-                "Scenic Workshops",
-            ],
+            id: "ella",
+            city: "Ella",
+            group: "Retreat & Global Connect",
+            headline: "Relax, Network, and Collaborate",
+            subtitle: "A special Retreat & Global Connect with community leaders in Ella",
+            bottomLine: "Let’s Unwind!",
+            imageUrl: "/assets/stamps/Stamp - Ella.png",
+            tags: ["Ella", "Retreat", "Global Connect"],
         },
     ];
 
-    return (
-        <section id="cities" className={cn("bg-gray-50 py-20", className)}>
-            <div className="container mx-auto px-4 md:px-6">
-                <div className="mx-auto mb-16 max-w-3xl">
-                    <FadeIn>
-                        <h2 className="font-primary mb-8 text-center text-3xl md:text-4xl">
-                            Tour Cities
-                        </h2>
-                    </FadeIn>
+    // Static version: no animations
 
-                    <FadeIn delay={100}>
-                        <p className="font-secondary mb-8 text-center text-xl text-gray-700">
-                            Four unique experiences across Sri Lanka's most beautiful destinations
-                        </p>
-                    </FadeIn>
+    return (
+        <section id="cities" className={cn("bg-sandBeige overflow-hidden py-20", className)}>
+            <div className="container mx-auto px-4 md:px-6">
+                <div className="mx-auto mb-12 max-w-3xl text-center">
+                    <h2 className="font-carena text-[clamp(28px,4vw,48px)] font-semibold tracking-tight text-[#0a1a5c]">
+                        Cities
+                    </h2>
+                    <p className="font-secondary mt-3 text-[clamp(14px,1.5vw,18px)] font-medium text-[#667085]">
+                        Four unique experiences across Sri Lanka
+                    </p>
                 </div>
 
-                <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-2">
-                    {cities.map((city, index) => (
-                        <FadeIn key={index} delay={150 + index * 100}>
-                            <Card className="h-full border-0 shadow-lg transition-shadow duration-300 hover:shadow-xl">
-                                <CardContent className="p-8">
-                                    <div className="mb-4 flex items-center">
-                                        <span className="mr-4 text-4xl">{city.icon}</span>
-                                        <div>
-                                            <h3 className="font-primary mb-1 text-2xl font-normal">
-                                                {city.name}
-                                            </h3>
-                                            <h4 className="font-secondary text-lg font-medium text-blue-600">
-                                                {city.title}
-                                            </h4>
+                <div className="mx-auto mb-16 flex max-w-6xl flex-col gap-6 lg:gap-8">
+                    {cities.map((c, index) => (
+                        <Card
+                            key={c.id}
+                            className="bg-ivoryCream relative rounded-2xl border-0 shadow-sm ring-1 ring-black/5"
+                        >
+                            <CardContent className="p-6 lg:p-8">
+                                <div className="mb-6 flex items-start justify-between">
+                                    <div>
+                                        <p className="font-secondary text-xs tracking-wider text-[#7B3F00] uppercase">
+                                            {c.city} – {c.group}
+                                        </p>
+                                        <h3 className="font-carena text-[clamp(28px,6vw,56px)] leading-tight font-semibold tracking-tight text-[#0a1a5c]">
+                                            {c.headline}
+                                        </h3>
+                                    </div>
+                                    <p className="font-carena text-[clamp(18px,2.5vw,28px)] leading-none font-semibold text-[#0a1a5c]/60 whitespace-nowrap shrink-0">
+                                        (Day {String(index + 1).padStart(2, "0")})
+                                    </p>
+                                </div>
+
+                                <div className="flex flex-col-reverse items-start justify-between gap-4 lg:flex-row lg:gap-8">
+                                    <div className="flex w-full flex-col gap-4 lg:w-7/12">
+                                        <p className="font-secondary text-[clamp(16px,2vw,22px)] font-medium text-[#3b3b3b]">
+                                            {c.subtitle}
+                                        </p>
+                                        <ul className="flex flex-wrap gap-2 lg:gap-3">
+                                            {c.tags.map((t) => (
+                                                <li
+                                                    key={`${c.id}-${t}`}
+                                                    className="font-secondary rounded-full bg-[#ebe9e4] px-4 py-1.5 text-[clamp(12px,1.2vw,16px)] font-medium text-[#4a4a4a]"
+                                                >
+                                                    {t}
+                                                </li>
+                                            ))}
+                                        </ul>
+
+                                        <div className="mt-2">
+                                            <a
+                                                href="#register"
+                                                className="font-secondary inline-flex items-center gap-2 rounded-full bg-[#0a1a5c] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[#0c237e]"
+                                            >
+                                                {c.bottomLine} <span aria-hidden>→</span>
+                                            </a>
                                         </div>
                                     </div>
 
-                                    <p className="mb-4 text-sm text-gray-600 italic">
-                                        {city.tagline}
-                                    </p>
-                                    <p className="mb-6 text-gray-700">{city.description}</p>
-
-                                    <div className="grid grid-cols-2 gap-2">
-                                        {city.highlights.map((highlight, idx) => (
-                                            <div key={idx} className="flex items-center text-sm">
-                                                <span className="mr-2 h-2 w-2 rounded-full bg-gradient-to-r from-orange-500 to-blue-600"></span>
-                                                {highlight}
-                                            </div>
-                                        ))}
+                                    <div className="relative h-[220px] w-full lg:h-[clamp(300px,24vw,420px)] lg:w-5/12">
+                                        <Image
+                                            src={c.imageUrl}
+                                            alt={`${c.city} stamp`}
+                                            fill
+                                            className="pointer-events-none object-contain object-center drop-shadow-md select-none"
+                                        />
                                     </div>
-
-                                    <div className="mt-6">
-                                        <a
-                                            href="#register"
-                                            className="inline-flex items-center text-sm font-medium text-blue-600 transition-colors hover:text-blue-800"
-                                        >
-                                            Join {city.name} Session →
-                                        </a>
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        </FadeIn>
+                                </div>
+                            </CardContent>
+                        </Card>
                     ))}
                 </div>
             </div>
