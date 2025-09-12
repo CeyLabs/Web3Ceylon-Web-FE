@@ -5,7 +5,6 @@ import { useRef } from "react";
 import { useContactModalStore } from "@/lib/zustand/stores";
 import ContactForm, { ContactFormRef } from "@/components/form/ContactForm";
 import { IconX } from "@tabler/icons-react";
-import FixedContactButton from "@/components/button/FixedContactButton";
 
 export default function ContactModal() {
     const modalRef = useRef<HTMLDivElement>(null);
@@ -48,7 +47,7 @@ export default function ContactModal() {
                     <ContactForm ref={formRef} />
                 </div>
             </motion.div>
-            <FixedContactButton formRef={formRef as React.RefObject<ContactFormRef>} />
+            {/* <FixedContactButton formRef={formRef as React.RefObject<ContactFormRef>} /> */}
         </>
     );
 }
