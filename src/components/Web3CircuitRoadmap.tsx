@@ -19,7 +19,7 @@ const Web3CircuitRoadmap: React.FC<Web3CircuitRoadmapProps> = ({ className }) =>
   return (
     <div
       className={cn(
-        "relative flex h-full w-full items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-blue-50 via-white to-orange-50 p-4",
+        "relative flex h-full w-full items-center justify-center overflow-hidden rounded-lg p-4",
         className
       )}
     >
@@ -34,12 +34,10 @@ const Web3CircuitRoadmap: React.FC<Web3CircuitRoadmapProps> = ({ className }) =>
       {/* Legend / Subtitle (glassmorphism + gentle float) */}
       <div className="pointer-events-none absolute bottom-4 left-1/2 z-10 -translate-x-1/2">
         <div
-          className="rounded-full border px-6 py-2 text-sm font-medium shadow-lg backdrop-blur-md"
+          className="rounded-full border px-6 py-2 text-sm font-medium backdrop-blur-md"
           style={{
             background: "rgba(255,255,255,0.28)",
             borderColor: "rgba(255,255,255,0.4)",
-            boxShadow:
-              "0 1px 2px rgba(0,0,0,0.06), 0 8px 24px rgba(15,23,42,0.15)",
             WebkitBackdropFilter: "blur(6px)",
             backdropFilter: "blur(6px)",
             color: "#1f2937",

@@ -1,79 +1,22 @@
 "use client";
-import React, { useMemo } from "react";
+import React from "react";
 import { cn } from "@/lib/utils";
 import FadeIn from "./animations/FadeIn";
 import ScrollReveal from "./animations/ScrollReveal";
-import { motion } from "framer-motion";
 
 interface IntroProps {
     className?: string;
 }
 
 const Intro: React.FC<IntroProps> = ({ className }) => {
-    // Featured projects data (brand-aligned gradients and local images)
-    const featuredProjects = useMemo(
-        () => [
-            {
-                id: "colombo",
-                emoji: "🏙️",
-                title: "4 Cities",
-                subtitle: "Colombo, Kandy, Galle, Ella",
-                image: "/lovable-uploads/34a58283-8b82-48f9-88f4-2c88b069921d.png",
-                color: "bg-gradient-to-br from-blue-700 via-blue-600 to-orange-500",
-                link: "#cities",
-            },
-            {
-                id: "galle",
-                emoji: "👥",
-                title: "Community First",
-                subtitle: "Developers, creators, entrepreneurs",
-                image: "/lovable-uploads/47f9a1d0-4458-400a-8fc0-79adf093cf18.png",
-                color: "bg-gradient-to-br from-orange-500 via-orange-500 to-blue-600",
-                link: "#cities",
-            },
-            {
-                id: "ella",
-                emoji: "🚀",
-                title: "Web3 Future",
-                subtitle: "Blockchain innovation & education",
-                image: "/lovable-uploads/af28398b-9e23-4e2b-9de1-bda457e09fd8.png",
-                color: "bg-gradient-to-br from-blue-600 via-indigo-600 to-orange-500",
-                link: "#register",
-            },
-        ],
-        []
-    );
-
-    // Removed time badge in favor of a simple city hashtag pill
-
-    const handleNavigation = (link: string) => {
-        if (link.startsWith("#")) {
-            const id = link.slice(1);
-            const el = document.getElementById(id);
-            if (el) {
-                window.scrollTo({ top: el.offsetTop - 80, behavior: "smooth" });
-            } else {
-                window.location.hash = link; // fallback
-            }
-        } else {
-            window.open(link, "_blank", "noopener,noreferrer");
-        }
-    };
 
     return (
         <section
             id="intro"
             className={cn("relative overflow-hidden bg-background py-20", className)}
         >
-            {/* Background decorative SVG
-            <div className="pointer-events-none absolute inset-0 -z-10 select-none">
-                <img
-                    src=""
-                    alt=""
-                    aria-hidden="true"
-                    className="h-full w-full object-cover"
-                />
-            </div> */}
+            {/* Subtle radial gradient background */}
+            <div className="pointer-events-none absolute inset-0 mx-auto max-w-5xl opacity-40 [background:radial-gradient(circle_at_center,#dbeafe_0%,transparent_70%)]" />
             <div className="container mx-auto px-4 md:px-6">
                 <div className="mx-auto max-w-4xl">
                     <FadeIn>
@@ -97,54 +40,34 @@ const Intro: React.FC<IntroProps> = ({ className }) => {
                 </div>
 
                 <FadeIn delay={200}>
-                    <div className="mx-auto max-w-7xl">
-                        {/* Featured Projects Grid (from provided snippet) */}
-                        <div className="mt-12 mb-24 grid grid-cols-1 gap-8 md:grid-cols-3">
-                            {featuredProjects.map((project, index) => (
-                                <motion.div
-                                    key={project.id}
-                                    initial={{ opacity: 0, y: 50 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: index * 0.2, duration: 0.8 }}
-                                    className="group cursor-pointer"
-                                    onClick={() => handleNavigation(project.link)}
-                                >
-                                    <div className="relative mb-6 aspect-[3/4] overflow-hidden rounded-3xl">
-                                        <div
-                                            className={`absolute inset-0 ${project.color} opacity-80`}
-                                        />
-                                        <img
-                                            src={project.image}
-                                            alt={project.title}
-                                            className="h-full w-full object-cover mix-blend-overlay transition-transform duration-700 group-hover:scale-105"
-                                        />
-                                        <div className="absolute right-8 bottom-8 left-8">
-                                            {"emoji" in project && (
-                                                <div className="mb-2 text-4xl drop-shadow-sm">
-                                                    {(project as { emoji?: string }).emoji}
-                                                </div>
-                                            )}
-                                            <h3 className="font-primary mb-2 text-2xl text-white">
-                                                {project.title}
-                                            </h3>
-                                            <p className="font-secondary mb-6 text-white/80">
-                                                {project.subtitle}
-                                            </p>
-                                            <div className="flex items-center justify-between">
-                                                <span className="font-secondary rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-light text-white/80 backdrop-blur-sm">
-                                                    {`#${project.id.charAt(0).toUpperCase()}${project.id.slice(1)}`}
-                                                </span>
-                                                <div className="rounded-full bg-black/50 px-4 py-2 backdrop-blur-sm">
-                                                    <span className="text-sm text-white">
-                                                        © Web3Ceylon
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </motion.div>
-                            ))}
+                    <div className="mx-auto mt-14 max-w-5xl">
+                        {/* Fanned / stacked cards (now also on mobile) */}
+                        <div className="relative flex justify-center">
+                            {/* Responsive wrapper: slightly smaller on very small screens */}
+                            <div className="relative h-[200px] w-[340px] xs:h-[210px] xs:w-[360px] sm:h-[240px] sm:w-[460px] md:h-64 md:w-[544px] origin-top transition-all">
+                                {/* Card 1 */}
+                                <div className="absolute left-0 top-4 z-10 flex h-[180px] w-36 flex-col items-center justify-center overflow-hidden rounded-2xl border border-white/40 bg-gradient-to-br from-[#fdfcfb]/70 via-[#e2ebf0]/60 to-[#dfe9f3]/50 px-3 text-center shadow-[0_3px_14px_-4px_rgba(0,0,0,0.25)] backdrop-blur-2xl ring-1 ring-white/20 -rotate-6 xs:h-[190px] xs:w-36 xs:px-4 sm:h-[220px] sm:w-48 sm:rounded-3xl sm:px-6 md:h-64 md:w-56 md:top-6 before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_30%_30%,#f9e8d2_0%,transparent_65%)] before:opacity-40">
+                                    <span className="relative mb-3 text-3xl xs:text-4xl sm:mb-4 sm:text-5xl" aria-hidden>🏙️</span>
+                                    <h3 className="relative font-carena mb-1 text-sm font-semibold tracking-tight text-[#0a1a5c] xs:text-base sm:text-lg">4 Cities</h3>
+                                    <p className="relative font-secondary text-[9px] leading-snug text-[#0a1a5c]/70 xs:text-[10px] sm:text-xs">Colombo, Kandy, Galle, Ella</p>
+                                </div>
+                                {/* Card 2 (center) */}
+                                <div className="absolute left-24 top-0 z-20 flex h-[180px] w-36 flex-col items-center justify-center overflow-hidden rounded-2xl border border-white/40 bg-gradient-to-br from-[#eef2ff]/70 via-[#dde7ff]/60 to-[#cfd9ff]/50 px-3 text-center shadow-[0_3px_16px_-4px_rgba(0,0,0,0.30)] backdrop-blur-2xl ring-1 ring-white/20 rotate-2 xs:left-28 xs:h-[190px] xs:w-36 xs:px-4 sm:left-36 sm:h-[220px] sm:w-48 sm:rounded-3xl sm:px-6 md:left-40 md:h-64 md:w-56 before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_70%_30%,#d7e3ff_0%,transparent_65%)] before:opacity-50">
+                                    <span className="relative mb-3 text-3xl xs:text-4xl sm:mb-4 sm:text-5xl" aria-hidden>👥</span>
+                                    <h3 className="relative font-carena mb-1 text-sm font-semibold tracking-tight text-[#0a1a5c] xs:text-base sm:text-lg">Community First</h3>
+                                    <p className="relative font-secondary text-[9px] leading-snug text-[#0a1a5c]/70 xs:text-[10px] sm:text-xs">Developers, creators, entrepreneurs</p>
+                                </div>
+                                {/* Card 3 */}
+                                <div className="absolute left-[184px] top-5 z-30 flex h-[180px] w-36 flex-col items-center justify-center overflow-hidden rounded-2xl border border-white/40 bg-gradient-to-br from-[#fff7e6]/70 via-[#fdecc8]/60 to-[#f9e0a8]/50 px-3 text-center shadow-[0_3px_18px_-2px_rgba(0,0,0,0.35)] backdrop-blur-2xl ring-1 ring-white/20 rotate-6 xs:left-[196px] xs:top-5 xs:h-[190px] xs:w-36 xs:px-4 sm:left-[272px] sm:top-6 sm:h-[220px] sm:w-48 sm:rounded-3xl sm:px-6 md:left-[320px] md:h-64 md:w-56 md:top-8 before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_50%_70%,#ffe3a3_0%,transparent_65%)] before:opacity-50">
+                                    <span className="relative mb-3 text-3xl xs:text-4xl sm:mb-4 sm:text-5xl" aria-hidden>🚀</span>
+                                    <h3 className="relative font-carena mb-1 text-sm font-semibold tracking-tight text-[#0a1a5c] xs:text-base sm:text-lg">Web3 Future</h3>
+                                    <p className="relative font-secondary text-[9px] leading-snug text-[#0a1a5c]/70 xs:text-[10px] sm:text-xs">Blockchain innovation & education</p>
+                                </div>
+                                {/* Soft gradient halo behind cards */}
+                                <div className="pointer-events-none absolute inset-0 -z-10 rounded-[50px] opacity-35 [background:radial-gradient(circle_at_center,#dbeafe_0%,transparent_75%)] sm:rounded-[60px] sm:opacity-40 md:rounded-[80px] md:opacity-50" />
+                            </div>
                         </div>
+                        {/* Removed separate mobile list; unified design */}
                     </div>
                 </FadeIn>
             </div>

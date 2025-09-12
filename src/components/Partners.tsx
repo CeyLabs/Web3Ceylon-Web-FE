@@ -23,9 +23,9 @@ const LogoCard: React.FC<{ item: LogoItem; size?: "sm" | "md" | "lg"; noBorder?:
     return (
         <div
             className={cn(
-                "flex h-full w-full items-center justify-center rounded-2xl px-4 py-3 md:px-6 md:py-6",
-                !noBorder && "border border-black/5 bg-white shadow-sm",
-                noBorder && "bg-white"
+                "flex h-full w-full items-center justify-center rounded-2xl px-4 py-3 md:px-6 md:py-6 bg-white/30 backdrop-blur-3xl",
+                !noBorder && "border border-black/5",
+                noBorder && ""
             )}
         >
             {item.src ? (
@@ -103,7 +103,7 @@ const Partners: React.FC<PartnersProps> = ({ className }) => {
                 {/* Organized & Sponsored */}
                 <div className="grid gap-6 md:grid-cols-2">
                     <FadeIn>
-                        <div className="rounded-3xl border border-black/5 bg-white p-8 shadow-sm md:p-10">
+                        <div className="rounded-3xl bg-white/30 backdrop-blur-3xl p-8 md:p-10">
                             <p className="mb-6 text-center text-[11px] font-semibold tracking-[0.25em] text-gray-500">
                                 ORGANIZED BY
                             </p>
@@ -113,7 +113,7 @@ const Partners: React.FC<PartnersProps> = ({ className }) => {
                         </div>
                     </FadeIn>
                     <FadeIn delay={80}>
-                        <div className="rounded-3xl border border-black/5 bg-white p-8 shadow-sm md:p-10">
+                        <div className="rounded-3xl bg-white/30 backdrop-blur-3xl p-8 md:p-10">
                             <p className="mb-6 text-center text-[11px] font-semibold tracking-[0.25em] text-gray-500">
                                 SPONSORED BY
                             </p>
@@ -126,7 +126,7 @@ const Partners: React.FC<PartnersProps> = ({ className }) => {
 
                 {/* Community Partners */}
                 <FadeIn delay={140}>
-                    <div className="mt-6 rounded-3xl border border-black/5 bg-white p-6 shadow-sm md:mt-8 md:p-10">
+                    <div className="mt-6 rounded-3xl bg-white/30 backdrop-blur-3xl p-6 md:mt-8 md:p-10">
                         <p className="mb-6 text-center text-[11px] font-semibold tracking-[0.25em] text-gray-500">
                             COMMUNITY PARTNERS
                         </p>
