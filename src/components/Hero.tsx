@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import FadeIn from "./animations/FadeIn";
 import { Sparkles } from "lucide-react";
 import CountdownTicker from "./CountdownTicker";
+import { Noise } from "@/components/ui/shadcn-io/noise";
 
 interface HeroProps {
     className?: string;
@@ -33,6 +34,17 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
                 <div className="absolute top-0 bottom-0 left-0 w-3/5 bg-gradient-to-r from-[#F6F4D5] to-transparent md:w-1/6 md:rounded-none md:from-[#F6F4D5]/40 md:to-[#F6F4D5]/10"></div>
                 {/* Sand beige fading from right */}
                 <div className="absolute top-0 right-0 bottom-0 w-3/5 bg-gradient-to-l from-[#F6F4D5] to-transparent md:w-1/6 md:rounded-none md:from-[#F6F4D5]/40 md:to-[#F6F4D5]/10"></div>
+            </div>
+
+            {/* Noise overlay for texture */}
+            <div className="absolute inset-0 -z-10 mix-blend-overlay">
+                <Noise
+                    patternSize={200}
+                    patternScaleX={2}
+                    patternScaleY={2}
+                    patternRefreshInterval={4}
+                    patternAlpha={40}
+                />
             </div>
 
             {/* Centered Glass/Blur Information Card */}
