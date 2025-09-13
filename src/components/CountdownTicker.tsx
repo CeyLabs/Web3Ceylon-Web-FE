@@ -3,10 +3,11 @@ import { createPortal } from "react-dom";
 import { cityEvents, type CityEvent } from "@/lib/events";
 
 type TickerProps = {
-  intervalMs?: number; // how fast to cycle
-  className?: string;
-  showMultiple?: boolean; // show multiple events in inflow
-};const formatTimeLeft = (ms: number) => {
+    intervalMs?: number; // how fast to cycle
+    className?: string;
+    showMultiple?: boolean; // show multiple events in inflow
+};
+const formatTimeLeft = (ms: number) => {
     if (ms <= 0) return "00D : 00H : 00M : 00S";
     const totalSeconds = Math.floor(ms / 1000);
     const days = Math.floor(totalSeconds / 86400)
@@ -41,7 +42,11 @@ const useEventState = (event: CityEvent) => {
     return { isLive, ended, countdown };
 };
 
-const CountdownTicker: React.FC<TickerProps> = ({ intervalMs = 3500, className, showMultiple = false }) => {
+const CountdownTicker: React.FC<TickerProps> = ({
+    intervalMs = 3500,
+    className,
+    showMultiple = false,
+}) => {
     const [index, setIndex] = useState(0);
     const tickerRef = useRef<HTMLDivElement>(null); // wrapper div in-flow
     const [stickyActive, setStickyActive] = useState(false);
@@ -176,7 +181,13 @@ const CountdownTicker: React.FC<TickerProps> = ({ intervalMs = 3500, className, 
     const { isLive: isLive2, ended: ended2, countdown: countdown2 } = useEventState(event2);
     const { isLive: isLive3, ended: ended3, countdown: countdown3 } = useEventState(event3);
 
-    const renderEventContent = (event: CityEvent, variant: "inflow" | "sticky", isLive: boolean, ended: boolean, countdown: string) => {
+    const renderEventContent = (
+        event: CityEvent,
+        variant: "inflow" | "sticky",
+        isLive: boolean,
+        ended: boolean,
+        countdown: string
+    ) => {
         return (
             <a
                 href={event.link}
@@ -191,12 +202,14 @@ const CountdownTicker: React.FC<TickerProps> = ({ intervalMs = 3500, className, 
                     aria-live="polite"
                     aria-atomic="true"
                 >
-                    <div className={`min-w-0 flex-1 truncate font-medium whitespace-nowrap ${variant === "inflow" ? "text-sm sm:text-base md:text-lg" : "text-xs sm:text-sm md:text-base"}`}>
+                    <div
+                        className={`min-w-0 flex-1 truncate font-medium whitespace-nowrap ${variant === "inflow" ? "text-sm sm:text-base md:text-lg" : "text-xs sm:text-sm md:text-base"}`}
+                    >
                         {event.image ? (
                             <img
                                 src={event.image}
                                 alt={`${event.city} icon`}
-                                className={`inline-block align-middle rounded-md border border-white/30 object-cover mr-2 ${variant === "inflow" ? "size-8 sm:size-9" : "size-6 sm:size-7"}`}
+                                className={`mr-2 inline-block rounded-md border border-white/30 object-cover align-middle ${variant === "inflow" ? "size-8 sm:size-9" : "size-6 sm:size-7"}`}
                                 loading="lazy"
                                 decoding="async"
                             />
@@ -205,13 +218,21 @@ const CountdownTicker: React.FC<TickerProps> = ({ intervalMs = 3500, className, 
                         <span className="align-middle opacity-60">— Web3Ceylon</span>
                     </div>
                     {isLive ? (
-                        <span className={`inline-flex items-center font-semibold whitespace-nowrap text-black ${variant === "inflow" ? "gap-2 text-xs sm:text-sm md:text-base" : "gap-1 text-[11px] sm:text-xs md:text-sm"} sm:gap-2`}>
-                            <span className={`inline-block animate-pulse rounded-full bg-green-400 ${variant === "inflow" ? "h-2 w-2" : "h-1.5 w-1.5"} sm:h-2 sm:w-2`} />
+                        <span
+                            className={`inline-flex items-center font-semibold whitespace-nowrap text-black ${variant === "inflow" ? "gap-2 text-xs sm:text-sm md:text-base" : "gap-1 text-[11px] sm:text-xs md:text-sm"} sm:gap-2`}
+                        >
+                            <span
+                                className={`inline-block animate-pulse rounded-full bg-green-400 ${variant === "inflow" ? "h-2 w-2" : "h-1.5 w-1.5"} sm:h-2 sm:w-2`}
+                            />
                             Live now
                         </span>
                     ) : ended ? (
-                        <span className={`inline-flex items-center font-semibold whitespace-nowrap text-black ${variant === "inflow" ? "gap-2 text-xs sm:text-sm md:text-base" : "gap-1 text-[11px] sm:text-xs md:text-sm"} sm:gap-2`}>
-                            <span className={`inline-block rounded-full bg-white/70 ${variant === "inflow" ? "h-2 w-2" : "h-1.5 w-1.5"} sm:h-2 sm:w-2`} />
+                        <span
+                            className={`inline-flex items-center font-semibold whitespace-nowrap text-black ${variant === "inflow" ? "gap-2 text-xs sm:text-sm md:text-base" : "gap-1 text-[11px] sm:text-xs md:text-sm"} sm:gap-2`}
+                        >
+                            <span
+                                className={`inline-block rounded-full bg-white/70 ${variant === "inflow" ? "h-2 w-2" : "h-1.5 w-1.5"} sm:h-2 sm:w-2`}
+                            />
                             Ended
                         </span>
                     ) : (
@@ -227,7 +248,8 @@ const CountdownTicker: React.FC<TickerProps> = ({ intervalMs = 3500, className, 
         );
     };
 
-    const renderContent = (variant: "inflow" | "sticky") => renderEventContent(event, variant, isLive, ended, countdown);
+    const renderContent = (variant: "inflow" | "sticky") =>
+        renderEventContent(event, variant, isLive, ended, countdown);
 
     return (
         <>
@@ -240,13 +262,13 @@ const CountdownTicker: React.FC<TickerProps> = ({ intervalMs = 3500, className, 
                 aria-hidden={stickyActive}
             >
                 {/* Left shading */}
-                <div className="absolute left-0 top-0 bottom-0 w-20 sm:w-28 md:w-40 bg-gradient-to-r from-[#F6F4D5] to-transparent pointer-events-none z-10"></div>
+                <div className="pointer-events-none absolute top-0 bottom-0 left-0 z-10 w-20 bg-gradient-to-r from-[#F6F4D5] to-transparent sm:w-28 md:w-40"></div>
                 {/* Right shading */}
-                <div className="absolute right-0 top-0 bottom-0 w-20 sm:w-28 md:w-40 bg-gradient-to-l from-[#F6F4D5] to-transparent pointer-events-none z-10"></div>
+                <div className="pointer-events-none absolute top-0 right-0 bottom-0 z-10 w-20 bg-gradient-to-l from-[#F6F4D5] to-transparent sm:w-28 md:w-40"></div>
                 {/* Content */}
                 <div className="relative z-20">
                     {showMultiple ? (
-                        <div className="flex gap-2 justify-center">
+                        <div className="flex justify-center gap-2">
                             {renderEventContent(event1, "inflow", isLive1, ended1, countdown1)}
                             {renderEventContent(event2, "inflow", isLive2, ended2, countdown2)}
                             {renderEventContent(event3, "inflow", isLive3, ended3, countdown3)}

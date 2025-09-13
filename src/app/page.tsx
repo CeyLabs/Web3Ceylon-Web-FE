@@ -5,7 +5,7 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Intro from "@/components/Intro";
 import Cities from "@/components/Cities";
-import Speakers from "@/components/Speakers";
+import { SpeakersSection } from "@/components/sections/speakers";
 import Partners from "@/components/Partners";
 import FooterCTA from "@/components/Community";
 import About from "@/components/About";
@@ -48,7 +48,7 @@ const Home = () => {
                 <Hero />
                 <Intro />
                 <Cities />
-                <Speakers />
+                <SpeakersSection />
                 <Partners />
                 <About />
                 <AnimatedFAQ />
