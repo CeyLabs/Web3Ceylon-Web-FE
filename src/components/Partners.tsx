@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import FadeIn from "./animations/FadeIn";
@@ -23,8 +23,8 @@ const LogoCard: React.FC<{ item: LogoItem; size?: "sm" | "md" | "lg"; noBorder?:
     return (
         <div
             className={cn(
-                "flex h-full w-full items-center justify-center rounded-2xl bg-white/30 px-4 py-3 backdrop-blur-3xl md:px-6 md:py-6",
-                !noBorder && "border border-black/5",
+                "flex h-full w-full items-center justify-center rounded-2xl px-4 py-3 md:px-6 md:py-6",
+                !noBorder && "border border-black/5 bg-white/30 backdrop-blur-3xl",
                 noBorder && ""
             )}
         >
@@ -51,6 +51,43 @@ const LogoCard: React.FC<{ item: LogoItem; size?: "sm" | "md" | "lg"; noBorder?:
 };
 
 const Partners: React.FC<PartnersProps> = ({ className }) => {
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+    // Responsive items per view
+    const getItemsPerView = () => {
+        if (typeof window !== "undefined") {
+            if (window.innerWidth < 640) return 3; // Mobile: 3 items
+            if (window.innerWidth < 768) return 3; // Small tablet: 3 items
+            if (window.innerWidth < 1024) return 4; // Tablet: 4 items
+            return 6; // Desktop: 6 items
+        }
+        return 3; // Default fallback
+    };
+
+    const [itemsPerView, setItemsPerView] = useState(getItemsPerView());
+
+    // Handle responsive items per view
+    useEffect(() => {
+        const handleResize = () => {
+            setItemsPerView(getItemsPerView());
+        };
+
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    // Colors for partner names
+    const nameColors = [
+        "text-blue-600",
+        "text-green-600",
+        "text-purple-600",
+        "text-red-600",
+        "text-orange-600",
+        "text-teal-600",
+        "text-pink-600",
+        "text-indigo-600",
+    ];
+
     // Organized & Sponsored logos
     const organizedBy: LogoItem = {
         name: "Ceylon Cash",
@@ -61,11 +98,33 @@ const Partners: React.FC<PartnersProps> = ({ className }) => {
         src: "/assets/partners/ByBit_Black.png",
     };
 
-    // Community partners (ordered: founderflow, GDG)
+    // Community partners (SVG logos only)
     const communityPartners: LogoItem[] = [
-        { name: "FounderFlow", src: "/assets/partners/founderflow-lk.png" },
-        { name: "GDG Sri Lanka", src: "/assets/partners/gdglk_cover.jpeg" },
+        { name: "Colombo Crypto Club", src: "/assets/partners/svg/ccc.svg" },
+        { name: "Crypto Cirqle", src: "/assets/partners/svg/cryptocirqle.svg" },
+        { name: "Crypto Kalliya", src: "/assets/partners/svg/cryptokalliya.svg" },
+        { name: "Crypto Lanka", src: "/assets/partners/svg/cryptolanka.svg" },
+        { name: "Crypto With Duni", src: "/assets/partners/svg/cryptowithduni.svg" },
+        { name: "Digital Asset Lanka", src: "/assets/partners/svg/dal.svg" },
+        { name: "FounderFlow", src: "/assets/partners/svg/founderflow.svg" },
+        { name: "GDG Sri Lanka", src: "/assets/partners/svg/gdgsrilanka.svg" },
+        { name: "Solana Sri Lanka", src: "/assets/partners/svg/solanasl.svg" },
+        { name: "Spike", src: "/assets/partners/svg/spike.svg" },
+        { name: "TechNews LK", src: "/assets/partners/svg/technewslk.svg" },
+        { name: "TON Connect", src: "/assets/partners/svg/tonconnect.svg" },
+        { name: "TON Sri Lanka", src: "/assets/partners/svg/tonsl.svg" },
     ];
+
+    // Auto-slide every 3 seconds
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentIndex((prevIndex) =>
+                prevIndex >= communityPartners.length ? 0 : prevIndex + 1
+            );
+        }, 3000);
+
+        return () => clearInterval(interval);
+    }, [communityPartners.length]);
 
     return (
         <section id="partners" className={cn("bg-background py-24", className)}>
@@ -124,18 +183,42 @@ const Partners: React.FC<PartnersProps> = ({ className }) => {
                     </FadeIn>
                 </div>
 
-                {/* Community Partners */}
+                {/* Community Partners Carousel */}
                 <FadeIn delay={140}>
                     <div className="mt-6 rounded-3xl bg-white/30 p-6 backdrop-blur-3xl md:mt-8 md:p-10">
                         <p className="mb-6 text-center text-[11px] font-semibold tracking-[0.25em] text-gray-500">
                             COMMUNITY PARTNERS
                         </p>
-                        <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10">
-                            {communityPartners.map((p, i) => (
-                                <div key={i} className="w-40 md:w-52">
-                                    <LogoCard item={p} size="sm" noBorder />
-                                </div>
-                            ))}
+                        <div className="overflow-hidden">
+                            <div
+                                className="flex transition-transform duration-1000 ease-in-out"
+                                style={{
+                                    transform: `translateX(-${currentIndex * (100 / itemsPerView)}%)`,
+                                }}
+                            >
+                                {communityPartners
+                                    .concat(communityPartners.slice(0, itemsPerView))
+                                    .map((partner, i) => (
+                                        <div
+                                            key={`${partner.name}-${i}`}
+                                            className="flex w-1/3 flex-shrink-0 flex-col items-center gap-2 px-2 sm:w-1/3 md:w-1/4 lg:w-1/6"
+                                        >
+                                            <div className="flex h-16 w-16 items-center justify-center sm:h-20 sm:w-20 md:h-24 md:w-24">
+                                                <img
+                                                    src={partner.src}
+                                                    alt={partner.name}
+                                                    className="h-12 w-12 object-contain sm:h-16 sm:w-16 md:h-20 md:w-20"
+                                                    loading="lazy"
+                                                />
+                                            </div>
+                                            <span
+                                                className={`font-primary max-w-[80px] text-center text-xs leading-tight sm:max-w-[100px] sm:text-sm ${nameColors[i % nameColors.length]}`}
+                                            >
+                                                {partner.name}
+                                            </span>
+                                        </div>
+                                    ))}
+                            </div>
                         </div>
                     </div>
                 </FadeIn>
