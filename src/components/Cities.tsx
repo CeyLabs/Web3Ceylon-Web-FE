@@ -19,11 +19,11 @@ const Cities: React.FC<CitiesProps> = ({ className }) => {
 
     // Creative, Services-style descriptions to enrich card content
     const cityDescriptions: Record<string, string> = {
-        galle: "Sunlit ramparts and ocean air — creators gather to craft, share, and spark collaborations that travel far beyond the coast.",
+        galle: "Celebrating creativity with creators in Galle, where ideas flow and collaborations begin by the ocean.",
         colombo:
-            "Sri Lanka’s fast lane — builders ship, iterate, and connect through code labs, live demos, and ambitious launches.",
-        kandy: "Heritage meets hustle — practical playbooks, smart deals, and resilient growth for independents and teams.",
-        ella: "Time slows in the hills — reset, swap ideas, and open doors to global partners and long-term collaborations.",
+            "Building the future with developers & builders in Colombo, turning code and vision into real impact.",
+        kandy: "Unlocking opportunities for businesses in Kandy, blending heritage with fresh innovation and growth.",
+        ella: "A special retreat with community leaders in Ella, reconnecting, recharging, and shaping long-term bonds.",
     };
 
     useGSAP(() => {
@@ -139,6 +139,12 @@ const Cities: React.FC<CitiesProps> = ({ className }) => {
                                         >
                                             {c.headline}
                                         </h3>
+                                        <p
+                                            className="font-secondary mt-2 text-sm font-medium"
+                                            style={smallLabelStyle}
+                                        >
+                                            {c.date}
+                                        </p>
                                     </div>
                                     <p
                                         className="font-carena text-[clamp(16px,2.2vw,24px)] leading-none font-semibold whitespace-nowrap"

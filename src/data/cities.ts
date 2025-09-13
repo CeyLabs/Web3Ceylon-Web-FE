@@ -7,19 +7,10 @@ export type City = {
   bottomLine: string;
   imageUrl: string;
   tags: string[];
+  date: string;
 };
 
 export const cities: City[] = [
-  {
-    id: "galle",
-    city: "Galle",
-    group: "Creators & Storytellers",
-    headline: "Create, Connect, and Inspire",
-    subtitle: "Celebrating creativity with Creators & Storytellers in Galle",
-    bottomLine: "Let’s Connect!",
-    imageUrl: "/assets/stamps/Stamp - Galle.png",
-    tags: ["Galle", "Creators", "Storytellers"],
-  },
   {
     id: "colombo",
     city: "Colombo",
@@ -29,6 +20,7 @@ export const cities: City[] = [
     bottomLine: "Let’s Create!",
     imageUrl: "/assets/stamps/Stamp - Colombo.png",
     tags: ["Colombo", "Developers", "Builders"],
+    date: "September 20, 2025",
   },
   {
     id: "kandy",
@@ -39,6 +31,18 @@ export const cities: City[] = [
     bottomLine: "Let’s Grow!",
     imageUrl: "/assets/stamps/Stamp - Kandy.png",
     tags: ["Kandy", "Businesses", "Freelancers"],
+    date: "September 28, 2025",
+  },
+   {
+    id: "galle",
+    city: "Galle",
+    group: "Creators & Storytellers",
+    headline: "Create, Connect, and Inspire",
+    subtitle: "Celebrating creativity with Creators & Storytellers in Galle",
+    bottomLine: "Let’s Connect!",
+    imageUrl: "/assets/stamps/Stamp - Galle.png",
+    tags: ["Galle", "Creators", "Storytellers"],
+    date: "October 08, 2025",
   },
   {
     id: "ella",
@@ -49,5 +53,6 @@ export const cities: City[] = [
     bottomLine: "Let’s Unwind!",
     imageUrl: "/assets/stamps/Stamp - Ella.png",
     tags: ["Ella", "Retreat", "Global Connect"],
+    date: "October 12, 2025",
   },
 ];

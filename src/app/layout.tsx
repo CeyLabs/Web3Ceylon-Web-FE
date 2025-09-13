@@ -13,7 +13,10 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-    <html lang="en" className={`${figtree.variable} ${instrumentSerif.variable} ${carena.variable} ${fredoka.variable}`}>
+        <html
+            lang="en"
+            className={`${figtree.variable} ${instrumentSerif.variable} ${carena.variable} ${fredoka.variable}`}
+        >
             <body className="font-sans antialiased">
                 <JsonLd id="event-jsonld" data={EVENT_JSONLD} />
                 <DynamicFavicon />
