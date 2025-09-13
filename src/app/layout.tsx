@@ -23,8 +23,8 @@ export default function RootLayout({
                         inset: 0,
                         zIndex: 9998,
                         pointerEvents: "none",
-                        background:
-                            "radial-gradient(circle, hsl(38 55% 94%) 0%, hsl(30 35% 82%) 100%)",
+                        // Match sitewide background
+                        background: "hsl(var(--background))",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
