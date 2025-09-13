@@ -1,107 +1,225 @@
-
-import React, { useState } from 'react';
-import { cn } from '@/lib/utils';
-import FadeIn from './animations/FadeIn';
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import React from "react";
+import Image from "next/image";
+import { cn } from "@/lib/utils";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+import useWindowSize from "@/hooks/useWindowSize";
+import { cities } from "@/data/cities";
 
 interface CitiesProps {
-  className?: string;
+    className?: string;
 }
 
-const Cities: React.FC<CitiesProps> = ({ className }) => {
-  const cities = [
-    {
-      name: "Colombo",
-      title: "Web3 Dev Fest",
-      tagline: "Sri Lanka's commercial heart turns into a Web3 innovation hub",
-      icon: "🏙️",
-      description: "Comprehensive developer workshops, technical sessions, and blockchain fundamentals",
-      highlights: ["Smart Contract Development", "DeFi Protocols", "Developer Networking", "Tech Talks"]
-    },
-    {
-      name: "Kandy",
-      title: "Blockchain Fundamentals & Crypto Essentials",
-      tagline: "Web3 meets the hill capital",
-      icon: "🏛️",
-      description: "Essential crypto knowledge, wallet setup, and blockchain basics",
-      highlights: ["Wallet Security", "Bitcoin Basics", "Stablecoin Education", "Crypto Trading"]
-    },
-    {
-      name: "Galle",
-      title: "Web3 for Creators & Entrepreneurs",
-      tagline: "Coastal vibes, creative minds",
-      icon: "🎨",
-      description: "NFT creation, DAO governance, and creator economy exploration",
-      highlights: ["NFT Creation", "Creator Economy", "DAO Governance", "Digital Art"]
-    },
-    {
-      name: "Ella",
-      title: "Web3 Community Retreat",
-      tagline: "Unwind, connect, and build in Sri Lanka's scenic highlands",
-      icon: "🏔️",
-      description: "Fireside chats, networking sessions, and community bonding",
-      highlights: ["Fireside Chats", "Network Building", "Community Bonding", "Scenic Workshops"]
-    }
-  ];
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-  return (
-    <section id="cities" className={cn('py-20 bg-gray-50', className)}>
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="max-w-3xl mx-auto mb-16">
-          <FadeIn>
-            <h2 className="text-3xl md:text-4xl font-serif mb-8 text-center">Tour Cities</h2>
-          </FadeIn>
-          
-          <FadeIn delay={100}>
-            <p className="text-xl text-center mb-8 text-gray-700">
-              Four unique experiences across Sri Lanka's most beautiful destinations
-            </p>
-          </FadeIn>
-        </div>
-        
-        <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-          {cities.map((city, index) => (
-            <FadeIn key={index} delay={150 + index * 100}>
-              <Card className="border-0 shadow-lg h-full hover:shadow-xl transition-shadow duration-300">
-                <CardContent className="p-8">
-                  <div className="flex items-center mb-4">
-                    <span className="text-4xl mr-4">{city.icon}</span>
-                    <div>
-                      <h3 className="text-2xl font-serif font-medium mb-1">{city.name}</h3>
-                      <h4 className="text-lg font-medium text-blue-600">{city.title}</h4>
-                    </div>
-                  </div>
-                  
-                  <p className="text-sm italic text-gray-600 mb-4">{city.tagline}</p>
-                  <p className="text-gray-700 mb-6">{city.description}</p>
-                  
-                  <div className="grid grid-cols-2 gap-2">
-                    {city.highlights.map((highlight, idx) => (
-                      <div key={idx} className="flex items-center text-sm">
-                        <span className="w-2 h-2 bg-gradient-to-r from-orange-500 to-blue-600 rounded-full mr-2"></span>
-                        {highlight}
-                      </div>
-                    ))}
-                  </div>
-                  
-                  <div className="mt-6">
-                    <a 
-                      href="#register" 
-                      className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors"
-                    >
-                      Join {city.name} Session →
-                    </a>
-                  </div>
-                </CardContent>
-              </Card>
-            </FadeIn>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+const Cities: React.FC<CitiesProps> = ({ className }) => {
+    const { width } = useWindowSize();
+    const isMobile = width < 768;
+
+    // Creative, Services-style descriptions to enrich card content
+    const cityDescriptions: Record<string, string> = {
+        galle: "Celebrating creativity with creators in Galle, where ideas flow and collaborations begin by the ocean.",
+        colombo:
+            "Building the future with developers & builders in Colombo, turning code and vision into real impact.",
+        kandy: "Unlocking opportunities for businesses in Kandy, blending heritage with fresh innovation and growth.",
+        ella: "A special retreat with community leaders in Ella, reconnecting, recharging, and shaping long-term bonds.",
+    };
+
+    useGSAP(() => {
+        if (isMobile) return;
+        const cards = gsap.utils.toArray<HTMLElement>(".city-card");
+        if (!cards.length) return;
+
+        // Stacked cards animation to mirror Services (no title pinning)
+        cards.forEach((card, index) => {
+            const inner = card.querySelector(".city-card-inner");
+            ScrollTrigger.create({
+                trigger: card,
+                start: "top 30%",
+                endTrigger: cards[cards.length - 1],
+                end: "bottom 60%",
+                pin: true,
+                pinSpacing: false,
+            });
+
+            gsap.to(inner, {
+                y: `-${(cards.length - index) * 22}vh`,
+                scale: 0.8 + index * 0.05,
+                rotationZ: (Math.random() - 0.5) * 5,
+                rotationX: (Math.random() - 0.5) * 5,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 30%",
+                    endTrigger: cards[cards.length - 1],
+                    end: "bottom 60%",
+                    scrub: true,
+                },
+            });
+        });
+
+        return () => ScrollTrigger.getAll().forEach((t) => t.kill());
+    }, [isMobile]);
+
+    return (
+        <section id="cities" className={cn("bg-sandBeige overflow-hidden px-4 py-16", className)}>
+            <div className="mx-auto mb-12 max-w-3xl text-center">
+                <h2 className="font-carena text-[clamp(28px,4vw,48px)] font-semibold tracking-tight text-[#0a1a5c]">
+                    Cities
+                </h2>
+                <p className="font-secondary mt-3 text-[clamp(14px,1.5vw,18px)] font-medium text-[#667085]">
+                    Four unique experiences across Sri Lanka
+                </p>
+            </div>
+            <div className="city-cards mx-auto mb-12 flex max-w-5xl flex-col gap-4 lg:mb-56 lg:gap-2">
+                {[
+                    // Explicit display order
+                    "colombo",
+                    "kandy",
+                    "galle",
+                    "ella",
+                ].map((id, index) => {
+                    const c = cities.find((city) => city.id === id)!;
+                    // Accent (strong) colors provided: #F57C00 , #C62828, #1976D2, #388E3C
+                    // Map them to cities (ordered as data array): galle, colombo, kandy, ella
+                    const bgMap: Record<string, string> = {
+                        galle: "bg-sandBeige",
+                        colombo: "bg-ice",
+                        kandy: "bg-ivoryCream",
+                        ella: "bg-mint",
+                    };
+                    const accentMap: Record<string, string> = {
+                        galle: "#F57C00", // deep orange
+                        colombo: "#1976D2", // blue
+                        kandy: "#C62828", // red
+                        ella: "#388E3C", // green
+                    };
+                    // Derived utility strings
+                    const cardClasses = cn(
+                        "city-card-inner group relative w-full h-full rounded-xl p-8 lg:rounded-2xl lg:p-12 will-change-transform",
+                        "border-[3px]",
+                        bgMap[c.id]
+                    );
+                    // Inline styles for dynamic accent (border + pseudo outline tone)
+                    const cardStyle: React.CSSProperties = {
+                        borderColor: accentMap[c.id],
+                    };
+                    const headingStyle: React.CSSProperties = { color: accentMap[c.id] };
+                    const smallLabelStyle: React.CSSProperties = { color: accentMap[c.id] };
+                    const dayStyle: React.CSSProperties = { color: accentMap[c.id] };
+                    return (
+                        <div
+                            key={c.id}
+                            id={`city-card-${index}`}
+                            className="city-card relative pb-4"
+                        >
+                            <div className={cardClasses} style={cardStyle}>
+                                {/* Stamp offset outline */}
+                                <span
+                                    aria-hidden
+                                    className="pointer-events-none absolute inset-0 rounded-[inherit]"
+                                    style={{
+                                        boxShadow: `4px 4px 0 0 ${accentMap[c.id]} inset, 4px 4px 0 0 ${accentMap[c.id]}`,
+                                        mixBlendMode: "multiply",
+                                        opacity: 0.18,
+                                    }}
+                                />
+                                <div className="mb-8 flex items-start justify-between lg:mb-12">
+                                    <div>
+                                        <p
+                                            className="font-secondary mb-2 text-xs tracking-wider uppercase"
+                                            style={smallLabelStyle}
+                                        >
+                                            {c.city} – {c.group}
+                                        </p>
+                                        <h3
+                                            className="font-carena text-[clamp(20px,4vw,36px)] leading-tight font-semibold tracking-tight"
+                                            style={headingStyle}
+                                        >
+                                            {c.headline}
+                                        </h3>
+                                        <p
+                                            className="font-secondary mt-2 text-sm font-medium"
+                                            style={smallLabelStyle}
+                                        >
+                                            {c.date}
+                                        </p>
+                                    </div>
+                                    <p
+                                        className="font-carena text-[clamp(16px,2.2vw,24px)] leading-none font-semibold whitespace-nowrap"
+                                        style={dayStyle}
+                                    >
+                                        (Day {String(index + 1).padStart(2, "0")})
+                                    </p>
+                                </div>
+                                <div className="flex flex-col-reverse items-start justify-between lg:flex-row">
+                                    <div className="flex w-full flex-col gap-6 lg:w-6/12 lg:gap-8">
+                                        <p className="text-[clamp(18px,2vw,40px)] leading-tight font-semibold">
+                                            {cityDescriptions[c.id]}
+                                        </p>
+                                        <p className="font-secondary text-[clamp(14px,1.8vw,20px)] font-medium">
+                                            {c.subtitle}
+                                        </p>
+                                        <ul className="flex flex-wrap gap-2 lg:w-10/12 2xl:gap-3">
+                                            {c.tags.map((t) => (
+                                                <li
+                                                    key={`${c.id}-${t}`}
+                                                    className="font-secondary rounded-full bg-white/70 px-4 py-1.5 text-[clamp(11px,1.1vw,15px)] font-medium"
+                                                >
+                                                    {t}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                        <div className="mt-2">
+                                            <a
+                                                href={(() => {
+                                                    const links: Record<string, string> = {
+                                                        colombo: "https://luma.com/8kg58fcg",
+                                                        kandy: "https://luma.com/nfwqhe8u",
+                                                        galle: "https://luma.com/qrggf436",
+                                                        ella: "https://luma.com/1abnpfkw",
+                                                    };
+                                                    return links[c.id];
+                                                })()}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="font-secondary inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-white shadow-sm transition-all focus:ring-2 focus:ring-offset-2 focus:outline-none"
+                                                style={{
+                                                    backgroundColor: accentMap[c.id],
+                                                    boxShadow: `0 2px 4px -1px ${accentMap[c.id]}33, 0 4px 10px -2px ${accentMap[c.id]}40`,
+                                                }}
+                                                onMouseEnter={(e) => {
+                                                    (
+                                                        e.currentTarget as HTMLAnchorElement
+                                                    ).style.filter = "brightness(0.9)";
+                                                }}
+                                                onMouseLeave={(e) => {
+                                                    (
+                                                        e.currentTarget as HTMLAnchorElement
+                                                    ).style.filter = "none";
+                                                }}
+                                            >
+                                                {c.bottomLine} <span aria-hidden>→</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div className="relative mb-4 h-[250px] w-full overflow-hidden rounded-lg lg:mb-0 lg:h-[clamp(350px,25vw,600px)] lg:w-5/12 lg:rounded-2xl">
+                                        <Image
+                                            src={c.imageUrl}
+                                            alt={`${c.city} stamp`}
+                                            fill
+                                            className="pointer-events-none object-contain object-center drop-shadow-md select-none"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+        </section>
+    );
 };
 
 export default Cities;

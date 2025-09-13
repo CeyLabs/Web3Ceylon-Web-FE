@@ -1,9 +1,11 @@
 
 import type { Config } from "tailwindcss";
+import animatePlugin from "tailwindcss-animate";
 
 export default {
-	darkMode: ["class"],
+	darkMode: "class",
 	content: [
+		"./index.html",
 		"./pages/**/*.{ts,tsx}",
 		"./components/**/*.{ts,tsx}",
 		"./app/**/*.{ts,tsx}",
@@ -20,8 +22,16 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				sans: ['SF Pro Display', 'Inter', 'system-ui', 'sans-serif'],
-				serif: ['GT Sectra', 'Georgia', 'serif'],
+				// Use next/font variables exposed on <html>
+				sans: ['var(--font-figtree)', 'SF Pro Display', 'system-ui', 'sans-serif'],
+				serif: ['var(--font-instrument)', 'Georgia', 'serif'],
+				figtree: ['var(--font-figtree)', 'system-ui', 'sans-serif'],
+				instrument: ['var(--font-instrument)', 'Georgia', 'serif'],
+				carena: ['var(--font-carena)', 'Georgia', 'serif'],
+				fredoka: ['var(--font-fredoka)', 'system-ui', 'sans-serif'],
+				// Aliases
+				primary: ['var(--font-carena)', 'Georgia', 'serif'],
+				secondary: ['var(--font-fredoka)', 'system-ui', 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -29,6 +39,10 @@ export default {
 				ring: 'hsl(var(--ring))',
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
+				// Custom event palette used by bg-event-body in base styles
+				event: {
+					body: 'var(--event-body)'
+				},
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))'
@@ -78,7 +92,12 @@ export default {
 					700: '#374151',
 					800: '#1f2937',
 					900: '#111827',
-				}
+				},
+				sandBeige: '#F6F4D5',
+				ice: '#DFEFFF',
+				mint: '#DEFFE0',
+				ivoryCream: '#FFF2E4',
+				blushRed: '#FFE5E5',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -153,5 +172,5 @@ export default {
 			}
 		}
 	},
-	plugins: [require("tailwindcss-animate")],
+	plugins: [animatePlugin],
 } satisfies Config;

@@ -1,90 +1,108 @@
-import React from 'react';
-import { cn } from '@/lib/utils';
-import FadeIn from './animations/FadeIn';
-import { Card, CardContent } from '@/components/ui/card';
+import React from "react";
+import { cn } from "@/lib/utils";
+import FadeIn from "./animations/FadeIn";
+import { Card, CardContent } from "@/components/ui/card";
 
 interface SpeakersProps {
-  className?: string;
+    className?: string;
 }
 
 const Speakers: React.FC<SpeakersProps> = ({ className }) => {
-  const speakers = [
-    {
-      name: "To be decided",
-      title: "Founder, Ceylon Cash",
-      topic: "To be announced",
-      image: "👨‍💼",
-      bio: "Details coming soon"
-    },
-    {
-      name: "To be decided",
-      title: "CTIO, CeyLabs LLC",
-      topic: "To be announced",
-      image: "👩‍💻",
-      bio: "Details coming soon"
-    },
-    {
-      name: "To be decided",
-      title: "CTO, Web3 Tech Startup",
-      topic: "To be announced",
-      image: "🚀",
-      bio: "Details coming soon"
-    },
-    {
-      name: "To be decided",
-      title: "Lecturer, University of Somewhere",
-      topic: "To be announced",
-      image: "🎓",
-      bio: "Details coming soon"
-    },
-    {
-      name: "To be decided",
-      title: "NFT Artist & Creator",
-      topic: "To be announced",
-      image: "🎨",
-      bio: "Details coming soon"
-    },
-    {
-      name: "To be decided",
-      title: "DAO Governance Expert",
-      topic: "To be announced",
-      image: "🏛️",
-      bio: "Details coming soon"
-    }
-  ];
+    const speakers = [
+        {
+            name: "To be decided",
+            title: "Founder, Ceylon Cash",
+            topic: "To be announced",
+            image: "👨‍💼",
+            bio: "Details coming soon",
+        },
+        {
+            name: "To be decided",
+            title: "CTIO, CeyLabs LLC",
+            topic: "To be announced",
+            image: "👩‍💻",
+            bio: "Details coming soon",
+        },
+        {
+            name: "To be decided",
+            title: "CTO, Web3 Tech Startup",
+            topic: "To be announced",
+            image: "🚀",
+            bio: "Details coming soon",
+        },
+        {
+            name: "To be decided",
+            title: "Lecturer, University of Somewhere",
+            topic: "To be announced",
+            image: "🎓",
+            bio: "Details coming soon",
+        },
+        {
+            name: "To be decided",
+            title: "NFT Artist & Creator",
+            topic: "To be announced",
+            image: "🎨",
+            bio: "Details coming soon",
+        },
+        {
+            name: "To be decided",
+            title: "DAO Governance Expert",
+            topic: "To be announced",
+            image: "🏛️",
+            bio: "Details coming soon",
+        },
+    ];
 
-  return (
-    <section id="speakers" className={cn('py-20 bg-white', className)}>
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="max-w-3xl mx-auto mb-16">
-          <FadeIn>
-            <h2 className="text-3xl md:text-4xl font-serif mb-8 text-center">Meet the Builders & Visionaries</h2>
-          </FadeIn>
-          <FadeIn delay={100}>
-            <p className="text-lg text-center text-muted-foreground">
-              Learn from leading experts, innovators, and pioneers shaping Sri Lanka's Web3 future
-            </p>
-          </FadeIn>
-        </div>
-        
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {speakers.map((speaker, index) => (
-            <FadeIn key={index} delay={150 + index * 50}>
-              <Card className="border-0 shadow-lg h-full hover:shadow-xl transition-all duration-300 hover:scale-105">
-                <CardContent className="p-6 text-center">
-                  <div className="text-6xl mb-4">{speaker.image}</div>
-                  <h3 className="text-xl font-serif font-medium mb-2">{speaker.name}</h3>
-                  <p className="text-blue-600 font-medium mb-3">{speaker.title}</p>
-                  <p className="text-gray-700 font-medium mb-3 text-sm">"{speaker.topic}"</p>
-                  <p className="text-sm text-muted-foreground">{speaker.bio}</p>
-                </CardContent>
-              </Card>
-            </FadeIn>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+    return (
+        <section id="speakers" className={cn("relative py-20", className)}>
+            <div className="relative mx-auto w-full px-4 md:container md:px-6">
+                <div className="mx-auto mb-16 max-w-3xl">
+                    <FadeIn>
+                        <h2 className="font-primary mb-8 text-center text-3xl md:text-4xl">
+                            Meet the Builders & Visionaries
+                        </h2>
+                    </FadeIn>
+                    <FadeIn delay={100}>
+                        <p className="text-muted-foreground font-secondary text-center text-lg">
+                            Learn from leading experts, innovators, and pioneers shaping Sri Lanka's
+                            Web3 future
+                        </p>
+                    </FadeIn>
+                </div>
+
+                <div className="grid w-full grid-cols-2 items-start gap-1 sm:grid-cols-2 sm:gap-4 md:mx-auto md:max-w-6xl md:grid-cols-3 md:gap-5 lg:grid-cols-4">
+                    {speakers.map((speaker, index) => (
+                        <FadeIn key={index} delay={150 + index * 50} className="w-full min-w-0">
+                            <Card className="h-auto w-full overflow-hidden rounded-md border bg-white shadow-[0_2px_8px_-2px_rgba(0,0,0,0.15)] transition-all duration-300 hover:scale-[1.02] sm:rounded-xl md:min-h-[240px] lg:min-h-[240px]">
+                                <CardContent className="p-1 text-center sm:p-4 md:p-4">
+                                    <div className="mb-0.5 sm:mb-3">
+                                        <img
+                                            src="/assets/profile.webp"
+                                            alt={speaker.name}
+                                            className="mx-auto h-6 w-6 rounded-full object-cover sm:h-12 sm:w-12 md:h-14 md:w-14 lg:h-14 lg:w-14"
+                                            loading="lazy"
+                                        />
+                                    </div>
+                                    <h3 className="font-instrument mb-0 text-[10px] leading-tight font-medium sm:mb-1 sm:text-sm md:text-sm lg:text-sm">
+                                        {speaker.name}
+                                    </h3>
+                                    <p className="mb-0.5 text-[9px] leading-tight font-medium text-[#0a1a5c] sm:mb-2 sm:text-xs md:text-sm lg:text-sm">
+                                        {speaker.title}
+                                    </p>
+                                    <p className="mb-1 hidden text-xs font-medium text-gray-700 sm:mb-2 sm:block md:text-xs lg:text-sm">
+                                        "{speaker.topic}"
+                                    </p>
+                                    <p className="text-muted-foreground hidden text-xs sm:block md:text-xs lg:text-sm">
+                                        {speaker.bio}
+                                    </p>
+                                </CardContent>
+                            </Card>
+                        </FadeIn>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
 };
 
 export default Speakers;

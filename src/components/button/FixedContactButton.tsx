@@ -1,0 +1,172 @@
+"use client";
+
+import { motion, useInView } from "framer-motion";
+import { IconMail, IconSend2 } from "@tabler/icons-react";
+import { useContactModalStore } from "@/lib/zustand/stores";
+import useWindowSize from "@/hooks/useWindowSize";
+import { useRef, useState, useEffect } from "react";
+import { useFooter } from "@/contexts/footer-context";
+import type { ContactFormRef } from "@/components/form/ContactForm";
+
+interface FixedContactButtonProps {
+    formRef: React.RefObject<ContactFormRef>;
+}
+
+export default function FixedContactButton({ formRef }: FixedContactButtonProps) {
+    const isModalOpen = useContactModalStore((state) => state.isModalOpen);
+    const toggleModal = useContactModalStore((state) => state.toggleModal);
+
+    const { width } = useWindowSize();
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const { footerRef } = useFooter();
+    const [isInitialLoad, setIsInitialLoad] = useState(true);
+
+    const isFooterInView = useInView(footerRef as React.RefObject<Element>, {
+        amount: 0.01,
+        margin: "0px 0px 320px 0px", // start hiding ~320px before footer enters
+    });
+
+    // Fallback: also hide when we're within N px of footer even if InView misses
+    const [isNearFooter, setIsNearFooter] = useState(false);
+    useEffect(() => {
+        const updateProximity = () => {
+            const el = footerRef?.current as HTMLElement | null;
+            if (!el) return;
+            const top = el.getBoundingClientRect().top;
+            const near = top - window.innerHeight < 340; // approx same as margin above
+            setIsNearFooter(near);
+        };
+        updateProximity();
+        window.addEventListener("scroll", updateProximity, { passive: true });
+        window.addEventListener("resize", updateProximity);
+        return () => {
+            window.removeEventListener("scroll", updateProximity);
+            window.removeEventListener("resize", updateProximity);
+        };
+    }, [footerRef]);
+
+    useEffect(() => {
+        const t = setTimeout(() => setIsInitialLoad(false), 3000);
+        return () => clearTimeout(t);
+    }, []);
+
+    const handleClick = () => {
+        if (isModalOpen && formRef.current) {
+            formRef.current.submit();
+        } else {
+            toggleModal();
+        }
+    };
+
+    // Avoid hydration mismatch by keeping icon size stable on SSR/initial render
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => setMounted(true), []);
+    const iconSize = mounted && width < 728 ? 20 : 30;
+
+    // Slideshow of logos inside the circle
+    const slideImages = [
+        "/assets/logos/Main_Circle.png",
+        "/assets/logos/Colombo_Circle.png",
+        "/assets/logos/Ella_Circle.png",
+        "/assets/logos/Galle_Circle.png",
+        "/assets/logos/Kandy_Circle.png",
+    ];
+    const [slideIndex, setSlideIndex] = useState(0);
+    useEffect(() => {
+        // Preload to avoid flashes
+        slideImages.forEach((src) => {
+            const img = new Image();
+            img.src = encodeURI(src);
+        });
+        const id = setInterval(() => {
+            setSlideIndex((i) => (i + 1) % slideImages.length);
+        }, 2500);
+        return () => clearInterval(id);
+    }, []);
+
+    return (
+        <motion.button
+            initial={{ y: 200, scale: 0.8, opacity: 0 }}
+            animate={
+                (isFooterInView || isNearFooter) && !isModalOpen
+                    ? { y: 160, scale: 0.85, opacity: 0 }
+                    : { y: 0, scale: 1, opacity: 1 }
+            }
+            transition={{
+                duration: 1,
+                ease: [0.22, 1, 0.36, 1],
+                delay: isInitialLoad ? 3 : 0,
+            }}
+            onClick={handleClick}
+            ref={buttonRef}
+            aria-hidden={(isFooterInView || isNearFooter) && !isModalOpen}
+            transformTemplate={(_, generated) => `translateX(-50%) ${generated}`}
+            className={`${
+                isModalOpen ? "bg-[#7B3F00]" : "bg-[rgba(238,228,215,0.5)] backdrop-blur-md"
+            } group fixed bottom-8 left-1/2 z-[10001] flex origin-center cursor-pointer items-center gap-2 rounded-full py-1 pr-4 pl-1 shadow-2xl transition-colors delay-100 duration-700 ease-in-out xl:gap-3 xl:pr-6 xl:pl-1.5`}
+            style={{ pointerEvents: (isFooterInView || isNearFooter) && !isModalOpen ? "none" : "auto" }}
+        >
+            <div className="relative h-12 w-12 rounded-full xl:h-16 xl:w-16">
+                <div
+                    className={`${
+                        isModalOpen ? "opacity-0" : ""
+                    } relative h-full w-full overflow-hidden rounded-full transition-all duration-200 ease-[cubic-bezier(0.64,0.57,0.67,1.53)] group-hover:scale-70 group-hover:opacity-0`}
+                >
+                    <img
+                        src={slideImages[slideIndex]}
+                        alt="contact-logo"
+                        className="absolute inset-0 h-full w-full origin-center animate-spin object-cover object-center will-change-transform [animation-duration:12s]"
+                        draggable={false}
+                        decoding="async"
+                    />
+                </div>
+
+                <span
+                    className={`${
+                        isModalOpen ? "opacity-0" : ""
+                    } absolute top-1/2 left-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 scale-0 items-center justify-center rounded-full bg-[#EEE4D7] transition-all duration-200 ease-[cubic-bezier(0.64,0.57,0.67,1.53)] group-hover:scale-100 xl:h-16 xl:w-16`}
+                >
+                    <IconMail className="text-[#7B3F00]" stroke={2.5} size={iconSize} />
+                </span>
+
+                <span
+                    className={`${
+                        isModalOpen ? "scale-100 opacity-100" : "scale-70 opacity-0"
+                    } absolute top-1/2 left-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-end overflow-hidden rounded-full bg-[#EEE4D7] transition-all delay-200 duration-200 ease-[cubic-bezier(0.64,0.57,0.67,1.53)] xl:h-16 xl:w-16`}
+                >
+                    <div className="flex transition-transform duration-200 ease-[cubic-bezier(0.64,0.57,0.67,1.53)] group-hover:translate-x-1/2">
+                        <div className="flex w-12 items-center justify-center xl:w-16">
+                            <IconSend2
+                                className="text-2xl text-[#7B3F00] xl:text-5xl"
+                                stroke={2.5}
+                                size={iconSize}
+                            />
+                        </div>
+                        <div className="flex w-12 items-center justify-center xl:w-16">
+                            <IconSend2
+                                className="text-2xl text-[#7B3F00] xl:text-5xl"
+                                stroke={2.5}
+                                size={iconSize}
+                            />
+                        </div>
+                    </div>
+                </span>
+            </div>
+
+            <div
+                className={`${
+                    isModalOpen ? "text-[#EEE4D7]" : "text-[#7B3F00]"
+                } h-7 overflow-hidden lg:h-9`}
+            >
+                <div className="flex flex-col transition-transform duration-200 ease-[cubic-bezier(0.64,0.57,0.67,1.53)] group-hover:-translate-y-1/2">
+                    <span className="text-xl font-semibold lg:text-3xl">
+                        {isModalOpen ? "Submit" : "Contact"}
+                    </span>
+                    <span className="text-xl font-semibold lg:text-3xl">
+                        {isModalOpen ? "Submit" : "Contact"}
+                    </span>
+                </div>
+            </div>
+        </motion.button>
+    );
+}
