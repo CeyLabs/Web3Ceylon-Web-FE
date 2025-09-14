@@ -76,18 +76,6 @@ const Partners: React.FC<PartnersProps> = ({ className }) => {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    // Colors for partner names
-    const nameColors = [
-        "text-blue-600",
-        "text-green-600",
-        "text-purple-600",
-        "text-red-600",
-        "text-orange-600",
-        "text-teal-600",
-        "text-pink-600",
-        "text-indigo-600",
-    ];
-
     // Organized & Sponsored logos
     const organizedBy: LogoItem = {
         name: "Ceylon Cash",
@@ -102,7 +90,6 @@ const Partners: React.FC<PartnersProps> = ({ className }) => {
     const communityPartners: LogoItem[] = [
         { name: "Colombo Crypto Club", src: "/assets/partners/svg/ccc.svg" },
         { name: "Crypto Cirqle", src: "/assets/partners/svg/cryptocirqle.svg" },
-        { name: "Crypto Kalliya", src: "/assets/partners/svg/cryptokalliya.svg" },
         { name: "Crypto Lanka", src: "/assets/partners/svg/cryptolanka.svg" },
         { name: "Crypto With Duni", src: "/assets/partners/svg/cryptowithduni.svg" },
         { name: "Digital Asset Lanka", src: "/assets/partners/svg/dal.svg" },
@@ -163,7 +150,7 @@ const Partners: React.FC<PartnersProps> = ({ className }) => {
                 <div className="grid gap-6 md:grid-cols-2">
                     <FadeIn>
                         <div className="rounded-3xl bg-white/30 p-8 backdrop-blur-3xl md:p-10">
-                            <p className="mb-6 text-center text-[11px] font-semibold tracking-[0.25em] text-gray-500">
+                            <p className="mb-6 text-center text-xs font-semibold tracking-[0.25em] text-gray-500 md:text-sm lg:text-base">
                                 ORGANIZED BY
                             </p>
                             <div className="mx-auto flex max-w-xs items-center justify-center">
@@ -173,7 +160,7 @@ const Partners: React.FC<PartnersProps> = ({ className }) => {
                     </FadeIn>
                     <FadeIn delay={80}>
                         <div className="rounded-3xl bg-white/30 p-8 backdrop-blur-3xl md:p-10">
-                            <p className="mb-6 text-center text-[11px] font-semibold tracking-[0.25em] text-gray-500">
+                            <p className="mb-6 text-center text-xs font-semibold tracking-[0.25em] text-gray-500 md:text-sm lg:text-base">
                                 SPONSORED BY
                             </p>
                             <div className="mx-auto flex max-w-xs items-center justify-center">
@@ -186,7 +173,7 @@ const Partners: React.FC<PartnersProps> = ({ className }) => {
                 {/* Community Partners Carousel */}
                 <FadeIn delay={140}>
                     <div className="mt-6 rounded-3xl bg-white/30 p-6 backdrop-blur-3xl md:mt-8 md:p-10">
-                        <p className="mb-6 text-center text-[11px] font-semibold tracking-[0.25em] text-gray-500">
+                        <p className="mb-6 text-center text-xs font-semibold tracking-[0.25em] text-gray-500 md:text-sm lg:text-base">
                             COMMUNITY PARTNERS
                         </p>
                         <div className="overflow-hidden">
@@ -211,9 +198,7 @@ const Partners: React.FC<PartnersProps> = ({ className }) => {
                                                     loading="lazy"
                                                 />
                                             </div>
-                                            <span
-                                                className={`font-primary max-w-[80px] text-center text-xs leading-tight sm:max-w-[100px] sm:text-sm ${nameColors[i % nameColors.length]}`}
-                                            >
+                                            <span className="font-secondary max-w-[80px] text-center text-xs leading-tight text-gray-800 sm:max-w-[100px] sm:text-sm">
                                                 {partner.name}
                                             </span>
                                         </div>
