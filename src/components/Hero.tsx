@@ -4,6 +4,7 @@ import FadeIn from "./animations/FadeIn";
 import { Sparkles } from "lucide-react";
 import CountdownTicker from "./CountdownTicker";
 import { Noise } from "@/components/ui/shadcn-io/noise";
+import LazyImage from "@/components/reusable/LazyImage";
 
 interface HeroProps {
     className?: string;
@@ -21,10 +22,12 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
         >
             {/* Background */}
             <div className="absolute inset-0 -z-10">
-                <img
+                <LazyImage
                     src="/assets/hero-cover.png"
                     alt="Sri Lanka landscape"
-                    className="h-full w-full object-cover object-left md:object-center"
+                    fill
+                    className="object-cover object-left md:object-center"
+                    wrapperClassName="h-full w-full"
                 />
                 {/* Sand beige fading from top */}
                 <div className="absolute top-0 right-0 left-0 h-1/2 bg-gradient-to-b from-[#F6F4D5] to-transparent md:h-1/3 md:from-[#F6F4D5]/60"></div>

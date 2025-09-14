@@ -2,6 +2,7 @@ import React from "react";
 import { cn } from "@/lib/utils";
 import FadeIn from "./animations/FadeIn";
 import { Card, CardContent } from "@/components/ui/card";
+import LazyImage from "@/components/reusable/LazyImage";
 
 interface SpeakersProps {
     className?: string;
@@ -76,11 +77,13 @@ const Speakers: React.FC<SpeakersProps> = ({ className }) => {
                             <Card className="h-auto w-full overflow-hidden rounded-md border bg-white shadow-[0_2px_8px_-2px_rgba(0,0,0,0.15)] transition-all duration-300 hover:scale-[1.02] sm:rounded-xl md:min-h-[240px] lg:min-h-[240px]">
                                 <CardContent className="p-1 text-center sm:p-4 md:p-4">
                                     <div className="mb-0.5 sm:mb-3">
-                                        <img
+                                        <LazyImage
                                             src="/assets/profile.webp"
                                             alt={speaker.name}
+                                            width={56}
+                                            height={56}
                                             className="mx-auto h-6 w-6 rounded-full object-cover sm:h-12 sm:w-12 md:h-14 md:w-14 lg:h-14 lg:w-14"
-                                            loading="lazy"
+                                            wrapperClassName="mx-auto h-6 w-6 sm:h-12 sm:w-12 md:h-14 md:w-14 lg:h-14 lg:w-14"
                                         />
                                     </div>
                                     <h3 className="font-instrument mb-0 text-[10px] leading-tight font-medium sm:mb-1 sm:text-sm md:text-sm lg:text-sm">

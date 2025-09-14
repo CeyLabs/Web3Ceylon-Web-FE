@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
+import LazyImage from "@/components/reusable/LazyImage";
 import { speakers, speakerGroupTitles, speakerGroupStyles } from "@/data/speakers";
 
 export interface ChromaItem {
@@ -195,11 +196,13 @@ const ChromaGrid: React.FC<ChromaGridProps> = ({
                         }}
                     />
                     <div className="relative z-10 box-border min-h-[151px] p-2 sm:min-h-[182px] sm:p-[10px] md:min-h-[211px] md:p-[12px]">
-                        <img
+                        <LazyImage
                             src="/assets/profile.webp"
                             alt={c.title}
-                            loading="lazy"
+                            width={200}
+                            height={200}
                             className="h-full w-full rounded-[10px] object-cover"
+                            wrapperClassName="h-full w-full"
                         />
                     </div>
                     <footer className="relative z-10 flex h-[60px] flex-col gap-0.5 overflow-hidden p-2 font-sans text-inherit sm:h-[71px] sm:p-3 md:h-[81px]">

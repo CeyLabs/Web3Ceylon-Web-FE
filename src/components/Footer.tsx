@@ -2,7 +2,7 @@
 
 import LiveClock from "@/components/ui-custom/LiveClock";
 import { ReactNode, useMemo } from "react";
-import Image from "next/image";
+import LazyImage from "@/components/reusable/LazyImage";
 import { useFooter } from "@/contexts/footer-context";
 import { socialLinks } from "@/data/socialLinks";
 import {
@@ -143,7 +143,7 @@ export default function Footer() {
                 </ul>
 
                 <div className="mt-6 flex w-full items-center justify-center">
-                    <Image
+                    <LazyImage
                         src="/Main-Logo.svg"
                         width={120}
                         height={48}

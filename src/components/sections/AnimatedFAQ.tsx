@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Plus, Minus } from "lucide-react";
-import Image from "next/image";
+import LazyImage from "@/components/reusable/LazyImage";
 
 interface FAQItem {
     id: string;
@@ -88,7 +88,7 @@ export default function AnimatedFAQ() {
                 {/* Header */}
                 <div className="mb-12 text-center">
                     <div className="mb-6 flex justify-center">
-                        <Image
+                        <LazyImage
                             src="/faq.webp"
                             alt="FAQ Mascot"
                             width={350}

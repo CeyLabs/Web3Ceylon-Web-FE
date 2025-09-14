@@ -7,6 +7,7 @@ import useWindowSize from "@/hooks/useWindowSize";
 import { useRef, useState, useEffect } from "react";
 import { useFooter } from "@/contexts/footer-context";
 import type { ContactFormRef } from "@/components/form/ContactForm";
+import LazyImage from "@/components/reusable/LazyImage";
 
 interface FixedContactButtonProps {
     formRef: React.RefObject<ContactFormRef>;
@@ -104,7 +105,9 @@ export default function FixedContactButton({ formRef }: FixedContactButtonProps)
             className={`${
                 isModalOpen ? "bg-[#7B3F00]" : "bg-[rgba(238,228,215,0.5)] backdrop-blur-md"
             } group fixed bottom-8 left-1/2 z-[10001] flex origin-center cursor-pointer items-center gap-2 rounded-full py-1 pr-4 pl-1 shadow-2xl transition-colors delay-100 duration-700 ease-in-out xl:gap-3 xl:pr-6 xl:pl-1.5`}
-            style={{ pointerEvents: (isFooterInView || isNearFooter) && !isModalOpen ? "none" : "auto" }}
+            style={{
+                pointerEvents: (isFooterInView || isNearFooter) && !isModalOpen ? "none" : "auto",
+            }}
         >
             <div className="relative h-12 w-12 rounded-full xl:h-16 xl:w-16">
                 <div
@@ -112,12 +115,13 @@ export default function FixedContactButton({ formRef }: FixedContactButtonProps)
                         isModalOpen ? "opacity-0" : ""
                     } relative h-full w-full overflow-hidden rounded-full transition-all duration-200 ease-[cubic-bezier(0.64,0.57,0.67,1.53)] group-hover:scale-70 group-hover:opacity-0`}
                 >
-                    <img
+                    <LazyImage
                         src={slideImages[slideIndex]}
                         alt="contact-logo"
-                        className="absolute inset-0 h-full w-full origin-center animate-spin object-cover object-center will-change-transform [animation-duration:12s]"
+                        fill
+                        className="origin-center animate-spin object-cover object-center will-change-transform [animation-duration:12s]"
+                        wrapperClassName="absolute inset-0 h-full w-full"
                         draggable={false}
-                        decoding="async"
                     />
                 </div>
 

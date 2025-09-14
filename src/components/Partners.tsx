@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import FadeIn from "./animations/FadeIn";
+import LazyImage from "@/components/reusable/LazyImage";
 
 interface LogoItem {
     name: string;
@@ -29,12 +30,13 @@ const LogoCard: React.FC<{ item: LogoItem; size?: "sm" | "md" | "lg"; noBorder?:
             )}
         >
             {item.src ? (
-                <img
-                    src={item.src}
+                <LazyImage
+                    src={item.src!}
                     alt={item.name}
+                    width={160}
+                    height={64}
                     className={cn("object-contain", sizes[size], item.className)}
-                    loading="lazy"
-                    decoding="async"
+                    wrapperClassName={cn("object-contain", sizes[size], item.className)}
                 />
             ) : (
                 <span
@@ -191,11 +193,13 @@ const Partners: React.FC<PartnersProps> = ({ className }) => {
                                             className="flex w-1/3 flex-shrink-0 flex-col items-center gap-2 px-2 sm:w-1/3 md:w-1/4 lg:w-1/6"
                                         >
                                             <div className="flex h-16 w-16 items-center justify-center sm:h-20 sm:w-20 md:h-24 md:w-24">
-                                                <img
-                                                    src={partner.src}
+                                                <LazyImage
+                                                    src={partner.src!}
                                                     alt={partner.name}
+                                                    width={80}
+                                                    height={80}
                                                     className="h-12 w-12 object-contain sm:h-16 sm:w-16 md:h-20 md:w-20"
-                                                    loading="lazy"
+                                                    wrapperClassName="h-12 w-12 sm:h-16 sm:w-16 md:h-20 md:w-20"
                                                 />
                                             </div>
                                             <span className="font-secondary max-w-[80px] text-center text-xs leading-tight text-gray-800 sm:max-w-[100px] sm:text-sm">
