@@ -95,10 +95,10 @@ const Partners: React.FC<PartnersProps> = ({ className }) => {
         { name: "Digital Asset Lanka", src: "/assets/partners/svg/dal.svg" },
         { name: "FounderFlow", src: "/assets/partners/svg/founderflow.svg" },
         { name: "GDG Sri Lanka", src: "/assets/partners/svg/gdgsrilanka.svg" },
-        { name: "Solana Sri Lanka", src: "/assets/partners/svg/solanasl.svg" },
-        { name: "Spike", src: "/assets/partners/svg/spike.svg" },
-        { name: "TechNews LK", src: "/assets/partners/svg/technewslk.svg" },
-        { name: "TON Connect", src: "/assets/partners/svg/tonconnect.svg" },
+        { name: "Solana Sri Lanka Community", src: "/assets/partners/svg/solanasl.svg" },
+        { name: "Spike Community", src: "/assets/partners/svg/spike.svg" },
+        { name: "TechNews.LK", src: "/assets/partners/svg/technewslk.svg" },
+        { name: "Telegram Creators", src: "/assets/partners/svg/tonconnect.svg" },
         { name: "TON Sri Lanka", src: "/assets/partners/svg/tonsl.svg" },
     ];
 
