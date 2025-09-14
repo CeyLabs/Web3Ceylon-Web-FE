@@ -1,13 +1,20 @@
 import type { Metadata } from "next";
-
-const siteUrl = "https://web3ceylon.com/";
-const title = "Web3Ceylon 2025 - Sri Lanka's Largest Web3 Developer & Community Tour";
-const description =
-    "Join Web3Ceylon 2025, a four-city educational tour across Colombo, Kandy, Galle & Ella. Learn blockchain development, crypto essentials, NFT creation & connect with Sri Lanka's Web3 community. Powered by Ceylon Cash × Bybit.";
+import {
+    DESCRIPTION,
+    OG_IMAGE,
+    SITE_NAME,
+    SITE_URL,
+    ORGANIZATION_NAME,
+    ORGANIZATION_URL,
+} from "@/lib/seo";
 
 export const metadata: Metadata = {
-    title,
-    description,
+    metadataBase: new URL(SITE_URL),
+    title: {
+        default: SITE_NAME,
+        template: `%s | Web3Ceylon`,
+    },
+    description: DESCRIPTION,
     keywords: [
         "Web3Ceylon",
         "blockchain Sri Lanka",
@@ -19,22 +26,33 @@ export const metadata: Metadata = {
         "Colombo tech events",
         "blockchain workshops",
     ],
-    authors: [{ name: "Web3Ceylon" }],
+    authors: [{ name: ORGANIZATION_NAME, url: ORGANIZATION_URL }],
+    creator: ORGANIZATION_NAME,
+    publisher: ORGANIZATION_NAME,
     robots: { index: true, follow: true },
-    alternates: { canonical: siteUrl },
+    alternates: { canonical: SITE_URL },
+    icons: {
+        icon: "/favicon.ico",
+    },
     openGraph: {
         type: "website",
-        url: siteUrl,
-        title,
-        description:
-            "Join Sri Lanka's premier Web3 education tour across 4 cities. Learn blockchain, crypto, and NFTs with industry experts. Free registration now open!",
-        images: [{ url: "/og-image.png" }],
+        url: SITE_URL,
+        siteName: SITE_NAME,
+        title: SITE_NAME,
+        description: DESCRIPTION,
+        images: [
+            {
+                url: OG_IMAGE,
+                width: 1200,
+                height: 630,
+                alt: SITE_NAME,
+            },
+        ],
     },
     twitter: {
         card: "summary_large_image",
-        title,
-        description:
-            "Join Sri Lanka's premier Web3 education tour across 4 cities. Learn blockchain, crypto, and NFTs with industry experts. Free registration now open!",
-        images: ["/og-image.png"],
+        title: SITE_NAME,
+        description: DESCRIPTION,
+        images: [OG_IMAGE],
     },
 };
