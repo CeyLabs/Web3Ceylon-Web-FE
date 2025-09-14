@@ -137,10 +137,10 @@ const Intro: React.FC<IntroProps> = ({ className }) => {
                                     >
                                         🏙️
                                     </span>
-                                    <h3 className="font-carena xs:text-sm relative mb-1 text-sm font-semibold tracking-tight text-[#0a1a5c] sm:text-lg">
+                                    <h3 className="font-carena relative mb-1 text-sm font-semibold tracking-tight text-[#0a1a5c] sm:text-lg">
                                         4 Cities
                                     </h3>
-                                    <p className="font-secondary xs:text-[9px] relative text-[9px] leading-snug text-[#0a1a5c]/70 sm:text-xs">
+                                    <p className="font-secondary relative text-xs leading-snug text-[#0a1a5c]/70 sm:text-sm">
                                         Colombo, Kandy, Galle, Ella
                                     </p>
                                 </div>
@@ -157,10 +157,10 @@ const Intro: React.FC<IntroProps> = ({ className }) => {
                                     >
                                         👥
                                     </span>
-                                    <h3 className="font-carena xs:text-sm relative mb-1 text-sm font-semibold tracking-tight text-[#0a1a5c] sm:text-lg">
+                                    <h3 className="font-carena relative mb-1 text-sm font-semibold tracking-tight text-[#0a1a5c] sm:text-lg">
                                         Community First
                                     </h3>
-                                    <p className="font-secondary xs:text-[9px] relative text-[9px] leading-snug text-[#0a1a5c]/70 sm:text-xs">
+                                    <p className="font-secondary relative text-xs leading-snug text-[#0a1a5c]/70 sm:text-sm">
                                         Developers, creators, entrepreneurs
                                     </p>
                                 </div>
@@ -177,10 +177,10 @@ const Intro: React.FC<IntroProps> = ({ className }) => {
                                     >
                                         🚀
                                     </span>
-                                    <h3 className="font-carena xs:text-sm relative mb-1 text-sm font-semibold tracking-tight text-[#0a1a5c] sm:text-lg">
+                                    <h3 className="font-carena relative mb-1 text-sm font-semibold tracking-tight text-[#0a1a5c] sm:text-lg">
                                         Web3 Future
                                     </h3>
-                                    <p className="font-secondary xs:text-[9px] relative text-[9px] leading-snug text-[#0a1a5c]/70 sm:text-xs">
+                                    <p className="font-secondary relative text-xs leading-snug text-[#0a1a5c]/70 sm:text-sm">
                                         Blockchain innovation & education
                                     </p>
                                 </div>
