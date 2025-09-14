@@ -102,7 +102,6 @@ const Partners: React.FC<PartnersProps> = ({ className }) => {
     const communityPartners: LogoItem[] = [
         { name: "Colombo Crypto Club", src: "/assets/partners/svg/ccc.svg" },
         { name: "Crypto Cirqle", src: "/assets/partners/svg/cryptocirqle.svg" },
-        { name: "Crypto Kalliya", src: "/assets/partners/svg/cryptokalliya.svg" },
         { name: "Crypto Lanka", src: "/assets/partners/svg/cryptolanka.svg" },
         { name: "Crypto With Duni", src: "/assets/partners/svg/cryptowithduni.svg" },
         { name: "Digital Asset Lanka", src: "/assets/partners/svg/dal.svg" },
