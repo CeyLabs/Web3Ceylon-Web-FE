@@ -1,15 +1,21 @@
 "use client";
 
 import LiveClock from "@/components/ui-custom/LiveClock";
-import { useMemo } from "react";
+import { ReactNode, useMemo } from "react";
 import Image from "next/image";
 import { useFooter } from "@/contexts/footer-context";
 import { socialLinks } from "@/data/socialLinks";
-import { SITE_URL } from "@/lib/seo";
+import {
+    IconBrandFacebook,
+    IconBrandInstagram,
+    IconBrandWhatsapp,
+    IconBrandX,
+    IconMail,
+} from "@tabler/icons-react";
 import { ArrowUpRight } from "lucide-react";
 import { useContactModalStore } from "@/lib/zustand/stores";
 
-type Item = { label: string; href: string; display: string };
+type Item = { label: string; href: string; display: string; icon: ReactNode };
 
 function displayUrl(url: string) {
     try {
@@ -29,7 +35,14 @@ export default function Footer() {
 
     const items: Item[] = useMemo(() => {
         const email = "hello@web3ceylon.com";
-        const website = SITE_URL;
+        const icons: Record<string, ReactNode> = {
+            Email: <IconMail className="h-5 w-5 text-[#EA4335]" />,
+            WhatsApp: <IconBrandWhatsapp className="h-5 w-5 text-[#25D366]" />,
+            Instagram: <IconBrandInstagram className="h-5 w-5 text-[#E4405F]" />,
+            Facebook: <IconBrandFacebook className="h-5 w-5 text-[#1877F2]" />,
+            X: <IconBrandX className="h-5 w-5 text-black" />,
+        };
+
         const socials = socialLinks.map((s) => {
             const href = s.url;
             const lower = href.toLowerCase();
@@ -37,10 +50,23 @@ export default function Footer() {
             // Only show username handle for Facebook and WhatsApp
             if (lower.includes("facebook")) display = "@web3ceylon";
             if (lower.includes("whatsapp")) display = "@web3ceylon";
-            return { label: s.title, href, display } as Item;
+            return {
+                label: s.title,
+                href,
+                display,
+                icon: icons[s.title as keyof typeof icons],
+            } as Item;
         });
 
-        return [{ label: "Email", href: `mailto:${email}`, display: email }, ...socials];
+        return [
+            {
+                label: "Email",
+                href: `mailto:${email}`,
+                display: email,
+                icon: icons.Email,
+            },
+            ...socials,
+        ];
     }, []);
 
     return (
@@ -79,7 +105,8 @@ export default function Footer() {
                                     className="font-secondary flex w-full items-center justify-between rounded-2xl px-5 py-4 text-left font-normal transition-colors hover:bg-white/40 focus:bg-white/40"
                                     aria-label={`${item.label}: ${item.display}`}
                                 >
-                                    <span className="text-[15px] text-[#3b3b3b] sm:text-[16px]">
+                                    <span className="flex items-center gap-2 text-[15px] text-[#3b3b3b] sm:text-[16px]">
+                                        {item.icon}
                                         {item.label}
                                     </span>
                                     <span className="flex items-center justify-end gap-2 text-[15px] font-medium text-[#4a4a4a] sm:text-[16px]">
@@ -102,7 +129,8 @@ export default function Footer() {
                                     className="font-secondary flex w-full items-center justify-between rounded-2xl px-5 py-4 text-left font-normal transition-colors hover:bg-white/40 focus:bg-white/40"
                                     aria-label={`${item.label}: ${item.display}`}
                                 >
-                                    <span className="text-[15px] text-[#3b3b3b] sm:text-[16px]">
+                                    <span className="flex items-center gap-2 text-[15px] text-[#3b3b3b] sm:text-[16px]">
+                                        {item.icon}
                                         {item.label}
                                     </span>
                                     <span className="text-[15px] font-medium text-[#4a4a4a] sm:text-[16px]">
