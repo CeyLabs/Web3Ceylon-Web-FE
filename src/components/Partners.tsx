@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import FadeIn from "./animations/FadeIn";
@@ -51,42 +51,51 @@ const LogoCard: React.FC<{ item: LogoItem; size?: "sm" | "md" | "lg"; noBorder?:
 };
 
 const Partners: React.FC<PartnersProps> = ({ className }) => {
-    const [currentIndex, setCurrentIndex] = useState(0);
+    // References for community partners carousel
+    const carouselRef = useRef<HTMLDivElement>(null);
+    const isDragging = useRef(false);
+    const startX = useRef(0);
+    const scrollStart = useRef(0);
 
-    // Responsive items per view
-    const getItemsPerView = () => {
-        if (typeof window !== "undefined") {
-            if (window.innerWidth < 640) return 3; // Mobile: 3 items
-            if (window.innerWidth < 768) return 3; // Small tablet: 3 items
-            if (window.innerWidth < 1024) return 4; // Tablet: 4 items
-            return 6; // Desktop: 6 items
-        }
-        return 3; // Default fallback
-    };
-
-    const [itemsPerView, setItemsPerView] = useState(getItemsPerView());
-
-    // Handle responsive items per view
+    // Continuous auto scroll
     useEffect(() => {
-        const handleResize = () => {
-            setItemsPerView(getItemsPerView());
+        const el = carouselRef.current;
+        if (!el) return;
+        let frame: number;
+        const step = () => {
+            if (!isDragging.current) {
+                el.scrollLeft += 1;
+                if (el.scrollLeft >= el.scrollWidth / 2) {
+                    el.scrollLeft = 0;
+                }
+            }
+            frame = requestAnimationFrame(step);
         };
-
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
+        frame = requestAnimationFrame(step);
+        return () => cancelAnimationFrame(frame);
     }, []);
 
-    // Colors for partner names
-    const nameColors = [
-        "text-blue-600",
-        "text-green-600",
-        "text-purple-600",
-        "text-red-600",
-        "text-orange-600",
-        "text-teal-600",
-        "text-pink-600",
-        "text-indigo-600",
-    ];
+    // Drag handlers for mouse and touch
+    const startDrag = (clientX: number) => {
+        const el = carouselRef.current;
+        if (!el) return;
+        isDragging.current = true;
+        startX.current = clientX;
+        scrollStart.current = el.scrollLeft;
+        el.classList.add("cursor-grabbing");
+    };
+    const duringDrag = (clientX: number) => {
+        const el = carouselRef.current;
+        if (!el || !isDragging.current) return;
+        const walk = clientX - startX.current;
+        el.scrollLeft = scrollStart.current - walk;
+    };
+    const endDrag = () => {
+        const el = carouselRef.current;
+        if (!el) return;
+        isDragging.current = false;
+        el.classList.remove("cursor-grabbing");
+    };
 
     // Organized & Sponsored logos
     const organizedBy: LogoItem = {
@@ -107,23 +116,12 @@ const Partners: React.FC<PartnersProps> = ({ className }) => {
         { name: "Digital Asset Lanka", src: "/assets/partners/svg/dal.svg" },
         { name: "FounderFlow", src: "/assets/partners/svg/founderflow.svg" },
         { name: "GDG Sri Lanka", src: "/assets/partners/svg/gdgsrilanka.svg" },
-        { name: "Solana Sri Lanka", src: "/assets/partners/svg/solanasl.svg" },
-        { name: "Spike", src: "/assets/partners/svg/spike.svg" },
-        { name: "TechNews LK", src: "/assets/partners/svg/technewslk.svg" },
-        { name: "TON Connect", src: "/assets/partners/svg/tonconnect.svg" },
+        { name: "Solana Sri Lanka Community", src: "/assets/partners/svg/solanasl.svg" },
+        { name: "Spike Community", src: "/assets/partners/svg/spike.svg" },
+        { name: "TechNews.LK", src: "/assets/partners/svg/technewslk.svg" },
+        { name: "Telegram Creators", src: "/assets/partners/svg/tonconnect.svg" },
         { name: "TON Sri Lanka", src: "/assets/partners/svg/tonsl.svg" },
     ];
-
-    // Auto-slide every 3 seconds
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentIndex((prevIndex) =>
-                prevIndex >= communityPartners.length ? 0 : prevIndex + 1
-            );
-        }, 3000);
-
-        return () => clearInterval(interval);
-    }, [communityPartners.length]);
 
     return (
         <section id="partners" className={cn("bg-background py-24", className)}>
@@ -188,36 +186,36 @@ const Partners: React.FC<PartnersProps> = ({ className }) => {
                         <p className="mb-6 text-center text-xs font-semibold tracking-[0.25em] text-gray-500 md:text-sm lg:text-base">
                             COMMUNITY PARTNERS
                         </p>
-                        <div className="overflow-hidden">
-                            <div
-                                className="flex transition-transform duration-1000 ease-in-out"
-                                style={{
-                                    transform: `translateX(-${currentIndex * (100 / itemsPerView)}%)`,
-                                }}
-                            >
-                                {communityPartners
-                                    .concat(communityPartners.slice(0, itemsPerView))
-                                    .map((partner, i) => (
-                                        <div
-                                            key={`${partner.name}-${i}`}
-                                            className="flex w-1/3 flex-shrink-0 flex-col items-center gap-2 px-2 sm:w-1/3 md:w-1/4 lg:w-1/6"
-                                        >
-                                            <div className="flex h-16 w-16 items-center justify-center sm:h-20 sm:w-20 md:h-24 md:w-24">
-                                                <img
-                                                    src={partner.src}
-                                                    alt={partner.name}
-                                                    className="h-12 w-12 object-contain sm:h-16 sm:w-16 md:h-20 md:w-20"
-                                                    loading="lazy"
-                                                />
-                                            </div>
-                                            <span
-                                                className={`font-primary max-w-[80px] text-center text-xs leading-tight sm:max-w-[100px] sm:text-sm ${nameColors[i % nameColors.length]}`}
-                                            >
-                                                {partner.name}
-                                            </span>
-                                        </div>
-                                    ))}
-                            </div>
+                        <div
+                            ref={carouselRef}
+                            className="flex cursor-grab select-none overflow-hidden"
+                            onMouseDown={(e) => startDrag(e.pageX)}
+                            onMouseMove={(e) => duringDrag(e.pageX)}
+                            onMouseUp={endDrag}
+                            onMouseLeave={endDrag}
+                            onTouchStart={(e) => startDrag(e.touches[0].pageX)}
+                            onTouchMove={(e) => duringDrag(e.touches[0].pageX)}
+                            onTouchEnd={endDrag}
+                        >
+                            {communityPartners.concat(communityPartners).map((partner, i) => (
+                                <div
+                                    key={`${partner.name}-${i}`}
+                                    className="flex w-1/3 flex-shrink-0 flex-col items-center gap-2 px-2 sm:w-1/3 md:w-1/4 lg:w-1/6"
+                                >
+                                    <div className="flex h-16 w-16 items-center justify-center sm:h-20 sm:w-20 md:h-24 md:w-24">
+                                        <img
+                                            src={partner.src}
+                                            alt={partner.name}
+                                            className="h-12 w-12 object-contain sm:h-16 sm:w-16 md:h-20 md:w-20"
+                                            loading="lazy"
+                                            style={{ clipPath: "circle(calc(50% - 5px))" }}
+                                        />
+                                    </div>
+                                    <span className="font-secondary max-w-[80px] text-center text-xs leading-tight text-gray-800 sm:max-w-[100px] sm:text-sm">
+                                        {partner.name}
+                                    </span>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </FadeIn>
