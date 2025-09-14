@@ -203,19 +203,19 @@ const ChromaGrid: React.FC<ChromaGridProps> = ({
                         />
                     </div>
                     <footer className="relative z-10 flex h-[60px] flex-col gap-0.5 overflow-hidden p-2 font-sans text-inherit sm:h-[71px] sm:p-3 md:h-[81px]">
-                        <h3 className="m-0 text-[0.85rem] leading-tight font-semibold sm:text-[1.05rem]">
+                        <h3 className="m-0 text-sm leading-tight font-semibold sm:text-base">
                             {c.title}
                         </h3>
                         {c.handle && (
-                            <span className="text-[0.75rem] leading-tight opacity-80 sm:text-right sm:text-[0.95rem]">
+                            <span className="text-xs leading-tight opacity-80 sm:text-right sm:text-base">
                                 {c.handle}
                             </span>
                         )}
-                        <p className="m-0 text-[0.75rem] leading-tight opacity-85 sm:text-[0.9rem]">
+                        <p className="m-0 text-xs leading-tight opacity-85 sm:text-sm">
                             {c.subtitle}
                         </p>
                         {c.location && (
-                            <span className="text-[0.7rem] leading-tight opacity-85 sm:text-right sm:text-[0.85rem]">
+                            <span className="text-xs leading-tight opacity-85 sm:text-right sm:text-sm">
                                 {c.location}
                             </span>
                         )}
