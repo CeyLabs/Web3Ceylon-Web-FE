@@ -65,7 +65,7 @@ const Cities: React.FC<CitiesProps> = ({ className }) => {
     return (
         <section id="cities" className={cn("bg-sandBeige overflow-hidden px-4 py-16", className)}>
             <div className="mx-auto mb-12 max-w-3xl text-center">
-                <h2 className="font-carena text-[clamp(28px,4vw,48px)] font-semibold tracking-tight text-[#0a1a5c]">
+                <h2 className="font-carena text-3xl font-semibold tracking-tight text-[#0a1a5c] md:text-5xl">
                     Cities
                 </h2>
                 <p className="font-secondary mt-3 text-[clamp(14px,1.5vw,18px)] font-medium text-[#667085]">
@@ -134,7 +134,7 @@ const Cities: React.FC<CitiesProps> = ({ className }) => {
                                             {c.city} – {c.group}
                                         </p>
                                         <h3
-                                            className="font-carena text-[clamp(20px,4vw,36px)] leading-tight font-semibold tracking-tight"
+                                            className="font-carena text-xl leading-tight font-semibold tracking-tight md:text-3xl"
                                             style={headingStyle}
                                         >
                                             {c.headline}
@@ -147,7 +147,7 @@ const Cities: React.FC<CitiesProps> = ({ className }) => {
                                         </p>
                                     </div>
                                     <p
-                                        className="font-carena text-[clamp(16px,2.2vw,24px)] leading-none font-semibold whitespace-nowrap"
+                                        className="font-carena text-base leading-none font-semibold whitespace-nowrap md:text-xl"
                                         style={dayStyle}
                                     >
                                         (Day {String(index + 1).padStart(2, "0")})
@@ -155,17 +155,17 @@ const Cities: React.FC<CitiesProps> = ({ className }) => {
                                 </div>
                                 <div className="flex flex-col-reverse items-start justify-between lg:flex-row">
                                     <div className="flex w-full flex-col gap-6 lg:w-6/12 lg:gap-8">
-                                        <p className="text-[clamp(18px,2vw,40px)] leading-tight font-semibold">
+                                        <p className="text-sm leading-tight font-semibold md:text-2xl">
                                             {cityDescriptions[c.id]}
                                         </p>
-                                        <p className="font-secondary text-[clamp(14px,1.8vw,20px)] font-medium">
+                                        <p className="font-secondary text-xs font-medium md:text-base">
                                             {c.subtitle}
                                         </p>
                                         <ul className="flex flex-wrap gap-2 lg:w-10/12 2xl:gap-3">
                                             {c.tags.map((t) => (
                                                 <li
                                                     key={`${c.id}-${t}`}
-                                                    className="font-secondary rounded-full bg-white/70 px-4 py-1.5 text-[clamp(11px,1.1vw,15px)] font-medium"
+                                                    className="font-secondary rounded-full bg-white/70 px-4 py-1.5 text-xs font-medium"
                                                 >
                                                     {t}
                                                 </li>
@@ -209,7 +209,7 @@ const Cities: React.FC<CitiesProps> = ({ className }) => {
                                             src={c.imageUrl}
                                             alt={`${c.city} stamp`}
                                             fill
-                                            className="pointer-events-none object-contain object-center drop-shadow-md select-none"
+                                            className="pointer-events-none object-contain object-center select-none"
                                         />
                                     </div>
                                 </div>
