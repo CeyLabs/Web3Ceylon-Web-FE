@@ -6,6 +6,7 @@ import { SiteLoaderProvider } from "@/app/site-loader-provider";
 import JsonLd from "@/components/seo/JsonLd";
 import { EVENT_JSONLD } from "@/lib/seo";
 import DynamicFavicon from "@/components/DynamicFavicon";
+import LazyImage from "@/components/reusable/LazyImage";
 
 export default function RootLayout({
     children,
@@ -35,9 +36,11 @@ export default function RootLayout({
                         justifyContent: "center",
                     }}
                 >
-                    <img
+                    <LazyImage
                         src="/Main-Logo.svg"
                         alt="Site logo"
+                        width={96}
+                        height={96}
                         style={{ height: "min(96px, 12vh)", width: "auto" }}
                         draggable={false}
                     />

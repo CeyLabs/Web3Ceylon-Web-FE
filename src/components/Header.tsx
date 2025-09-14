@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import LazyImage from "@/components/reusable/LazyImage";
 
 interface HeaderProps {
     className?: string;
@@ -59,12 +60,14 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
                 aria-label="Main"
             >
                 <Link href="/" className="flex items-center gap-2">
-                    <img
+                    <LazyImage
                         src="/Main-Logo.svg"
                         alt="Web3Ceylon Logo"
+                        width={112}
+                        height={40}
                         className="h-10 w-28 min-w-[112px] object-contain"
-                        loading="eager"
-                        decoding="async"
+                        wrapperClassName="h-10 w-28 min-w-[112px]"
+                        priority
                     />
                 </Link>
 
@@ -109,12 +112,14 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
                 data-header="floating"
             >
                 <Link href="/">
-                    <img
+                    <LazyImage
                         src="/Main-Logo.svg"
                         alt="Web3Ceylon Logo"
+                        width={96}
+                        height={32}
                         className="h-8 w-24 min-w-[96px] object-contain"
-                        loading="eager"
-                        decoding="async"
+                        wrapperClassName="h-8 w-24 min-w-[96px]"
+                        priority
                     />
                 </Link>
                 <div className="relative" ref={mobileMenuRef}>

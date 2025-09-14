@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { cityEvents, type CityEvent } from "@/lib/events";
+import LazyImage from "@/components/reusable/LazyImage";
 
 type TickerProps = {
     intervalMs?: number; // how fast to cycle
@@ -206,12 +207,13 @@ const CountdownTicker: React.FC<TickerProps> = ({
                         className={`min-w-0 flex-1 truncate font-medium whitespace-nowrap ${variant === "inflow" ? "text-sm sm:text-base md:text-lg" : "text-xs sm:text-sm md:text-base"}`}
                     >
                         {event.image ? (
-                            <img
+                            <LazyImage
                                 src={event.image}
                                 alt={`${event.city} icon`}
-                                className={`mr-2 inline-block rounded-md border border-white/30 object-cover align-middle ${variant === "inflow" ? "size-8 sm:size-9" : "size-6 sm:size-7"}`}
-                                loading="lazy"
-                                decoding="async"
+                                width={64}
+                                height={64}
+                                className="object-cover align-middle"
+                                wrapperClassName={`mr-2 inline-block rounded-md border border-white/30 ${variant === "inflow" ? "size-8 sm:size-9" : "size-6 sm:size-7"}`}
                             />
                         ) : null}
                         <span className="mr-1 align-middle opacity-80 sm:mr-2">{event.city}</span>

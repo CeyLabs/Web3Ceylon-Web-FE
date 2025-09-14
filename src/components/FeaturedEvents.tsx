@@ -1,5 +1,6 @@
 import React, { useMemo, useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import LazyImage from "@/components/reusable/LazyImage";
 
 type Project = {
     id: string;
@@ -88,10 +89,12 @@ const FeaturedEvents: React.FC = () => {
                         >
                             <div className="relative mb-6 aspect-[3/4] overflow-hidden rounded-3xl">
                                 <div className={`absolute inset-0 ${project.color} opacity-80`} />
-                                <img
+                                <LazyImage
                                     src={project.image}
                                     alt={project.title}
-                                    className="h-full w-full object-cover mix-blend-overlay transition-transform duration-700 group-hover:scale-105"
+                                    fill
+                                    className="object-cover mix-blend-overlay transition-transform duration-700 group-hover:scale-105"
+                                    wrapperClassName="h-full w-full"
                                 />
                                 <div className="absolute right-8 bottom-8 left-8">
                                     <h3 className="font-primary mb-2 text-2xl font-bold text-white">

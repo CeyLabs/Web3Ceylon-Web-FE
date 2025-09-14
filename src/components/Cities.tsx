@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "next/image";
+import LazyImage from "@/components/reusable/LazyImage";
 import { cn } from "@/lib/utils";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -205,11 +205,12 @@ const Cities: React.FC<CitiesProps> = ({ className }) => {
                                         </div>
                                     </div>
                                     <div className="relative mb-4 h-[250px] w-full overflow-hidden rounded-lg lg:mb-0 lg:h-[clamp(350px,25vw,600px)] lg:w-5/12 lg:rounded-2xl">
-                                        <Image
+                                        <LazyImage
                                             src={c.imageUrl}
                                             alt={`${c.city} stamp`}
                                             fill
                                             className="pointer-events-none object-contain object-center drop-shadow-md select-none"
+                                            wrapperClassName="h-full w-full"
                                         />
                                     </div>
                                 </div>
