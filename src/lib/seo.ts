@@ -11,8 +11,8 @@ export const EVENT_JSONLD = {
     "@type": "Event",
     name: "Web3Ceylon 2025",
     description: DESCRIPTION,
-    startDate: "2025-01-01T00:00:00+05:30",
-    endDate: "2025-12-31T23:59:59+05:30",
+    startDate: "2025-09-20T00:00:00+05:30",
+    endDate: "2025-10-12T23:59:59+05:30",
     location: {
         "@type": "Place",
         name: "Sri Lanka",
