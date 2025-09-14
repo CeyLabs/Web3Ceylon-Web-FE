@@ -5,36 +5,44 @@ This is our standard Next.js project structure and setup guidelines. Follow thes
 ## Setup Guidelines
 
 1. **Project Structure**:
-
     - Only keep Next.js routing files in the `app` directory
     - Implement dynamic imports for code splitting
     - Create custom components in `components/`
 
 2. **Styling**:
-
     - Use [Tailwind CSS](https://tailwindcss.com/) for styling
     - Use [ShadCn UI components](https://ui.shadcn.com/)
+    - Restrict typography to the predefined font-size tokens (`xs`, `sm`, `base`, `lg`, `xl`) defined in `tailwind.config.ts`
 
 3. **Performance Optimization**:
-
     - Dynamically import components to improve performance through lazy loading
     - Use server-side rendering when possible for better performance
     - Use Next.js Image component for optimized images
     - Always use `fetchy`, a fetch wrapper function from [@/lib/fetchy](https://github.com/CeyLabs/Next-ShadCN-Template/blob/rr/add-fetch-wrapper/src/lib/fetchy.ts), for making HTTP requests
 
 4. **Forms and Validation**:
-
     - Use [React Hook Form](https://www.react-hook-form.com/) for form handling
     - Use [Zod](https://zod.dev/) for form validations
 
 5. **State Management**:
-
     - Use [Zustand](https://github.com/pmndrs/zustand) for global state management
     - Utilize [TanStack Query](https://tanstack.com/query/latest) for server state management
 
 6. **Environment Variables**:
     - Use `.env.local` for local environment variables
     - Never commit `.env.local` to version control
+
+## Font Size Scale
+
+To maintain typographic consistency, use the limited font-size scale below:
+
+| Token | rem      | px   |
+| ----- | -------- | ---- |
+| xs    | 0.75rem  | 12px |
+| sm    | 0.875rem | 14px |
+| base  | 1rem     | 16px |
+| lg    | 1.125rem | 18px |
+| xl    | 1.25rem  | 20px |
 
 ## Getting Started
 
@@ -54,18 +62,18 @@ bun run build
 
 ## Use conventional commit messages:
 
--   `feat`: for new features
--   `fix`: for bug fixes
--   `docs`: for documentation changes
--   `style`: for formatting changes
--   `refactor`: for code refactoring
--   `test`: for adding or modifying tests
--   `chore`: for maintenance tasks
+- `feat`: for new features
+- `fix`: for bug fixes
+- `docs`: for documentation changes
+- `style`: for formatting changes
+- `refactor`: for code refactoring
+- `test`: for adding or modifying tests
+- `chore`: for maintenance tasks
 
 ## Create Pull Requests:
 
--   Create a new branch for each feature or fix
--   Submit a pull request for review before merging to the main branch
+- Create a new branch for each feature or fix
+- Submit a pull request for review before merging to the main branch
 
 ## Project Structure
 
