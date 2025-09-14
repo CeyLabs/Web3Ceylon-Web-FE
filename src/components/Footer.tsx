@@ -79,10 +79,10 @@ export default function Footer() {
                                     className="font-secondary flex w-full items-center justify-between rounded-2xl px-5 py-4 text-left font-normal transition-colors hover:bg-white/40 focus:bg-white/40"
                                     aria-label={`${item.label}: ${item.display}`}
                                 >
-                                    <span className="text-[15px] text-[#3b3b3b] sm:text-[16px]">
+                                    <span className="text-sm text-[#3b3b3b] sm:text-base">
                                         {item.label}
                                     </span>
-                                    <span className="flex items-center justify-end gap-2 text-[15px] font-medium text-[#4a4a4a] sm:text-[16px]">
+                                    <span className="flex items-center justify-end gap-2 text-sm font-medium text-[#4a4a4a] sm:text-base">
                                         {item.display}
                                         <ArrowUpRight
                                             className="inline-block h-4 w-4"
@@ -102,10 +102,10 @@ export default function Footer() {
                                     className="font-secondary flex w-full items-center justify-between rounded-2xl px-5 py-4 text-left font-normal transition-colors hover:bg-white/40 focus:bg-white/40"
                                     aria-label={`${item.label}: ${item.display}`}
                                 >
-                                    <span className="text-[15px] text-[#3b3b3b] sm:text-[16px]">
+                                    <span className="text-sm text-[#3b3b3b] sm:text-base">
                                         {item.label}
                                     </span>
-                                    <span className="text-[15px] font-medium text-[#4a4a4a] sm:text-[16px]">
+                                    <span className="text-sm font-medium text-[#4a4a4a] sm:text-base">
                                         {item.display}
                                     </span>
                                 </a>
