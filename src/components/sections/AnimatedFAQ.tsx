@@ -19,7 +19,7 @@ const faqData: FAQItem[] = [
     {
         id: "2",
         question: "Which cities are in the tour?",
-        answer: "•\tColombo: Web3 Dev Fest (smart contracts, DeFi, tech talks)\n•\tKandy: Crypto 101 (wallets, Bitcoin, stablecoins, trading)\n•\tGalle: Creator hub (NFTs, DAO, digital art)\n•\tElla: Retreat (fireside chats, bonding, scenic workshops)",
+        answer: "•\tColombo: Web3 Dev Fest (smart contracts, DeFi, tech talks)\n•\tKandy: Business & Freelancers (Web3 for growth and real-world use)\n•\tGalle: Creator hub (NFTs, DAO, digital art)\n•\tElla: Retreat (fireside chats, bonding, scenic workshops)",
     },
     {
         id: "3",
