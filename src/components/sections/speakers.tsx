@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
+import { IconBrandLinkedin, IconBrandTelegram, IconBrandX } from "@tabler/icons-react";
 import { speakers, speakerGroupTitles, speakerGroupStyles } from "@/data/speakers";
 
 export interface ChromaItem {
@@ -11,6 +12,9 @@ export interface ChromaItem {
     borderColor?: string;
     gradient?: string;
     url?: string;
+    linkedin?: string;
+    x?: string;
+    telegram?: string;
 }
 
 export interface ChromaGridProps {
@@ -140,7 +144,8 @@ const ChromaGrid: React.FC<ChromaGridProps> = ({
         }
     };
 
-    const handleCardClick = (url?: string) => {
+    const handleCardClick = (item: ChromaItem) => {
+        const url = item.url || item.linkedin || item.x || item.telegram;
         if (url) window.open(url, "_blank", "noopener,noreferrer");
     };
 
@@ -177,7 +182,7 @@ const ChromaGrid: React.FC<ChromaGridProps> = ({
                 <article
                     key={`${c.title}-${i}`}
                     onMouseMove={handleCardMove}
-                    onClick={() => handleCardClick(c.url)}
+                    onClick={() => handleCardClick(c)}
                     className="group relative flex h-[232px] w-full max-w-[160px] cursor-pointer flex-col overflow-hidden rounded-2xl border border-white/40 bg-gradient-to-br from-white/70 via-white/60 to-white/50 shadow-[0_2px_8px_-2px_rgba(0,0,0,0.15)] ring-1 ring-white/20 backdrop-blur-2xl transition-transform duration-300 before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.1)_0%,transparent_65%)] before:opacity-40 hover:scale-[1.02] hover:shadow-md sm:h-[272px] sm:max-w-[280px] sm:rounded-3xl md:h-[312px] md:w-[300px]"
                     style={
                         {
@@ -219,6 +224,41 @@ const ChromaGrid: React.FC<ChromaGridProps> = ({
                                 {c.location}
                             </span>
                         )}
+                        <div className="mt-1 flex gap-2">
+                            {c.linkedin && (
+                                <a
+                                    href={c.linkedin}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label={c.title + " on LinkedIn"}
+                                    onClick={(e) => e.stopPropagation()}
+                                >
+                                    <IconBrandLinkedin className="h-4 w-4" />
+                                </a>
+                            )}
+                            {c.x && (
+                                <a
+                                    href={c.x}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label={c.title + " on X"}
+                                    onClick={(e) => e.stopPropagation()}
+                                >
+                                    <IconBrandX className="h-4 w-4" />
+                                </a>
+                            )}
+                            {c.telegram && (
+                                <a
+                                    href={c.telegram}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label={c.title + " on Telegram"}
+                                    onClick={(e) => e.stopPropagation()}
+                                >
+                                    <IconBrandTelegram className="h-4 w-4" />
+                                </a>
+                            )}
+                        </div>
                     </footer>
                 </article>
             ))}
@@ -257,6 +297,9 @@ export const SpeakersSection: React.FC<{ className?: string }> = ({ className })
             subtitle: s.org ?? "",
             image: s.image, // optional
             url: s.url,
+            linkedin: s.linkedin,
+            x: s.x,
+            telegram: s.telegram,
             borderColor: colors.text,
             gradient: colors.bg,
         }));
