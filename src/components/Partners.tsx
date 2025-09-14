@@ -76,18 +76,6 @@ const Partners: React.FC<PartnersProps> = ({ className }) => {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    // Colors for partner names
-    const nameColors = [
-        "text-blue-600",
-        "text-green-600",
-        "text-purple-600",
-        "text-red-600",
-        "text-orange-600",
-        "text-teal-600",
-        "text-pink-600",
-        "text-indigo-600",
-    ];
-
     // Organized & Sponsored logos
     const organizedBy: LogoItem = {
         name: "Ceylon Cash",
@@ -211,9 +199,7 @@ const Partners: React.FC<PartnersProps> = ({ className }) => {
                                                     loading="lazy"
                                                 />
                                             </div>
-                                            <span
-                                                className={`font-primary max-w-[80px] text-center text-xs leading-tight sm:max-w-[100px] sm:text-sm ${nameColors[i % nameColors.length]}`}
-                                            >
+                                            <span className="font-secondary max-w-[80px] text-center text-xs leading-tight text-gray-800 sm:max-w-[100px] sm:text-sm">
                                                 {partner.name}
                                             </span>
                                         </div>
