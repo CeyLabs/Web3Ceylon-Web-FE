@@ -163,7 +163,7 @@ const Partners: React.FC<PartnersProps> = ({ className }) => {
                 <div className="grid gap-6 md:grid-cols-2">
                     <FadeIn>
                         <div className="rounded-3xl bg-white/30 p-8 backdrop-blur-3xl md:p-10">
-                            <p className="mb-6 text-center text-[11px] font-semibold tracking-[0.25em] text-gray-500">
+                            <p className="mb-6 text-center text-xs font-semibold tracking-[0.25em] text-gray-500 md:text-sm lg:text-base">
                                 ORGANIZED BY
                             </p>
                             <div className="mx-auto flex max-w-xs items-center justify-center">
@@ -173,7 +173,7 @@ const Partners: React.FC<PartnersProps> = ({ className }) => {
                     </FadeIn>
                     <FadeIn delay={80}>
                         <div className="rounded-3xl bg-white/30 p-8 backdrop-blur-3xl md:p-10">
-                            <p className="mb-6 text-center text-[11px] font-semibold tracking-[0.25em] text-gray-500">
+                            <p className="mb-6 text-center text-xs font-semibold tracking-[0.25em] text-gray-500 md:text-sm lg:text-base">
                                 SPONSORED BY
                             </p>
                             <div className="mx-auto flex max-w-xs items-center justify-center">
@@ -186,7 +186,7 @@ const Partners: React.FC<PartnersProps> = ({ className }) => {
                 {/* Community Partners Carousel */}
                 <FadeIn delay={140}>
                     <div className="mt-6 rounded-3xl bg-white/30 p-6 backdrop-blur-3xl md:mt-8 md:p-10">
-                        <p className="mb-6 text-center text-[11px] font-semibold tracking-[0.25em] text-gray-500">
+                        <p className="mb-6 text-center text-xs font-semibold tracking-[0.25em] text-gray-500 md:text-sm lg:text-base">
                             COMMUNITY PARTNERS
                         </p>
                         <div className="overflow-hidden">
