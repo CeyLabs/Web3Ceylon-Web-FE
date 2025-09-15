@@ -165,7 +165,7 @@ const CountdownTicker: React.FC<TickerProps> = ({
     useEffect(() => setMounted(true), []);
 
     const bgBaseInflow = "rounded-2xl border border-white/20 backdrop-blur-3xl bg-white/30";
-    const inFlowWrapperClasses = `fixed bottom-0 left-0 right-0 z-50 px-4 py-3 sm:px-6 sm:py-4 md:px-8 md:py-5 sm:bg-[#F6F4D5] transition-[opacity,max-height] duration-200 overflow-hidden relative ${
+    const inFlowWrapperClasses = `sticky bottom-0 block w-fit mx-auto z-50 p-0.5 sm:p-1 md:p-1.5 rounded-2xl ring-1 ring-white/20 transition-[opacity,max-height] duration-200 overflow-hidden isolate relative ${
         stickyActive ? "opacity-0" : "opacity-100"
     } ${showMultiple ? "flex gap-2 justify-center" : ""}`;
     const contentClassesInflow = `group block ${showMultiple ? "flex-1" : "w-full"} ${bgBaseInflow} px-6 py-3 sm:px-6 sm:py-4 min-h-12 text-black hover:bg-white/15 transition-all duration-300 ${
@@ -261,10 +261,6 @@ const CountdownTicker: React.FC<TickerProps> = ({
                 style={{ maxHeight: stickyActive ? 0 : undefined }}
                 aria-hidden={stickyActive}
             >
-                {/* Left shading */}
-                <div className="pointer-events-none absolute top-0 bottom-0 left-0 z-10 w-20 bg-gradient-to-r from-[#F6F4D5] to-transparent sm:w-28 md:w-40"></div>
-                {/* Right shading */}
-                <div className="pointer-events-none absolute top-0 right-0 bottom-0 z-10 w-20 bg-gradient-to-l from-[#F6F4D5] to-transparent sm:w-28 md:w-40"></div>
                 {/* Content */}
                 <div className="relative z-20">
                     {showMultiple ? (

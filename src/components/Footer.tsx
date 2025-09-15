@@ -48,7 +48,7 @@ export default function Footer() {
             const lower = href.toLowerCase();
             let display = displayUrl(href);
             // Used to show username/handle for these socials
-            if (lower.includes("facebook")) display = "@web3ceylon";
+            if (lower.includes("facebook")) display = "fb.com/web3ceylon";
             if (lower.includes("whatsapp")) display = "@web3ceylon";
             if (lower.includes("instagram")) display = "instagram.com/web3ceylon";
             if (lower.includes("x")) display = "x.com/web3ceylontour";

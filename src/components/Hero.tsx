@@ -7,11 +7,22 @@ import { Noise } from "@/components/ui/shadcn-io/noise";
 
 interface HeroProps {
     className?: string;
+    /**
+     * When true, the internal hero background (image + edge fades)
+     * is not rendered. Useful when an external, cross-section
+     * background is used from the page container.
+     */
+    disableBackground?: boolean;
+    /**
+     * Extra classes applied to the internal background wrappers, so you
+     * can hide/show them responsively (e.g. `md:hidden`).
+     */
+    bgVisibilityClass?: string;
 }
 
 type CSSVars = React.CSSProperties & { [key: string]: string | number };
 
-const Hero: React.FC<HeroProps> = ({ className }) => {
+const Hero: React.FC<HeroProps> = ({ className, disableBackground = false, bgVisibilityClass }) => {
     return (
         <section
             className={cn(
@@ -19,33 +30,37 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
                 className
             )}
         >
-            {/* Background */}
-            <div className="absolute inset-0 -z-10">
-                <img
-                    src="/assets/hero-cover.png"
-                    alt="Sri Lanka landscape"
-                    className="h-full w-full object-cover object-left md:object-center"
-                />
-                {/* Sand beige fading from top */}
-                <div className="absolute top-0 right-0 left-0 h-1/2 bg-gradient-to-b from-[#F6F4D5] to-transparent md:h-1/3 md:from-[#F6F4D5]/60"></div>
-                {/* Sand beige fading from bottom */}
-                <div className="absolute right-0 bottom-0 left-0 h-1/2 bg-gradient-to-t from-[#F6F4D5] to-transparent md:h-1/3 md:from-[#F6F4D5]/60"></div>
-                {/* Sand beige fading from left */}
-                <div className="absolute top-0 bottom-0 left-0 w-3/5 bg-gradient-to-r from-[#F6F4D5] to-transparent md:w-1/6 md:rounded-none md:from-[#F6F4D5]/40 md:to-[#F6F4D5]/10"></div>
-                {/* Sand beige fading from right */}
-                <div className="absolute top-0 right-0 bottom-0 w-3/5 bg-gradient-to-l from-[#F6F4D5] to-transparent md:w-1/6 md:rounded-none md:from-[#F6F4D5]/40 md:to-[#F6F4D5]/10"></div>
-            </div>
+            {/* Background (optional – can be disabled when provided externally) */}
+            {!disableBackground && (
+                <div className={cn("absolute inset-0 -z-10", bgVisibilityClass)}>
+                    <img
+                        src="/assets/hero-cover.svg"
+                        alt="Web3Ceylon Cover"
+                        className="h-full w-full object-cover object-left md:object-center"
+                    />
+                    {/* Sand beige fading from top */}
+                    <div className="absolute top-0 right-0 left-0 h-1/2 bg-gradient-to-b from-[#F6F4D5] to-transparent md:h-1/3 md:from-[#F6F4D5]/60"></div>
+                    {/* Sand beige fading from bottom */}
+                    <div className="absolute right-0 bottom-0 left-0 h-1/2 bg-gradient-to-t from-[#F6F4D5] to-transparent md:h-1/3 md:from-[#F6F4D5]/60"></div>
+                    {/* Sand beige fading from left */}
+                    <div className="absolute top-0 bottom-0 left-0 w-3/5 bg-gradient-to-r from-[#F6F4D5] to-transparent md:w-1/6 md:rounded-none md:from-[#F6F4D5]/40 md:to-[#F6F4D5]/10"></div>
+                    {/* Sand beige fading from right */}
+                    <div className="absolute top-0 right-0 bottom-0 w-3/5 bg-gradient-to-l from-[#F6F4D5] to-transparent md:w-1/6 md:rounded-none md:from-[#F6F4D5]/40 md:to-[#F6F4D5]/10"></div>
+                </div>
+            )}
 
             {/* Noise overlay for texture */}
-            <div className="absolute inset-0 -z-10 mix-blend-overlay">
-                <Noise
-                    patternSize={200}
-                    patternScaleX={2}
-                    patternScaleY={2}
-                    patternRefreshInterval={4}
-                    patternAlpha={40}
-                />
-            </div>
+            {!disableBackground && (
+                <div className={cn("absolute inset-0 -z-10 mix-blend-overlay", bgVisibilityClass)}>
+                    <Noise
+                        patternSize={200}
+                        patternScaleX={2}
+                        patternScaleY={2}
+                        patternRefreshInterval={4}
+                        patternAlpha={40}
+                    />
+                </div>
+            )}
 
             {/* Centered Glass/Blur Information Card */}
             <div className="relative z-10 container mx-auto flex flex-col items-center px-4 py-20 md:px-6 md:py-32">
@@ -53,7 +68,7 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
                     <div className="sm:p-8">
                         <div className="text-center">
                             <FadeIn delay={150}>
-                                <h1 className="font-primary mb-4 text-3xl leading-tight tracking-tight text-black sm:text-xl md:text-5xl lg:text-6xl">
+                                <h1 className="font-primary mb-4 text-3xl text-black sm:text-xl md:text-5xl lg:text-6xl">
                                     Web3Ceylon 2025
                                 </h1>
                             </FadeIn>
@@ -111,7 +126,7 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
                 {/* Rotating countdown ticker for city events (original position) */}
                 <FadeIn delay={500}>
                     <div className="mt-4 w-[92vw] max-w-3xl">
-                        <CountdownTicker showMultiple={true} />
+                        <CountdownTicker showMultiple={false} />
                     </div>
                 </FadeIn>
             </div>
