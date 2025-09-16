@@ -61,11 +61,12 @@ const CountdownTicker: React.FC<TickerProps> = ({
 
     // Effect for cycling through events
     useEffect(() => {
+        if (showMultiple) return; // Don't cycle when showing multiple
         const id = setInterval(() => {
             setIndex((i) => (i + 1) % cityEvents.length);
         }, intervalMs);
         return () => clearInterval(id);
-    }, [intervalMs]);
+    }, [intervalMs, showMultiple]);
 
     // event state derived from current index
 
@@ -167,8 +168,8 @@ const CountdownTicker: React.FC<TickerProps> = ({
     const bgBaseInflow = "rounded-2xl border border-white/20 backdrop-blur-3xl bg-white/30";
     const inFlowWrapperClasses = `sticky bottom-0 block w-fit mx-auto z-50 p-0.5 sm:p-1 md:p-1.5 rounded-2xl ring-1 ring-white/20 transition-[opacity,max-height] duration-200 overflow-hidden isolate relative ${
         stickyActive ? "opacity-0" : "opacity-100"
-    } ${showMultiple ? "flex gap-2 justify-center" : ""}`;
-    const contentClassesInflow = `group block ${showMultiple ? "flex-1" : "w-full"} ${bgBaseInflow} px-6 py-3 sm:px-6 sm:py-4 min-h-12 text-black hover:bg-white/15 transition-all duration-300 ${
+    } ${showMultiple ? "flex flex-col gap-2" : ""}`;
+    const contentClassesInflow = `group block ${showMultiple ? "w-full max-w-2xl mx-auto" : "w-full"} ${bgBaseInflow} px-6 py-3 sm:px-6 sm:py-4 min-h-12 text-black hover:bg-white/15 transition-all duration-300 ${
         className ?? ""
     }`;
     const contentClassesSticky = `group block w-full px-5 py-2.5 sm:px-5 sm:py-3 min-h-10`;
@@ -176,10 +177,12 @@ const CountdownTicker: React.FC<TickerProps> = ({
     const event1 = event;
     const event2 = cityEvents[(index + 1) % cityEvents.length];
     const event3 = cityEvents[(index + 2) % cityEvents.length];
+    const event4 = cityEvents[(index + 3) % cityEvents.length];
 
     const { isLive: isLive1, ended: ended1, countdown: countdown1 } = useEventState(event1);
     const { isLive: isLive2, ended: ended2, countdown: countdown2 } = useEventState(event2);
     const { isLive: isLive3, ended: ended3, countdown: countdown3 } = useEventState(event3);
+    const { isLive: isLive4, ended: ended4, countdown: countdown4 } = useEventState(event4);
 
     const renderEventContent = (
         event: CityEvent,
@@ -264,10 +267,11 @@ const CountdownTicker: React.FC<TickerProps> = ({
                 {/* Content */}
                 <div className="relative z-20">
                     {showMultiple ? (
-                        <div className="flex justify-center gap-2">
+                        <div className="flex flex-col gap-2">
                             {renderEventContent(event1, "inflow", isLive1, ended1, countdown1)}
                             {renderEventContent(event2, "inflow", isLive2, ended2, countdown2)}
                             {renderEventContent(event3, "inflow", isLive3, ended3, countdown3)}
+                            {renderEventContent(event4, "inflow", isLive4, ended4, countdown4)}
                         </div>
                     ) : (
                         renderContent("inflow")

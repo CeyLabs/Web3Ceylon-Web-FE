@@ -125,8 +125,8 @@ const Hero: React.FC<HeroProps> = ({ className, disableBackground = false, bgVis
                 </div>
                 {/* Rotating countdown ticker for city events (original position) */}
                 <FadeIn delay={500}>
-                    <div className="mt-4 w-[92vw] max-w-3xl">
-                        <CountdownTicker showMultiple={false} />
+                    <div className="mt-4 pt-6 sm:pt-0 w-[92vw] max-w-6xl">
+                        <CountdownTicker showMultiple={true} />
                     </div>
                 </FadeIn>
             </div>
