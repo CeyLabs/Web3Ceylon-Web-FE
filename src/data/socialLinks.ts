@@ -17,6 +17,10 @@ export const socialLinks: SocialLink[] = [
     url: "https://web.facebook.com/Web3ceylon/",
   },
   {
+    title: "Telegram",
+    url: "https://t.me/web3ceylon",
+  },
+  {
     title: "X",
     url: "https://x.com/web3ceylontour",
   },

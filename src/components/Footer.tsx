@@ -8,6 +8,7 @@ import { socialLinks } from "@/data/socialLinks";
 import {
     IconBrandFacebook,
     IconBrandInstagram,
+    IconBrandTelegram,
     IconBrandWhatsapp,
     IconBrandX,
     IconMail,
@@ -41,6 +42,7 @@ export default function Footer() {
             Instagram: <IconBrandInstagram className="h-5 w-5 text-pink-600" />,
             Facebook: <IconBrandFacebook className="h-5 w-5 text-blue-500" />,
             X: <IconBrandX className="h-5 w-5 text-black" />,
+            Telegram: <IconBrandTelegram className="h-5 w-5 text-blue-400" />,
         };
 
         const socials = socialLinks.map((s) => {
@@ -52,6 +54,7 @@ export default function Footer() {
             if (lower.includes("whatsapp")) display = "@web3ceylon";
             if (lower.includes("instagram")) display = "instagram.com/web3ceylon";
             if (lower.includes("x")) display = "x.com/web3ceylontour";
+            if (lower.includes("telegram")) display = "t.me/web3ceylon";
             return {
                 label: s.title,
                 href,
