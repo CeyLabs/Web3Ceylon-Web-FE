@@ -59,9 +59,9 @@ const CountdownTicker: React.FC<TickerProps> = ({
     const [showSticky, setShowSticky] = useState(false);
     const [stickyVisible, setStickyVisible] = useState(false);
 
-    // Effect for cycling through events
+    // Effect for cycling through events (disabled when showing multiple to keep list static)
     useEffect(() => {
-        if (showMultiple) return; // Don't cycle when showing multiple
+        if (showMultiple) return; // no rotation in multi mode
         const id = setInterval(() => {
             setIndex((i) => (i + 1) % cityEvents.length);
         }, intervalMs);
@@ -165,11 +165,11 @@ const CountdownTicker: React.FC<TickerProps> = ({
     const [mounted, setMounted] = useState(false);
     useEffect(() => setMounted(true), []);
 
-    const bgBaseInflow = "rounded-2xl border border-white/20 backdrop-blur-3xl bg-white/30";
-    const inFlowWrapperClasses = `sticky bottom-0 block w-fit mx-auto z-50 p-0.5 sm:p-1 md:p-1.5 rounded-2xl ring-1 ring-white/20 transition-[opacity,max-height] duration-200 overflow-hidden isolate relative ${
+    const bgBaseInflow = "rounded-2xl border border-white/20 backdrop-blur-sm bg-white/40";
+    const inFlowWrapperClasses = `sticky bottom-0 block w-full max-w-full mx-auto z-50 p-1 sm:p-1.5 md:p-1.5 rounded-2xl ring-1 ring-white/20 transition-[opacity,max-height] duration-200 overflow-hidden isolate relative ${
         stickyActive ? "opacity-0" : "opacity-100"
     } ${showMultiple ? "flex flex-col gap-2" : ""}`;
-    const contentClassesInflow = `group block ${showMultiple ? "w-full max-w-2xl mx-auto" : "w-full"} ${bgBaseInflow} px-6 py-3 sm:px-6 sm:py-4 min-h-12 text-black hover:bg-white/15 transition-all duration-300 ${
+    const contentClassesInflow = `group block w-full ${bgBaseInflow} px-4 py-3 sm:px-6 sm:py-4 min-h-12 text-black hover:bg-white/15 transition-all duration-300 ${
         className ?? ""
     }`;
     const contentClassesSticky = `group block w-full px-5 py-2.5 sm:px-5 sm:py-3 min-h-10`;
@@ -206,7 +206,7 @@ const CountdownTicker: React.FC<TickerProps> = ({
                     aria-atomic="true"
                 >
                     <div
-                        className={`min-w-0 flex-1 truncate font-medium whitespace-nowrap ${variant === "inflow" ? "text-sm sm:text-base md:text-lg" : "text-xs sm:text-sm md:text-base"}`}
+                        className={`min-w-0 flex-1 truncate font-medium ${variant === "inflow" ? "text-sm sm:text-base md:text-lg" : "text-xs sm:text-sm md:text-base"}`}
                     >
                         {event.image ? (
                             <img
@@ -218,7 +218,7 @@ const CountdownTicker: React.FC<TickerProps> = ({
                             />
                         ) : null}
                         <span className="mr-1 align-middle opacity-80 sm:mr-2">{event.city}</span>
-                        <span className="align-middle opacity-60">— Web3Ceylon</span>
+                        <span className="hidden sm:inline align-middle opacity-60">— Web3Ceylon</span>
                     </div>
                     {isLive ? (
                         <span

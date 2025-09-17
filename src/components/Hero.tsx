@@ -26,7 +26,8 @@ const Hero: React.FC<HeroProps> = ({ className, disableBackground = false, bgVis
     return (
         <section
             className={cn(
-                "relative flex min-h-screen items-center overflow-hidden pb-20",
+                // Column layout: main content (flex-1) vertically centered; ticker sits at bottom
+                "relative flex flex-col min-h-screen overflow-hidden",
                 className
             )}
         >
@@ -62,10 +63,10 @@ const Hero: React.FC<HeroProps> = ({ className, disableBackground = false, bgVis
                 </div>
             )}
 
-            {/* Centered Glass/Blur Information Card */}
-            <div className="relative z-10 container mx-auto flex flex-col items-center px-4 py-20 md:px-6 md:py-32">
-                <div className="w-[92vw] max-w-3xl">
-                    <div className="sm:p-8">
+            {/* Main hero content area (flex-1) */}
+            <div className="flex-1 flex">
+                <div className="relative z-10 container mx-auto flex flex-col items-center justify-center w-full px-4 pt-24 pb-12 md:px-6 md:pt-40 md:pb-20">
+                    <div className="w-[92vw] max-w-3xl sm:p-8 md:p-10">
                         <div className="text-center">
                             <FadeIn delay={150}>
                                 <h1 className="font-primary mb-4 text-3xl text-black sm:text-xl md:text-5xl lg:text-6xl">
@@ -123,9 +124,12 @@ const Hero: React.FC<HeroProps> = ({ className, disableBackground = false, bgVis
                         </div>
                     </div>
                 </div>
-                {/* Rotating countdown ticker for city events (original position) */}
-                <FadeIn delay={500}>
-                    <div className="mt-4 pt-6 sm:pt-0 w-full max-w-6xl">
+            </div>
+            {/* Ticker anchored at bottom without affecting vertical centering above */}
+            <div className="relative z-10 pb-6 md:pb-12">
+                <FadeIn delay={180}>
+                    {/* Narrower ticker width on desktop; keep generous mobile width */}
+                    <div className="w-[94vw] max-w-3xl mx-auto px-2 md:px-4">
                         <CountdownTicker showMultiple={true} />
                     </div>
                 </FadeIn>
