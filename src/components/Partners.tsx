@@ -121,6 +121,9 @@ const Partners: React.FC<PartnersProps> = ({ className }) => {
         { name: "TechNews.LK", src: "/assets/partners/svg/technewslk.svg" },
         { name: "Telegram Creators", src: "/assets/partners/svg/tonconnect.svg" },
         { name: "TON Sri Lanka", src: "/assets/partners/svg/tonsl.svg" },
+        { name: "Cosmos Sri Lanka", src: "/assets/partners/svg/cosmossrilanka.svg" },
+        { name: "Crypto Anbu", src: "/assets/partners/svg/cryptoanbu.svg" },
+        { name: "Metana", src: "/assets/partners/svg/metana.svg" },
     ];
 
     return (

@@ -22,9 +22,9 @@ export const speakers: SpeakerGroups = {
     { name: "Dumidu Thabrew", org: "Founderflow" },
     { name: "Kasum Asanka", org: "Cosmos Sri Lanka" },
     { name: "Shaqeeq Khan", org: "Metana" },
-    { name: "Prabodha Lakshan", org: "TechNews" },
+    { name: "Prabodha Lakshan", org: "TechNews.LK" },
     { name: "ManiyaWeb3", org: "Solana Sri Lanka" },
-    { name: "Dumindu Kanishka", org: "TON Sri Lanka" },
+    { name: "Dumindu Kanishka", org: "Telegram Creators" },
   ],
   panel: [
     { name: "Dilshan Abeygunawardana", org: "MyHubLK" },
