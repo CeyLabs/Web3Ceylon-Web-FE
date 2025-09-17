@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import "@/styles/theme.css";
 import { AppProviders } from "@/app/providers";
 import { figtree, instrumentSerif, carena, fredoka } from "@/app/fonts";
@@ -6,6 +5,8 @@ import { SiteLoaderProvider } from "@/app/site-loader-provider";
 import JsonLd from "@/components/seo/JsonLd";
 import { EVENT_JSONLD } from "@/lib/seo";
 import DynamicFavicon from "@/components/DynamicFavicon";
+
+export { metadata } from "@/app/metadata";
 
 export default function RootLayout({
     children,
