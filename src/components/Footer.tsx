@@ -8,6 +8,7 @@ import { socialLinks } from "@/data/socialLinks";
 import {
     IconBrandFacebook,
     IconBrandInstagram,
+    IconBrandTelegram,
     IconBrandWhatsapp,
     IconBrandX,
     IconMail,
@@ -36,20 +37,24 @@ export default function Footer() {
     const items: Item[] = useMemo(() => {
         const email = "hello@web3ceylon.com";
         const icons: Record<string, ReactNode> = {
-            Email: <IconMail className="h-5 w-5 text-[#EA4335]" />,
-            WhatsApp: <IconBrandWhatsapp className="h-5 w-5 text-[#25D366]" />,
-            Instagram: <IconBrandInstagram className="h-5 w-5 text-[#E4405F]" />,
-            Facebook: <IconBrandFacebook className="h-5 w-5 text-[#1877F2]" />,
+            Email: <IconMail className="h-5 w-5 text-amber-400" />,
+            WhatsApp: <IconBrandWhatsapp className="h-5 w-5 text-green-400" />,
+            Instagram: <IconBrandInstagram className="h-5 w-5 text-pink-600" />,
+            Facebook: <IconBrandFacebook className="h-5 w-5 text-blue-500" />,
             X: <IconBrandX className="h-5 w-5 text-black" />,
+            Telegram: <IconBrandTelegram className="h-5 w-5 text-blue-400" />,
         };
 
         const socials = socialLinks.map((s) => {
             const href = s.url;
             const lower = href.toLowerCase();
             let display = displayUrl(href);
-            // Only show username handle for Facebook and WhatsApp
-            if (lower.includes("facebook")) display = "@web3ceylon";
+            // Used to show username/handle for these socials
+            if (lower.includes("facebook")) display = "fb.com/web3ceylon";
             if (lower.includes("whatsapp")) display = "@web3ceylon";
+            if (lower.includes("instagram")) display = "instagram.com/web3ceylon";
+            if (lower.includes("x")) display = "x.com/web3ceylontour";
+            if (lower.includes("telegram")) display = "t.me/web3ceylon";
             return {
                 label: s.title,
                 href,
@@ -109,7 +114,7 @@ export default function Footer() {
                                         {item.icon}
                                         {item.label}
                                     </span>
-                                    <span className="flex items-center justify-end gap-2 text-[15px] font-medium text-[#4a4a4a] sm:text-[16px]">
+                                    <span className="flex items-center justify-end gap-2 text-sm font-medium text-[#4a4a4a] sm:text-base">
                                         {item.display}
                                         <ArrowUpRight
                                             className="inline-block h-4 w-4"
@@ -133,7 +138,7 @@ export default function Footer() {
                                         {item.icon}
                                         {item.label}
                                     </span>
-                                    <span className="text-[15px] font-medium text-[#4a4a4a] sm:text-[16px]">
+                                    <span className="text-sm font-medium text-[#4a4a4a] sm:text-base">
                                         {item.display}
                                     </span>
                                 </a>

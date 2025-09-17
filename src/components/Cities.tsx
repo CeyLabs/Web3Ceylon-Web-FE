@@ -31,7 +31,7 @@ const Cities: React.FC<CitiesProps> = ({ className }) => {
         const cards = gsap.utils.toArray<HTMLElement>(".city-card");
         if (!cards.length) return;
 
-        // Stacked cards animation to mirror Services (no title pinning)
+        // Stacked cards animation
         cards.forEach((card, index) => {
             const inner = card.querySelector(".city-card-inner");
             ScrollTrigger.create({
@@ -134,7 +134,7 @@ const Cities: React.FC<CitiesProps> = ({ className }) => {
                                             {c.city} – {c.group}
                                         </p>
                                         <h3
-                                            className="font-carena text-2xl leading-tight font-semibold tracking-tight md:text-4xl"
+                                            className="font-carena text-xl leading-tight font-semibold tracking-tight md:text-3xl"
                                             style={headingStyle}
                                         >
                                             {c.headline}
@@ -147,7 +147,7 @@ const Cities: React.FC<CitiesProps> = ({ className }) => {
                                         </p>
                                     </div>
                                     <p
-                                        className="font-carena text-lg leading-none font-semibold whitespace-nowrap md:text-2xl"
+                                        className="font-carena text-base leading-none font-semibold whitespace-nowrap md:text-xl"
                                         style={dayStyle}
                                     >
                                         (Day {String(index + 1).padStart(2, "0")})
@@ -155,10 +155,10 @@ const Cities: React.FC<CitiesProps> = ({ className }) => {
                                 </div>
                                 <div className="flex flex-col-reverse items-start justify-between lg:flex-row">
                                     <div className="flex w-full flex-col gap-6 lg:w-6/12 lg:gap-8">
-                                        <p className="text-base leading-tight font-semibold md:text-3xl">
+                                        <p className="text-sm leading-tight font-semibold md:text-2xl">
                                             {cityDescriptions[c.id]}
                                         </p>
-                                        <p className="font-secondary text-sm font-medium md:text-lg">
+                                        <p className="font-secondary text-xs font-medium md:text-base">
                                             {c.subtitle}
                                         </p>
                                         <ul className="flex flex-wrap gap-2 lg:w-10/12 2xl:gap-3">
@@ -209,7 +209,7 @@ const Cities: React.FC<CitiesProps> = ({ className }) => {
                                             src={c.imageUrl}
                                             alt={`${c.city} stamp`}
                                             fill
-                                            className="pointer-events-none object-contain object-center drop-shadow-md select-none"
+                                            className="pointer-events-none object-contain object-center select-none"
                                         />
                                     </div>
                                 </div>
