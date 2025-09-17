@@ -5,6 +5,7 @@ export const ORGANIZATION_URL = "https://ceyloncash.com/";
 export const DESCRIPTION =
     "Ceylon Cash presents Web3Ceylon 2025, a four-city educational tour across Colombo, Kandy, Galle & Ella. Learn blockchain development, crypto essentials, NFT creation & connect with Sri Lanka's Web3 community. Powered by Bybit.";
 export const OG_IMAGE = `${SITE_URL}og-image.png`;
+export const TWITTER_HANDLE = "@web3ceylontour";
 
 export const EVENT_JSONLD = {
     "@context": "https://schema.org",
