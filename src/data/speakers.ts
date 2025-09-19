@@ -2,6 +2,9 @@ export type Speaker = {
   name: string;
   org?: string;
   url?: string;
+  linkedin?: string;
+  x?: string;
+  telegram?: string;
   image?: string;
   pending?: boolean;
 };
@@ -12,23 +15,111 @@ export type SpeakerGroups = Record<SpeakerGroupKey, Speaker[]>;
 
 export const speakers: SpeakerGroups = {
   colombo: [
-    { name: "Suresh Peiris", org: "GDG Sri Lanka" },
-    { name: "Dilshan Madusanka", org: "CeyLabs" },
-    { name: "Imeth Vinnath", org: "Metana" },
-    { name: "Buddhika Lakmal", org: "Dapptize" },
-    { name: "Sanjeewa Silva", org: "FutureCX" },
+    {
+      name: "Suresh Peiris",
+      org: "GDG Sri Lanka",
+      linkedin: "https://www.linkedin.com/in/sureshmichael/",
+      x: "https://x.com/sureshpeiris",
+      telegram: "https://t.me/sureshpeiris",
+      image: "/assets/speakers/Suresh Peiris.webp",
+    },
+    {
+      name: "Dilshan Madusanka",
+      org: "CeyLabs",
+      linkedin: "https://www.linkedin.com/in/dilshanlk/",
+      x: "https://x.com/helloscoopa",
+      telegram: "https://t.me/dilshanmadusanka",
+      image: "/assets/speakers/Dilshan Madushanka.webp",
+    },
+    {
+      name: "Imeth Vinnath",
+      org: "Metana",
+      linkedin: "https://www.linkedin.com/in/imeth-vinnath/",
+      x: "https://x.com/ImethVinnath",
+      telegram: "https://t.me/imethvinnath",
+      image: "/assets/speakers/Imeth Vinnath.webp",
+    },
+    {
+      name: "Buddhika Lakmal",
+      org: "Dapptize",
+      linkedin: "https://www.linkedin.com/in/itslakmal/",
+      x: "https://x.com/buddhikalakmal",
+      telegram: "https://t.me/buddhikalakmal",
+      image: "/assets/speakers/Buddhika Lakmal.webp",
+    },
+    {
+      name: "Sanjeewa Silva",
+      org: "FutureCX",
+      linkedin: "https://www.linkedin.com/in/sanjeewa-silva/",
+      x: "https://x.com/ssanjeewa",
+      telegram: "https://t.me/sanjeewasilva",
+      image: "/assets/speakers/Sanjeewa Silva.webp",
+    },
   ],
   galle: [
-    { name: "Dumidu Thabrew", org: "Founderflow" },
-    { name: "Kasum Asanka", org: "Cosmos Sri Lanka" },
-    { name: "Shaqeeq Khan", org: "Metana" },
-    { name: "Prabodha Lakshan", org: "TechNews.LK" },
-    { name: "ManiyaWeb3", org: "Solana Sri Lanka" },
-    { name: "Dumindu Kanishka", org: "Telegram Creators" },
+    {
+      name: "Dumidu Thabrew",
+      org: "Founderflow",
+      linkedin: "https://www.linkedin.com/in/dumidu-thabrew/",
+      x: "https://x.com/DumiduThabrew",
+      telegram: "https://t.me/dumiduthabrew",
+      image: "/assets/speakers/Dumidu Thabrew.webp",
+    },
+    {
+      name: "Kasum Asanka",
+      org: "Cosmos Sri Lanka",
+      linkedin: "https://www.linkedin.com/in/kasumasanka",
+      x: "https://x.com/kasumasanka",
+      telegram: "https://t.me/kasumasanka",
+    },
+    {
+      name: "Shaqeeq Khan",
+      org: "Metana",
+      linkedin: "https://www.linkedin.com/in/shaqeeqkhan/",
+      x: "https://x.com/ShaqeeqKhan",
+      telegram: "https://t.me/shaqeeqkhan",
+      image: "/assets/speakers/Shaqeeq Khan.webp",
+    },
+    {
+      name: "Prabodha Lakshan",
+      org: "TechNews",
+      linkedin: "https://www.linkedin.com/in/prabodhaonline/",
+      x: "https://x.com/prabodhaonline",
+      telegram: "https://t.me/prabodhalakshan",
+      image: "/assets/speakers/Prabodha Lakshan.webp",
+    },
+    {
+      name: "ManiyaWeb3",
+      org: "Solana Sri Lanka",
+      linkedin: "https://www.linkedin.com/in/sheranga-maneesha-maniya-b491a3200/",
+      x: "https://x.com/maniyaweb3",
+      telegram: "https://t.me/maniyaweb3",
+    },
+    {
+      name: "Dumindu Kanishka",
+      org: "TON Sri Lanka",
+      linkedin: "https://www.linkedin.com/in/domindyou/",
+      x: "https://x.com/domindyou",
+      telegram: "https://t.me/dumindukanishka",
+    },
   ],
   panel: [
-    { name: "Dilshan Abeygunawardana", org: "MyHubLK" },
-    { name: "Kosala Jayasekara", org: "Fixel Digital" },
+    {
+      name: "Dilshan Abeygunawardana",
+      org: "MyHubLK",
+      linkedin: "https://www.linkedin.com/in/dilshanabey/",
+      x: "https://x.com/xdilshanabey",
+      telegram: "https://t.me/dilshanabeygunawardana",
+      image: "/assets/speakers/Dilshan Abeygunawardana.webp",
+    },
+    {
+      name: "Kosala Jayasekara",
+      org: "Fixel Digital",
+      linkedin: "https://www.linkedin.com/in/kosalajayasekara/",
+      x: "https://x.com/kjayasekara",
+      telegram: "https://t.me/kosalajayasekara",
+      image: "/assets/speakers/Kosala Jayasekara.webp",
+    },
     { name: "TBA", org: "TBA" },
   ],
   kandy: [

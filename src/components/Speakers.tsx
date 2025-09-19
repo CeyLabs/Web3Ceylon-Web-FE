@@ -2,56 +2,15 @@ import React from "react";
 import { cn } from "@/lib/utils";
 import FadeIn from "./animations/FadeIn";
 import { Card, CardContent } from "@/components/ui/card";
+import { speakerSet } from "@/data/speakerSet";
+import { IconBrandLinkedin, IconBrandTelegram, IconBrandX } from "@tabler/icons-react";
 
 interface SpeakersProps {
     className?: string;
 }
 
 const Speakers: React.FC<SpeakersProps> = ({ className }) => {
-    const speakers = [
-        {
-            name: "To be decided",
-            title: "Founder, Ceylon Cash",
-            topic: "To be announced",
-            image: "👨‍💼",
-            bio: "Details coming soon",
-        },
-        {
-            name: "To be decided",
-            title: "CTIO, CeyLabs LLC",
-            topic: "To be announced",
-            image: "👩‍💻",
-            bio: "Details coming soon",
-        },
-        {
-            name: "To be decided",
-            title: "CTO, Web3 Tech Startup",
-            topic: "To be announced",
-            image: "🚀",
-            bio: "Details coming soon",
-        },
-        {
-            name: "To be decided",
-            title: "Lecturer, University of Somewhere",
-            topic: "To be announced",
-            image: "🎓",
-            bio: "Details coming soon",
-        },
-        {
-            name: "To be decided",
-            title: "NFT Artist & Creator",
-            topic: "To be announced",
-            image: "🎨",
-            bio: "Details coming soon",
-        },
-        {
-            name: "To be decided",
-            title: "DAO Governance Expert",
-            topic: "To be announced",
-            image: "🏛️",
-            bio: "Details coming soon",
-        },
-    ];
+    const speakers = speakerSet;
 
     return (
         <section id="speakers" className={cn("relative py-20", className)}>
@@ -95,6 +54,41 @@ const Speakers: React.FC<SpeakersProps> = ({ className }) => {
                                     <p className="text-muted-foreground hidden text-xs sm:block md:text-xs lg:text-sm">
                                         {speaker.bio}
                                     </p>
+                                    <div className="mt-1 flex justify-center gap-2">
+                                        {speaker.linkedin && (
+                                            <a
+                                                href={speaker.linkedin}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                aria-label={speaker.name + " on LinkedIn"}
+                                                onClick={(e) => e.stopPropagation()}
+                                            >
+                                                <IconBrandLinkedin className="h-4 w-4" />
+                                            </a>
+                                        )}
+                                        {speaker.x && (
+                                            <a
+                                                href={speaker.x}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                aria-label={speaker.name + " on X"}
+                                                onClick={(e) => e.stopPropagation()}
+                                            >
+                                                <IconBrandX className="h-4 w-4" />
+                                            </a>
+                                        )}
+                                        {speaker.telegram && (
+                                            <a
+                                                href={speaker.telegram}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                aria-label={speaker.name + " on Telegram"}
+                                                onClick={(e) => e.stopPropagation()}
+                                            >
+                                                <IconBrandTelegram className="h-4 w-4" />
+                                            </a>
+                                        )}
+                                    </div>
                                 </CardContent>
                             </Card>
                         </FadeIn>
