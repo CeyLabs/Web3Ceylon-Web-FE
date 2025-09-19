@@ -201,7 +201,7 @@ const ChromaGrid: React.FC<ChromaGridProps> = ({
                     />
                     <div className="relative z-10 box-border min-h-[151px] p-2 sm:min-h-[182px] sm:p-[10px] md:min-h-[211px] md:p-[12px]">
                         <img
-                            src="/assets/profile.webp"
+                            src={c.image || "/assets/profile.webp"}
                             alt={c.title}
                             loading="lazy"
                             className="h-full w-full rounded-[10px] object-cover"
@@ -216,49 +216,44 @@ const ChromaGrid: React.FC<ChromaGridProps> = ({
                                 {c.handle}
                             </span>
                         )}
-                        <p className="m-0 text-xs leading-tight opacity-85 sm:text-sm">
-                            {c.subtitle}
+                        <p className="m-0 flex items-center justify-between text-xs leading-tight opacity-85 sm:text-sm">
+                            <span>{c.subtitle}</span>
+                            <div className="flex gap-2">
+                                {c.linkedin && (
+                                    <a
+                                        href={c.linkedin}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label={c.title + " on LinkedIn"}
+                                        onClick={(e) => e.stopPropagation()}
+                                    >
+                                        <IconBrandLinkedin className="h-4 w-4" />
+                                    </a>
+                                )}
+                                {c.x && (
+                                    <a
+                                        href={c.x}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label={c.title + " on X"}
+                                        onClick={(e) => e.stopPropagation()}
+                                    >
+                                        <IconBrandX className="h-4 w-4" />
+                                    </a>
+                                )}
+                                {/* {c.telegram && (
+                                    <a
+                                        href={c.telegram}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label={c.title + " on Telegram"}
+                                        onClick={(e) => e.stopPropagation()}
+                                    >
+                                        <IconBrandTelegram className="h-4 w-4" />
+                                    </a>
+                                )} */}
+                            </div>
                         </p>
-                        {c.location && (
-                            <span className="text-xs leading-tight opacity-85 sm:text-right sm:text-sm">
-                                {c.location}
-                            </span>
-                        )}
-                        <div className="mt-1 flex gap-2">
-                            {c.linkedin && (
-                                <a
-                                    href={c.linkedin}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    aria-label={c.title + " on LinkedIn"}
-                                    onClick={(e) => e.stopPropagation()}
-                                >
-                                    <IconBrandLinkedin className="h-4 w-4" />
-                                </a>
-                            )}
-                            {c.x && (
-                                <a
-                                    href={c.x}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    aria-label={c.title + " on X"}
-                                    onClick={(e) => e.stopPropagation()}
-                                >
-                                    <IconBrandX className="h-4 w-4" />
-                                </a>
-                            )}
-                            {c.telegram && (
-                                <a
-                                    href={c.telegram}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    aria-label={c.title + " on Telegram"}
-                                    onClick={(e) => e.stopPropagation()}
-                                >
-                                    <IconBrandTelegram className="h-4 w-4" />
-                                </a>
-                            )}
-                        </div>
                     </footer>
                 </article>
             ))}
