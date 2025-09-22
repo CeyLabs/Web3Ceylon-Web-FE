@@ -217,7 +217,9 @@ const CountdownTicker: React.FC<TickerProps> = ({
                             />
                         ) : null}
                         <span className="mr-1 align-middle opacity-80 sm:mr-2">{event.city}</span>
-                        <span className="hidden sm:inline align-middle opacity-60">— Web3Ceylon</span>
+                        <span className="hidden align-middle opacity-60 sm:inline">
+                            — Web3Ceylon
+                        </span>
                     </div>
                     {isLive ? (
                         <span

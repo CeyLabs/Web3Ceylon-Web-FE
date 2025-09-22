@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import useWindowSize from "@/hooks/useWindowSize";
 import { cities } from "@/data/cities";
 import type { City } from "@/data/cities";
+import { cityEvents } from "@/lib/events";
 import { useRoadmapModalStore } from "@/lib/zustand/stores";
 interface Web3CircuitRoadmapProps {
     className?: string;
@@ -66,6 +67,15 @@ const mapLocations: MapLocation[] = [
     },
 ];
 const spring = { type: "spring", stiffness: 320, damping: 26 } as const;
+
+const isEventEnded = (cityId: string): boolean => {
+    const event = cityEvents.find(e => e.id === cityId);
+    if (!event) return false;
+    const now = Date.now();
+    const endsAt = new Date(event.endsAt).getTime();
+    return now > endsAt;
+};
+
 const Web3CircuitRoadmap: React.FC<Web3CircuitRoadmapProps> = ({ className }) => {
     const { width } = useWindowSize();
     const isDesktop = width >= 1024;
@@ -137,6 +147,7 @@ const Web3CircuitRoadmap: React.FC<Web3CircuitRoadmapProps> = ({ className }) =>
                                 const city = cityRecord[location.id];
                                 const isActive = activeCityId === location.id;
                                 const isDimmed = Boolean(activeCityId && !isActive);
+                                const ended = isEventEnded(location.id);
                                 return (
                                     <motion.button
                                         key={location.id}
@@ -187,8 +198,10 @@ const Web3CircuitRoadmap: React.FC<Web3CircuitRoadmapProps> = ({ className }) =>
                                                     sizes="(min-width: 1280px) 14vw, 20vw"
                                                     className={cn(
                                                         "object-contain drop-shadow-[0_24px_45px_rgba(15,23,42,0.25)] transition-all duration-300",
-                                                        isDimmed &&
-                                                            "opacity-70 contrast-75 grayscale"
+                                                        (isDimmed || ended) &&
+                                                            "opacity-70 contrast-75 grayscale",
+                                                        ended &&
+                                                            "drop-shadow-[0_0_20px_rgba(107,114,128,0.5)] animate-pulse"
                                                     )}
                                                 />
                                             </motion.div>
