@@ -19,7 +19,7 @@ export const speakers: SpeakerGroups = {
       name: "Suresh Peiris",
       org: "GDG Sri Lanka",
       linkedin: "https://www.linkedin.com/in/sureshmichael/",
-      x: "https://x.com/sureshpeiris",
+      x: "https://x.com/TSMPeiris",
       telegram: "https://t.me/sureshpeiris",
       image: "/assets/speakers/Suresh Michael Peiris.webp",
     },
@@ -40,11 +40,11 @@ export const speakers: SpeakerGroups = {
       image: "/assets/speakers/Imeth Vinnath.webp",
     },
     {
-      name: "Diyath Sahan Rajapakshe",
+      name: "Diyath Rajapakshe",
       org: "Future CX",
       linkedin: "https://www.linkedin.com/in/diyathsahanrajapakshe/",
-      x: "https://x.com/diyathrajapakshe",
-      telegram: "https://t.me/diyathsahanrajapakshe",
+      x: "https://x.com/diyathrajapakse",
+      telegram: "https://t.me/diyathrajapakse",
       image: "/assets/speakers/Diyath Sahan Rajapakshe.webp",
     },
     {
@@ -57,8 +57,16 @@ export const speakers: SpeakerGroups = {
     },
   ],
   kandy: [
-    { name: "TBA", org: "TBA" },
-    { name: "TBA", org: "TBA" },
+    { name: "Nissanka Seneviratne", org: "Maash/Apium", linkedin: "https://www.linkedin.com/in/nissankaseneviratne/", x: "https://x.com/nissankaseneviratne", image: "/assets/speakers/Nissanka Seneviratne.webp" },
+    { name: "Niranga Hettiarachchi", org: "Light Foundation", linkedin: "https://www.linkedin.com/in/indrajith-hettiarachchi/", x: "https://x.com/indrajith963", image: "/assets/speakers/Niranga Indrajith Hettiarachchi.webp" },
+    {
+      name: "Chirath Rajapaksha",
+      org: "Digital Assets LK",
+      linkedin: "https://www.linkedin.com/in/chirathrajapaksha/",
+      x: "https://x.com/krazychirz",
+      telegram: "#",
+      image: "/assets/speakers/Chirath Rajapaksha .webp",
+    },
   ],
   galle: [
     {
@@ -72,9 +80,10 @@ export const speakers: SpeakerGroups = {
     {
       name: "Kasum Asanka",
       org: "Cosmos Sri Lanka",
-      linkedin: "https://www.linkedin.com/in/kasumasanka",
-      x: "https://x.com/kasumasanka",
+      linkedin: "https://lk.linkedin.com/in/kasum-asanka-2145761a7",
+      x: "https://x.com/AsankaKasum",
       telegram: "https://t.me/kasumasanka",
+      image: "/assets/speakers/Kasum Asanka.webp",
     },
     {
       name: "Shaqeeq Khan",
@@ -102,7 +111,7 @@ export const speakers: SpeakerGroups = {
     },
     {
       name: "Dumindu Kanishka",
-      org: "TON Sri Lanka",
+      org: "Telegram Creators",
       linkedin: "https://www.linkedin.com/in/domindyou/",
       x: "https://x.com/domindyou",
       telegram: "https://t.me/dumindukanishka",

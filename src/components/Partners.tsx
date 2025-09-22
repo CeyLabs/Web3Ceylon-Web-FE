@@ -120,6 +120,7 @@ const Partners: React.FC<PartnersProps> = ({ className }) => {
     const knowledgePartners: LogoItem[] = [
         { name: "GDG Colombo", src: "/assets/partners/gdglk_logo.png" },
         { name: "Metana", src: "/assets/partners/Metana-Logo.png" },
+        { name: "Maash", src: "/assets/partners/maash-logo.webp", className: "h-8 md:h-8" },
     ];
 
     const ecosystemPartner: LogoItem = {
