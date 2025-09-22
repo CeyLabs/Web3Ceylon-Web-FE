@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { useRoadmapModalStore } from "@/lib/zustand/stores";
 import { cities } from "@/data/cities";
+import { cityEvents } from "@/lib/events";
 import type { City } from "@/data/cities";
 
 type CityTheme = {
@@ -75,26 +76,28 @@ export default function RoadmapModal() {
 
     const activeCity = activeCityId ? cities.find((city) => city.id === activeCityId) : undefined;
 
+    const activeEvent = activeCityId ? cityEvents.find((event) => event.id === activeCityId) : undefined;
+
     const mapLocations = [
         {
             id: "colombo" as const,
             stampImage: "/assets/stamps/Stamp - Colombo.png",
-            mapSvg: "/assets/maps/Colombo_Map.svg",
+            mapSvg: "/assets/maps/Colombo_Map_Dark.svg",
         },
         {
             id: "kandy" as const,
             stampImage: "/assets/stamps/Stamp - Kandy.png",
-            mapSvg: "/assets/maps/Kandy_Map.svg",
+            mapSvg: "/assets/maps/Kandy_Map_Dark.svg",
         },
         {
             id: "galle" as const,
             stampImage: "/assets/stamps/Stamp - Galle.png",
-            mapSvg: "/assets/maps/Galle_Map.svg",
+            mapSvg: "/assets/maps/Galle_Map_Dark.svg",
         },
         {
             id: "ella" as const,
             stampImage: "/assets/stamps/Stamp - Ella.png",
-            mapSvg: "/assets/maps/Ella_Map.svg",
+            mapSvg: "/assets/maps/Ella_Map_Dark.svg",
         },
     ];
 
@@ -105,6 +108,8 @@ export default function RoadmapModal() {
     if (!isModalOpen || !activeCity || !activeLocation) return null;
 
     const theme = cityThemes[activeCity.id] ?? cityThemes.kandy;
+
+    const isPast = activeEvent ? new Date() > new Date(activeEvent.endsAt) : false;
 
     return (
         <>
@@ -213,19 +218,41 @@ export default function RoadmapModal() {
                                     </dd>
                                 </div>
                             </dl>
-                            <a
-                                href={activeCity.eventUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="font-secondary inline-flex items-center justify-center rounded-full px-6 py-2.5 text-sm font-semibold transition hover:translate-y-[-2px]"
-                                style={{
-                                    backgroundColor: theme.accent,
-                                    color: theme.buttonText,
-                                    boxShadow: theme.buttonShadow,
-                                }}
-                            >
-                                Reserve Your Spot
-                            </a>
+                            {isPast ? (
+                                <span
+                                    className="font-secondary inline-flex cursor-not-allowed items-center justify-center rounded-full px-6 py-2.5 text-sm font-semibold opacity-50"
+                                    style={{
+                                        backgroundColor: theme.accent,
+                                        color: theme.buttonText,
+                                        boxShadow: theme.buttonShadow,
+                                    }}
+                                >
+                                    Event Ended
+                                </span>
+                            ) : (
+                                <a
+                                    href={activeCity.eventUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="font-secondary inline-flex items-center justify-center rounded-full px-6 py-2.5 text-sm font-semibold transition hover:translate-y-[-2px]"
+                                    style={{
+                                        backgroundColor: theme.accent,
+                                        color: theme.buttonText,
+                                        boxShadow: theme.buttonShadow,
+                                    }}
+                                >
+                                    Reserve Your Spot
+                                </a>
+                            )}
+                            {isPast && (
+                                <p
+                                    className="font-secondary mt-4 text-sm leading-relaxed"
+                                    style={{ color: theme.muted }}
+                                >
+                                    Thank you for joining with Web3Ceylon - {activeCity.city}{" "}
+                                    {activeCity.id !== "ella" ? "journey will see you in next stop 🚀" : ""}
+                                </p>
+                            )}
                         </div>
                         <motion.div
                             className="pointer-events-none relative mt-8 flex h-36 w-36 items-end self-center lg:hidden"
@@ -264,7 +291,9 @@ export default function RoadmapModal() {
                             fill
                             sizes="(min-width: 1280px) 20vw, 45vw"
                             className="object-contain"
-                            style={{ filter: 'drop-shadow(0 0 2px #fff) drop-shadow(0 0 4px #fff) drop-shadow(4px 4px 6px rgba(0, 0, 0, 0.75)) drop-shadow(0 0 12px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 24px rgba(255, 255, 255, 0.6))' }}
+                            style={{
+                                filter: "drop-shadow(0 0 2px #fff) drop-shadow(0 0 4px #fff) drop-shadow(4px 4px 6px rgba(0, 0, 0, 0.75)) drop-shadow(0 0 12px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 24px rgba(255, 255, 255, 0.6))",
+                            }}
                         />
                     </div>
                 </motion.div>
