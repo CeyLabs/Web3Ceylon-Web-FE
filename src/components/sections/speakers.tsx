@@ -169,7 +169,7 @@ const ChromaGrid: React.FC<ChromaGridProps> = ({
             ref={rootRef}
             onPointerMove={handleMove}
             onPointerLeave={handleLeave}
-            className={`relative flex h-full w-full flex-wrap items-start justify-center gap-2 sm:gap-3 ${className}`}
+            className={`relative flex h-full w-full flex-wrap items-start justify-center gap-x-3 gap-y-14 sm:gap-x-4 sm:gap-y-16 ${className}`}
             style={
                 {
                     "--r": `${radius}px`,
@@ -183,7 +183,7 @@ const ChromaGrid: React.FC<ChromaGridProps> = ({
                     key={`${c.title}-${i}`}
                     onMouseMove={handleCardMove}
                     onClick={() => handleCardClick(c)}
-                    className="group relative flex h-[232px] w-full max-w-[160px] cursor-pointer flex-col overflow-hidden rounded-2xl border border-white/40 bg-gradient-to-br from-white/70 via-white/60 to-white/50 shadow-[0_2px_8px_-2px_rgba(0,0,0,0.15)] ring-1 ring-white/20 backdrop-blur-2xl transition-transform duration-300 before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.1)_0%,transparent_65%)] before:opacity-40 hover:scale-[1.02] hover:shadow-md sm:h-[272px] sm:max-w-[280px] sm:rounded-3xl md:h-[312px] md:w-[300px]"
+                    className="group relative flex basis-[48%] max-w-none cursor-pointer flex-col overflow-visible rounded-2xl border border-white/40 bg-gradient-to-br from-white/70 via-white/60 to-white/50 shadow-[0_2px_8px_-2px_rgba(0,0,0,0.15)] ring-1 ring-white/20 backdrop-blur-2xl transition-transform duration-300 hover:scale-[1.02] hover:shadow-md sm:basis-[46%] sm:rounded-3xl md:basis-auto md:w-[300px]"
                     style={
                         {
                             background: c.gradient,
@@ -199,62 +199,69 @@ const ChromaGrid: React.FC<ChromaGridProps> = ({
                                 "radial-gradient(circle at var(--mouse-x) var(--mouse-y), var(--spotlight-color), transparent 70%)",
                         }}
                     />
-                    <div className="relative z-10 box-border min-h-[151px] p-2 sm:min-h-[182px] sm:p-[10px] md:min-h-[211px] md:p-[12px]">
-                        <img
-                            src={c.image || "/assets/profile.webp"}
-                            alt={c.title}
-                            loading="lazy"
-                            className="h-full w-full rounded-[10px] object-cover"
-                        />
+
+                    {/* Portrait wrapper: circular image that intentionally overflows the top of the card */}
+                    <div className="relative z-10 -mt-8 flex items-start justify-center">
+                        <div
+                            className="relative h-[96px] w-[96px] overflow-hidden rounded-full p-0 shadow-lg sm:h-[120px] sm:w-[120px] sm:p-1 md:h-[140px] md:w-[140px] md:p-1"
+                            style={{
+                                borderWidth: 4,
+                                borderStyle: "solid",
+                                borderColor: c.borderColor ?? "#ffffff",
+                                boxShadow: c.borderColor
+                                    ? `0 6px 18px ${c.borderColor}33`
+                                    : "0 6px 18px rgba(0,0,0,0.12)",
+                                background: c.gradient ?? c.borderColor ?? "#ffffff",
+                            }}
+                        >
+                            <img
+                                src={c.image || "/assets/profile.webp"}
+                                alt={c.title}
+                                loading="lazy"
+                                className="h-full w-full rounded-full object-cover"
+                            />
+                        </div>
                     </div>
-                    <footer className="relative z-10 flex h-[60px] flex-col gap-0.5 overflow-hidden p-2 font-sans text-inherit sm:h-[71px] sm:p-3 md:h-[81px]">
+
+                    {/* Card content sits under the portrait; give extra top padding so text doesn't overlap */}
+                    <div className="relative z-10 box-border px-4 pt-6 pb-2 text-center sm:pt-8 md:pt-10">
                         <h3 className="m-0 text-sm leading-tight font-semibold sm:text-base">
                             {c.title}
                         </h3>
                         {c.handle && (
-                            <span className="text-xs leading-tight opacity-80 sm:text-right sm:text-base">
+                            <div className="mt-1 text-xs leading-tight opacity-80 sm:text-sm">
                                 {c.handle}
-                            </span>
-                        )}
-                        <p className="m-0 flex items-center justify-between text-xs leading-tight opacity-85 sm:text-sm">
-                            <span>{c.subtitle}</span>
-                            <div className="flex gap-2">
-                                {c.linkedin && (
-                                    <a
-                                        href={c.linkedin}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        aria-label={c.title + " on LinkedIn"}
-                                        onClick={(e) => e.stopPropagation()}
-                                    >
-                                        <IconBrandLinkedin className="h-4 w-4" />
-                                    </a>
-                                )}
-                                {c.x && (
-                                    <a
-                                        href={c.x}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        aria-label={c.title + " on X"}
-                                        onClick={(e) => e.stopPropagation()}
-                                    >
-                                        <IconBrandX className="h-4 w-4" />
-                                    </a>
-                                )}
-                                {/* {c.telegram && (
-                                    <a
-                                        href={c.telegram}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        aria-label={c.title + " on Telegram"}
-                                        onClick={(e) => e.stopPropagation()}
-                                    >
-                                        <IconBrandTelegram className="h-4 w-4" />
-                                    </a>
-                                )} */}
                             </div>
+                        )}
+                        <p className="m-0 mt-2 text-xs leading-tight opacity-85 sm:text-sm">
+                            {c.subtitle}
                         </p>
-                    </footer>
+
+                        <div className="mt-3 flex items-center justify-center gap-3">
+                            {c.linkedin && (
+                                <a
+                                    href={c.linkedin}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label={c.title + " on LinkedIn"}
+                                    onClick={(e) => e.stopPropagation()}
+                                >
+                                    <IconBrandLinkedin className="h-3 w-3 sm:h-4 sm:w-4" />
+                                </a>
+                            )}
+                            {c.x && (
+                                <a
+                                    href={c.x}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label={c.title + " on X"}
+                                    onClick={(e) => e.stopPropagation()}
+                                >
+                                    <IconBrandX className="h-3 w-3 sm:h-4 sm:w-4" />
+                                </a>
+                            )}
+                        </div>
+                    </div>
                 </article>
             ))}
             {/* Removed the grey vignette overlays for a clean look */}
@@ -268,20 +275,28 @@ export default ChromaGrid;
 export const SpeakersSection: React.FC<{ className?: string }> = ({ className }) => {
     // Map grouped data to ChromaGrid items + city card theming
     const toItems = (group: keyof typeof speakers): ChromaItem[] => {
+        // Use the same accent colors as the Cities section (accentMap in Cities.tsx)
+        // Colombo: #1976D2, Kandy: #C62828, Galle: #F57C00, Ella: #388E3C
         const cityCardColors = {
             colombo: {
                 bg: "linear-gradient(145deg, rgba(223, 239, 255, 0.7) 0%, rgba(226, 235, 240, 0.6) 50%, rgba(223, 233, 243, 0.5) 100%)",
                 text: "#1976D2",
             },
-            galle: {
-                bg: "linear-gradient(145deg, rgba(255, 229, 229, 0.7) 0%, rgba(255, 235, 240, 0.6) 50%, rgba(255, 233, 243, 0.5) 100%)",
+            kandy: {
+                bg: "linear-gradient(145deg, rgba(255, 230, 230, 0.7) 0%, rgba(255, 240, 240, 0.6) 50%, rgba(255, 230, 230, 0.5) 100%)",
                 text: "#C62828",
             },
-            panel: {
-                bg: "linear-gradient(145deg, rgba(255, 242, 228, 0.7) 0%, rgba(253, 236, 200, 0.6) 50%, rgba(249, 224, 168, 0.5) 100%)",
+            galle: {
+                bg: "linear-gradient(165deg, rgba(255, 243, 224, 0.7) 0%, rgba(255, 235, 220, 0.6) 50%, rgba(255, 230, 200, 0.5) 100%)",
                 text: "#F57C00",
             },
-            kandy: {
+            // Panel follows Galle's visual style (placed under Galle in UI)
+            panel: {
+                bg: "linear-gradient(165deg, rgba(255, 243, 224, 0.7) 0%, rgba(255, 235, 220, 0.6) 50%, rgba(255, 230, 200, 0.5) 100%)",
+                text: "#F57C00",
+            },
+            // Ella: uses Ella accent from Cities.tsx which is #388E3C
+            ella: {
                 bg: "linear-gradient(145deg, rgba(222, 255, 224, 0.7) 0%, rgba(240, 255, 240, 0.6) 50%, rgba(224, 255, 224, 0.5) 100%)",
                 text: "#388E3C",
             },
@@ -312,34 +327,57 @@ export const SpeakersSection: React.FC<{ className?: string }> = ({ className })
 
                 {/* Colombo */}
                 <div className="mx-auto mb-12 max-w-6xl">
-                    <h3 className="font-primary mb-4 text-center text-xl font-semibold text-[#0a1a5c]">
+                    <h3
+                        className="font-primary mb-12 text-center text-xl font-semibold md:mb-14"
+                        style={{ color: "#1976D2" }}
+                    >
                         {speakerGroupTitles.colombo}
                     </h3>
                     <ChromaGrid items={toItems("colombo")} className="justify-center" />
                 </div>
 
+                {/* Kandy */}
+                <div className="mx-auto mb-12 max-w-6xl">
+                    <h3
+                        className="font-primary mb-12 text-center text-xl font-semibold md:mb-14"
+                        style={{ color: "#C62828" }}
+                    >
+                        {speakerGroupTitles.kandy}
+                    </h3>
+                    <ChromaGrid items={toItems("kandy")} className="justify-center" />
+                </div>
+
                 {/* Galle */}
                 <div className="mx-auto mb-12 max-w-6xl">
-                    <h3 className="font-primary mb-4 text-center text-xl font-semibold text-[#0a1a5c]">
+                    <h3
+                        className="font-primary mb-12 text-center text-xl font-semibold md:mb-14"
+                        style={{ color: "#F57C00" }}
+                    >
                         {speakerGroupTitles.galle}
                     </h3>
                     <ChromaGrid items={toItems("galle")} className="justify-center" />
                 </div>
 
-                {/* Panel */}
+                {/* Panel (guest panel under Galle; uses Galle color) */}
                 <div className="mx-auto mb-12 max-w-6xl">
-                    <h3 className="font-primary mb-4 text-center text-xl font-semibold text-[#0a1a5c]">
+                    <h3
+                        className="font-primary mb-12 text-center text-xl font-semibold md:mb-14"
+                        style={{ color: "#F57C00" }}
+                    >
                         {speakerGroupTitles.panel}
                     </h3>
                     <ChromaGrid items={toItems("panel")} className="justify-center" />
                 </div>
 
-                {/* Kandy */}
+                {/* Ella (TBA) */}
                 <div className="mx-auto max-w-6xl">
-                    <h3 className="font-primary mb-4 text-center text-xl font-semibold text-[#0a1a5c]">
-                        {speakerGroupTitles.kandy}
+                    <h3
+                        className="font-primary mb-12 text-center text-xl font-semibold md:mb-14"
+                        style={{ color: "#388E3C" }}
+                    >
+                        {speakerGroupTitles.ella}
                     </h3>
-                    <ChromaGrid items={toItems("kandy")} className="justify-center" />
+                    <ChromaGrid items={toItems("ella")} className="justify-center" />
                 </div>
             </div>
         </section>

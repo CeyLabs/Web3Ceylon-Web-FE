@@ -9,7 +9,7 @@ export type Speaker = {
   pending?: boolean;
 };
 
-export type SpeakerGroupKey = "colombo" | "galle" | "panel" | "kandy";
+export type SpeakerGroupKey = "colombo" | "kandy" | "galle" | "panel" | "ella";
 
 export type SpeakerGroups = Record<SpeakerGroupKey, Speaker[]>;
 
@@ -21,15 +21,15 @@ export const speakers: SpeakerGroups = {
       linkedin: "https://www.linkedin.com/in/sureshmichael/",
       x: "https://x.com/sureshpeiris",
       telegram: "https://t.me/sureshpeiris",
-      image: "/assets/speakers/Suresh Peiris.webp",
+      image: "/assets/speakers/Suresh Michael Peiris.webp",
     },
     {
       name: "Dilshan Madusanka",
-      org: "CeyLabs",
+      org: "CeyLabs LLC",
       linkedin: "https://www.linkedin.com/in/dilshanlk/",
       x: "https://x.com/helloscoopa",
       telegram: "https://t.me/dilshanmadusanka",
-      image: "/assets/speakers/Dilshan Madushanka.webp",
+      image: "/assets/speakers/Dilshan Madusanka.webp",
     },
     {
       name: "Imeth Vinnath",
@@ -40,21 +40,25 @@ export const speakers: SpeakerGroups = {
       image: "/assets/speakers/Imeth Vinnath.webp",
     },
     {
-      name: "Buddhika Lakmal",
-      org: "Dapptize",
-      linkedin: "https://www.linkedin.com/in/itslakmal/",
-      x: "https://x.com/buddhikalakmal",
-      telegram: "https://t.me/buddhikalakmal",
-      image: "/assets/speakers/Buddhika Lakmal.webp",
+      name: "Diyath Sahan Rajapakshe",
+      org: "Future CX",
+      linkedin: "https://www.linkedin.com/in/diyathsahanrajapakshe/",
+      x: "https://x.com/diyathrajapakshe",
+      telegram: "https://t.me/diyathsahanrajapakshe",
+      image: "/assets/speakers/Diyath Sahan Rajapakshe.webp",
     },
     {
       name: "Sanjeewa Silva",
-      org: "FutureCX",
+      org: "Future CX",
       linkedin: "https://www.linkedin.com/in/sanjeewa-silva/",
       x: "https://x.com/ssanjeewa",
       telegram: "https://t.me/sanjeewasilva",
       image: "/assets/speakers/Sanjeewa Silva.webp",
     },
+  ],
+  kandy: [
+    { name: "TBA", org: "TBA" },
+    { name: "TBA", org: "TBA" },
   ],
   galle: [
     {
@@ -82,7 +86,7 @@ export const speakers: SpeakerGroups = {
     },
     {
       name: "Prabodha Lakshan",
-      org: "TechNews",
+      org: "Technews.LK",
       linkedin: "https://www.linkedin.com/in/prabodhaonline/",
       x: "https://x.com/prabodhaonline",
       telegram: "https://t.me/prabodhalakshan",
@@ -91,9 +95,10 @@ export const speakers: SpeakerGroups = {
     {
       name: "ManiyaWeb3",
       org: "Solana Sri Lanka",
-      linkedin: "https://www.linkedin.com/in/sheranga-maneesha-maniya-b491a3200/",
+      linkedin: "https://www.linkedin.com/in/maniyaweb3/",
       x: "https://x.com/maniyaweb3",
       telegram: "https://t.me/maniyaweb3",
+      image: "/assets/speakers/ManiyaWeb3.webp",
     },
     {
       name: "Dumindu Kanishka",
@@ -101,8 +106,10 @@ export const speakers: SpeakerGroups = {
       linkedin: "https://www.linkedin.com/in/domindyou/",
       x: "https://x.com/domindyou",
       telegram: "https://t.me/dumindukanishka",
+      image: "/assets/speakers/Dumindu Kanishka.webp",
     },
   ],
+  // Guest Panel (placed under the Galle section in UI) — use Galle's color for visual consistency
   panel: [
     {
       name: "Dilshan Abeygunawardana",
@@ -120,19 +127,17 @@ export const speakers: SpeakerGroups = {
       telegram: "https://t.me/kosalajayasekara",
       image: "/assets/speakers/Kosala Jayasekara.webp",
     },
-    { name: "TBA", org: "TBA" },
+    { name: "TBA", org: "TBA", linkedin: "#", x: "#", telegram: "#" },
   ],
-  kandy: [
-    { name: "TBA", org: "TBA" },
-    { name: "TBA", org: "TBA" },
-  ],
+  ella: [{ name: "TBA", org: "TBA", linkedin: "#", x: "#", telegram: "#" }, { name: "TBA", org: "TBA", linkedin: "#", x: "#", telegram: "#" }, { name: "TBA", org: "TBA", linkedin: "#", x: "#", telegram: "#" }],
 };
 
 export const speakerGroupTitles: Record<SpeakerGroupKey, string> = {
-  colombo: "Colombo — Dev Fest",
-  galle: "Galle — Creators & Storytellers",
-  panel: "Panel",
+  colombo: "Colombo — Developers & Builders",
   kandy: "Kandy — Business & Freelancers",
+  galle: "Galle — Creators & Storytellers",
+  panel: "Galle - Guest Panel",
+  ella: "Ella — Devs & Creators",
 };
 
 // Optional: per-group visual theming (colors match site palette)
@@ -142,16 +147,24 @@ export const speakerGroupStyles: Record<SpeakerGroupKey, { gradient: string; bor
     gradient: "linear-gradient(145deg,#1976D2,#000000)",
     border: "#1976D2",
   },
+  kandy: {
+    // Use Kandy's accent from Cities.tsx (#C62828)
+    gradient: "linear-gradient(150deg,#C62828,#000000)",
+    border: "#C62828",
+  },
   galle: {
     gradient: "linear-gradient(165deg,#F57C00,#000000)",
     border: "#F57C00",
   },
+  // Panel should visually follow Galle (placed under Galle in the layout)
   panel: {
-    gradient: "linear-gradient(150deg,#7C3AED,#000000)",
-    border: "#7C3AED",
+    gradient: "linear-gradient(165deg,#F57C00,#000000)",
+    border: "#F57C00",
   },
-  kandy: {
-    gradient: "linear-gradient(150deg,#388E3C,#000000)",
+  // Ella — small standalone group (TBA)
+  ella: {
+    // Ella uses #388E3C in the Cities accentMap
+    gradient: "linear-gradient(145deg,#388E3C,#000000)",
     border: "#388E3C",
   },
 };
