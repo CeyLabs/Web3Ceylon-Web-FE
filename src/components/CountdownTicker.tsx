@@ -59,14 +59,13 @@ const CountdownTicker: React.FC<TickerProps> = ({
     const [showSticky, setShowSticky] = useState(false);
     const [stickyVisible, setStickyVisible] = useState(false);
 
-    // Effect for cycling through events (disabled when showing multiple to keep list static)
+    // Effect for cycling through events (for sticky ticker)
     useEffect(() => {
-        if (showMultiple) return; // no rotation in multi mode
         const id = setInterval(() => {
             setIndex((i) => (i + 1) % cityEvents.length);
         }, intervalMs);
         return () => clearInterval(id);
-    }, [intervalMs, showMultiple]);
+    }, [intervalMs]);
 
     // event state derived from current index
 
@@ -174,10 +173,10 @@ const CountdownTicker: React.FC<TickerProps> = ({
     }`;
     const contentClassesSticky = `group block w-full px-5 py-2.5 sm:px-5 sm:py-3 min-h-10`;
 
-    const event1 = event;
-    const event2 = cityEvents[(index + 1) % cityEvents.length];
-    const event3 = cityEvents[(index + 2) % cityEvents.length];
-    const event4 = cityEvents[(index + 3) % cityEvents.length];
+    const event1 = cityEvents[0];
+    const event2 = cityEvents[1];
+    const event3 = cityEvents[2];
+    const event4 = cityEvents[3];
 
     const { isLive: isLive1, ended: ended1, countdown: countdown1 } = useEventState(event1);
     const { isLive: isLive2, ended: ended2, countdown: countdown2 } = useEventState(event2);
