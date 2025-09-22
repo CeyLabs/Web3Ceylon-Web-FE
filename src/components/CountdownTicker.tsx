@@ -234,9 +234,7 @@ const CountdownTicker: React.FC<TickerProps> = ({
                         <span
                             className={`inline-flex items-center font-semibold whitespace-nowrap text-black ${variant === "inflow" ? "gap-2 text-xs sm:text-sm md:text-base" : "gap-1 text-[11px] sm:text-xs md:text-sm"} sm:gap-2`}
                         >
-                            <span
-                                className={`inline-block rounded-full bg-white/70 ${variant === "inflow" ? "h-2 w-2" : "h-1.5 w-1.5"} sm:h-2 sm:w-2`}
-                            />
+                            <span className="text-lg">🚀</span>
                             Ended
                         </span>
                     ) : (

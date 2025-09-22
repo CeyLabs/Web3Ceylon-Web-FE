@@ -69,7 +69,7 @@ const mapLocations: MapLocation[] = [
 const spring = { type: "spring", stiffness: 320, damping: 26 } as const;
 
 const isEventEnded = (cityId: string): boolean => {
-    const event = cityEvents.find(e => e.id === cityId);
+    const event = cityEvents.find((e) => e.id === cityId);
     if (!event) return false;
     const now = Date.now();
     const endsAt = new Date(event.endsAt).getTime();
@@ -201,7 +201,7 @@ const Web3CircuitRoadmap: React.FC<Web3CircuitRoadmapProps> = ({ className }) =>
                                                         (isDimmed || ended) &&
                                                             "opacity-70 contrast-75 grayscale",
                                                         ended &&
-                                                            "drop-shadow-[0_0_20px_rgba(107,114,128,0.5)] animate-pulse"
+                                                            "animate-pulse drop-shadow-[0_0_20px_rgba(107,114,128,0.5)]"
                                                     )}
                                                 />
                                             </motion.div>
