@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
 import dynamic from "next/dynamic";
+import { LayoutGroup } from "framer-motion";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Intro from "@/components/Intro";
@@ -11,6 +12,7 @@ import FooterCTA from "@/components/Community";
 import About from "@/components/About";
 import AnimatedFAQ from "@/components/sections/AnimatedFAQ";
 import ContactModal from "@/components/modal/ContactModal";
+import RoadmapModal from "@/components/modal/RoadmapModal";
 
 const Footer = dynamic(() => import("@/components/Footer"), { ssr: false });
 
@@ -41,8 +43,9 @@ const Home = () => {
     }, []);
 
     return (
-        <>
+        <LayoutGroup id="web3-roadmap-flow">
             <ContactModal />
+            <RoadmapModal />
             <main className="relative">
                 <Header />
                 {/* Hero + Intro share a continuous background image (desktop only) */}
@@ -73,14 +76,14 @@ const Home = () => {
                     <Intro className="bg-transparent" />
                 </div>
                 <Cities />
+                <About />
                 <SpeakersSection />
                 <Partners />
-                <About />
                 <AnimatedFAQ />
                 <FooterCTA />
                 <Footer />
             </main>
-        </>
+        </LayoutGroup>
     );
 };
 

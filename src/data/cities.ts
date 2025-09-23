@@ -8,6 +8,7 @@ export type City = {
   imageUrl: string;
   tags: string[];
   date: string;
+  eventUrl: string;
 };
 
 export const cities: City[] = [
@@ -18,9 +19,10 @@ export const cities: City[] = [
     headline: "Code, Build, and Innovate",
     subtitle: "Building the future with Developers & Builders in Colombo",
     bottomLine: "Let’s Create!",
-    imageUrl: "/assets/stamps/Stamp - Colombo.png",
+    imageUrl: "/assets/stamps/svg/ColomboSTMP.svg",
     tags: ["Colombo", "Developers", "Builders"],
     date: "September 20, 2025",
+    eventUrl: "https://luma.com/8kg58fcg",
   },
   {
     id: "kandy",
@@ -29,9 +31,10 @@ export const cities: City[] = [
     headline: "Learn, Explore, and Grow",
     subtitle: "Unlocking opportunities for Businesses & Freelancers in Kandy",
     bottomLine: "Let’s Grow!",
-    imageUrl: "/assets/stamps/Stamp - Kandy.png",
+    imageUrl: "/assets/stamps/svg/KandySTMP.svg",
     tags: ["Kandy", "Businesses", "Freelancers"],
     date: "September 28, 2025",
+    eventUrl: "https://luma.com/nfwqhe8u",
   },
    {
     id: "galle",
@@ -40,9 +43,10 @@ export const cities: City[] = [
     headline: "Create, Connect, and Inspire",
     subtitle: "Celebrating creativity with Creators & Storytellers in Galle",
     bottomLine: "Let’s Connect!",
-    imageUrl: "/assets/stamps/Stamp - Galle.png",
+    imageUrl: "/assets/stamps/svg/GalleSTMP.svg",
     tags: ["Galle", "Creators", "Storytellers"],
     date: "October 08, 2025",
+    eventUrl: "https://luma.com/qrggf436",
   },
   {
     id: "ella",
@@ -51,8 +55,9 @@ export const cities: City[] = [
     headline: "Relax, Network, and Collaborate",
     subtitle: "A special Retreat & Global Connect with community leaders in Ella",
     bottomLine: "Let’s Unwind!",
-    imageUrl: "/assets/stamps/Stamp - Ella.png",
+    imageUrl: "/assets/stamps/svg/EllaSTMP.svg",
     tags: ["Ella", "Retreat", "Global Connect"],
     date: "October 12, 2025",
+    eventUrl: "https://luma.com/1abnpfkw",
   },
 ];

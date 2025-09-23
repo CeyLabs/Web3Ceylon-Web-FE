@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -125,7 +126,7 @@ const Cities: React.FC<CitiesProps> = ({ className }) => {
                                         opacity: 0.18,
                                     }}
                                 />
-                                <div className="mb-8 flex items-start justify-between lg:mb-12">
+                                <div className="mb-6 flex items-start justify-between lg:mb-6">
                                     <div>
                                         <p
                                             className="font-secondary mb-2 text-xs tracking-wider uppercase"
@@ -153,14 +154,14 @@ const Cities: React.FC<CitiesProps> = ({ className }) => {
                                         (Day {String(index + 1).padStart(2, "0")})
                                     </p>
                                 </div>
-                                <div className="flex flex-col-reverse items-start justify-between lg:flex-row">
-                                    <div className="flex w-full flex-col gap-6 lg:w-6/12 lg:gap-8">
+                                <div className="flex flex-col-reverse items-start justify-between lg:flex-row lg:items-center">
+                                    <div className="flex w-full flex-col gap-4 lg:w-6/12 lg:gap-6">
                                         <p className="text-sm leading-tight font-semibold md:text-2xl">
                                             {cityDescriptions[c.id]}
                                         </p>
-                                        <p className="font-secondary text-xs font-medium md:text-base">
+                                        {/* <p className="font-secondary text-xs font-medium md:text-base">
                                             {c.subtitle}
-                                        </p>
+                                        </p> */}
                                         <ul className="flex flex-wrap gap-2 lg:w-10/12 2xl:gap-3">
                                             {c.tags.map((t) => (
                                                 <li
@@ -172,16 +173,8 @@ const Cities: React.FC<CitiesProps> = ({ className }) => {
                                             ))}
                                         </ul>
                                         <div className="mt-2">
-                                            <a
-                                                href={(() => {
-                                                    const links: Record<string, string> = {
-                                                        colombo: "https://luma.com/8kg58fcg",
-                                                        kandy: "https://luma.com/nfwqhe8u",
-                                                        galle: "https://luma.com/qrggf436",
-                                                        ella: "https://luma.com/1abnpfkw",
-                                                    };
-                                                    return links[c.id];
-                                                })()}
+                                            <Link
+                                                href={c.eventUrl}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="font-secondary inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-white shadow-sm transition-all focus:ring-2 focus:ring-offset-2 focus:outline-none"
@@ -201,17 +194,23 @@ const Cities: React.FC<CitiesProps> = ({ className }) => {
                                                 }}
                                             >
                                                 {c.bottomLine} <span aria-hidden>→</span>
-                                            </a>
+                                            </Link>
                                         </div>
                                     </div>
-                                    <div className="relative mb-4 h-[250px] w-full overflow-hidden rounded-lg lg:mb-0 lg:h-[clamp(350px,25vw,600px)] lg:w-5/12 lg:rounded-2xl">
+                                    <Link
+                                        href={c.eventUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label={`Open ${c.city} event page`}
+                                        className="relative mb-4 block h-[200px] w-full overflow-hidden transition-transform duration-300 ease-out will-change-transform hover:scale-107 hover:-rotate-2 focus:outline-none focus-visible:scale-105 focus-visible:-rotate-2 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white lg:mb-0 lg:h-[clamp(280px,20vw,480px)] lg:w-5/12"
+                                    >
                                         <Image
                                             src={c.imageUrl}
                                             alt={`${c.city} stamp`}
                                             fill
                                             className="pointer-events-none object-contain object-center select-none"
                                         />
-                                    </div>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
