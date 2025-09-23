@@ -76,9 +76,9 @@ const Home = () => {
                     <Intro className="bg-transparent" />
                 </div>
                 <Cities />
+                <About />
                 <SpeakersSection />
                 <Partners />
-                <About />
                 <AnimatedFAQ />
                 <FooterCTA />
                 <Footer />
