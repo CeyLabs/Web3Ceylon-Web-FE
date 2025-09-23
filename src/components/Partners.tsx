@@ -14,38 +14,48 @@ interface PartnersProps {
 }
 
 // Generic single logo display block
-const LogoCard: React.FC<{ item: LogoItem; size?: "sm" | "md" | "lg"; noBorder?: boolean }> = ({
-    item,
-    size = "md",
-    noBorder = false,
-}) => {
+const LogoCard: React.FC<{
+    items: LogoItem | LogoItem[];
+    size?: "sm" | "md" | "lg";
+    noBorder?: boolean;
+}> = ({ items, size = "md", noBorder = false }) => {
     const sizes = { sm: "h-8 md:h-10", md: "h-14 md:h-16", lg: "h-20 md:h-24" } as const;
+    const itemsArray = Array.isArray(items) ? items : [items];
+    const isMultiple = itemsArray.length > 1;
     return (
         <div
             className={cn(
                 "flex h-full w-full items-center justify-center rounded-2xl px-4 py-3 md:px-6 md:py-6",
                 !noBorder && "border border-black/5 bg-white/30 backdrop-blur-3xl",
-                noBorder && ""
+                noBorder && "",
+                isMultiple && "flex-row gap-4"
             )}
         >
-            {item.src ? (
-                <img
-                    src={item.src}
-                    alt={item.name}
-                    className={cn("object-contain", sizes[size], item.className)}
-                    loading="lazy"
-                    decoding="async"
-                />
-            ) : (
-                <span
-                    className={cn(
-                        "font-secondary text-center text-gray-600",
-                        size === "lg" ? "text-xl" : "text-sm md:text-base"
-                    )}
+            {itemsArray.map((item, index) => (
+                <div
+                    key={index}
+                    className={cn("flex items-center justify-center", isMultiple && "flex-1")}
                 >
-                    {item.name}
-                </span>
-            )}
+                    {item.src ? (
+                        <img
+                            src={item.src}
+                            alt={item.name}
+                            className={cn("object-contain", sizes[size], item.className)}
+                            loading="lazy"
+                            decoding="async"
+                        />
+                    ) : (
+                        <span
+                            className={cn(
+                                "font-secondary text-center text-gray-600",
+                                size === "lg" ? "text-xl" : "text-sm md:text-base"
+                            )}
+                        >
+                            {item.name}
+                        </span>
+                    )}
+                </div>
+            ))}
         </div>
     );
 };
@@ -107,6 +117,17 @@ const Partners: React.FC<PartnersProps> = ({ className }) => {
         src: "/assets/partners/ByBit_Black.png",
     };
 
+    const knowledgePartners: LogoItem[] = [
+        { name: "GDG Colombo", src: "/assets/partners/gdglk_logo.png" },
+        { name: "Metana", src: "/assets/partners/Metana-Logo.png" },
+        { name: "Maash", src: "/assets/partners/maash-logo.webp", className: "h-8 md:h-8" },
+    ];
+
+    const ecosystemPartner: LogoItem = {
+        name: "Rotaract Mora",
+        src: "/assets/partners/Rotaract_Mora_Full_color.png",
+    };
+
     // Community partners (SVG logos only)
     const communityPartners: LogoItem[] = [
         { name: "Colombo Crypto Club", src: "/assets/partners/svg/ccc.svg" },
@@ -124,6 +145,8 @@ const Partners: React.FC<PartnersProps> = ({ className }) => {
         { name: "Cosmos Sri Lanka", src: "/assets/partners/svg/cosmossrilanka.svg" },
         { name: "Crypto Anbu", src: "/assets/partners/svg/cryptoanbu.svg" },
         { name: "Metana", src: "/assets/partners/svg/metana.svg" },
+        { name: "Monkey Drops Community", src: "/assets/partners/svg/MonkeyDrops.svg" },
+        { name: "Testnet Hunters Community", src: "/assets/partners/svg/testnet_hunters.svg" },
     ];
 
     return (
@@ -167,7 +190,7 @@ const Partners: React.FC<PartnersProps> = ({ className }) => {
                                 ORGANIZED BY
                             </p>
                             <div className="mx-auto flex max-w-xs items-center justify-center">
-                                <LogoCard item={organizedBy} size="lg" noBorder />
+                                <LogoCard items={organizedBy} size="lg" noBorder />
                             </div>
                         </div>
                     </FadeIn>
@@ -177,7 +200,31 @@ const Partners: React.FC<PartnersProps> = ({ className }) => {
                                 SPONSORED BY
                             </p>
                             <div className="mx-auto flex max-w-xs items-center justify-center">
-                                <LogoCard item={sponsoredBy} size="lg" noBorder />
+                                <LogoCard items={sponsoredBy} size="lg" noBorder />
+                            </div>
+                        </div>
+                    </FadeIn>
+                </div>
+
+                {/* Knowledge & Ecosystem Partners */}
+                <div className="mt-6 grid gap-6 md:grid-cols-2">
+                    <FadeIn delay={160}>
+                        <div className="rounded-3xl bg-white/30 p-8 backdrop-blur-3xl md:p-10">
+                            <p className="mb-6 text-center text-xs font-semibold tracking-[0.25em] text-gray-500 md:text-sm lg:text-base">
+                                KNOWLEDGE PARTNERS
+                            </p>
+                            <div className="mx-auto flex items-center justify-center">
+                                <LogoCard items={knowledgePartners} size="lg" noBorder />
+                            </div>
+                        </div>
+                    </FadeIn>
+                    <FadeIn delay={240}>
+                        <div className="rounded-3xl bg-white/30 p-8 backdrop-blur-3xl md:p-10">
+                            <p className="mb-6 text-center text-xs font-semibold tracking-[0.25em] text-gray-500 md:text-sm lg:text-base">
+                                ECOSYSTEM PARTNER - COLOMBO
+                            </p>
+                            <div className="mx-auto flex max-w-xs items-center justify-center">
+                                <LogoCard items={ecosystemPartner} size="lg" noBorder />
                             </div>
                         </div>
                     </FadeIn>
@@ -191,7 +238,7 @@ const Partners: React.FC<PartnersProps> = ({ className }) => {
                         </p>
                         <div
                             ref={carouselRef}
-                            className="flex cursor-grab select-none overflow-hidden"
+                            className="flex cursor-grab overflow-hidden select-none"
                             onMouseDown={(e) => startDrag(e.pageX)}
                             onMouseMove={(e) => duringDrag(e.pageX)}
                             onMouseUp={endDrag}
