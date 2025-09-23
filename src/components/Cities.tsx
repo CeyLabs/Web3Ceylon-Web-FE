@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -172,7 +173,7 @@ const Cities: React.FC<CitiesProps> = ({ className }) => {
                                             ))}
                                         </ul>
                                         <div className="mt-2">
-                                            <a
+                                            <Link
                                                 href={c.eventUrl}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
@@ -193,10 +194,10 @@ const Cities: React.FC<CitiesProps> = ({ className }) => {
                                                 }}
                                             >
                                                 {c.bottomLine} <span aria-hidden>→</span>
-                                            </a>
+                                            </Link>
                                         </div>
                                     </div>
-                                    <a
+                                    <Link
                                         href={c.eventUrl}
                                         target="_blank"
                                         rel="noopener noreferrer"
@@ -209,7 +210,7 @@ const Cities: React.FC<CitiesProps> = ({ className }) => {
                                             fill
                                             className="pointer-events-none object-contain object-center select-none"
                                         />
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
