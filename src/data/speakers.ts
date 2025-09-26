@@ -67,6 +67,13 @@ export const speakers: SpeakerGroups = {
       telegram: "#",
       image: "/assets/speakers/Chirath Rajapaksha .webp",
     },
+    {
+      name:"Harsha Abegunasekara", 
+      org:"Metana",
+      linkedin:"https://www.linkedin.com/in/stanlyya/",
+      x:"https://x.com/stanlyyaa",
+      telegram:"",
+      image:"/assets/speakers/Harsha Abegunasekara.webp", },
   ],
   galle: [
     {
@@ -92,14 +99,6 @@ export const speakers: SpeakerGroups = {
       x: "https://x.com/ShaqeeqKhan",
       telegram: "https://t.me/shaqeeqkhan",
       image: "/assets/speakers/Shaqeeq Khan.webp",
-    },
-    {
-      name: "Prabodha Lakshan",
-      org: "Technews.LK",
-      linkedin: "https://www.linkedin.com/in/prabodhaonline/",
-      x: "https://x.com/prabodhaonline",
-      telegram: "https://t.me/prabodhalakshan",
-      image: "/assets/speakers/Prabodha Lakshan.webp",
     },
     {
       name: "ManiyaWeb3",
@@ -136,7 +135,14 @@ export const speakers: SpeakerGroups = {
       telegram: "https://t.me/kosalajayasekara",
       image: "/assets/speakers/Kosala Jayasekara.webp",
     },
-    { name: "TBA", org: "TBA", linkedin: "#", x: "#", telegram: "#" },
+     {
+      name: "Prabodha Lakshan",
+      org: "Technews.LK",
+      linkedin: "https://www.linkedin.com/in/prabodhaonline/",
+      x: "https://x.com/prabodhaonline",
+      telegram: "https://t.me/prabodhalakshan",
+      image: "/assets/speakers/Prabodha Lakshan.webp",
+    },
   ],
   ella: [{ name: "TBA", org: "TBA", linkedin: "#", x: "#", telegram: "#" }, { name: "TBA", org: "TBA", linkedin: "#", x: "#", telegram: "#" }, { name: "TBA", org: "TBA", linkedin: "#", x: "#", telegram: "#" }],
 };
@@ -146,7 +152,7 @@ export const speakerGroupTitles: Record<SpeakerGroupKey, string> = {
   kandy: "Kandy — Business & Freelancers",
   galle: "Galle — Creators & Storytellers",
   panel: "Galle - Guest Panel",
-  ella: "Ella — Devs & Creators",
+  ella: "Ella — Retreat & Global Connect",
 };
 
 // Optional: per-group visual theming (colors match site palette)
