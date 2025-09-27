@@ -5,47 +5,34 @@ import Link from "next/link";
 import Image from "next/image";
 import confetti from "canvas-confetti";
 import {
+    IconArrowsShuffle,
     IconBrandFacebook,
     IconBrandLinkedin,
     IconBrandX,
     IconCheck,
     IconCopy,
 } from "@tabler/icons-react";
-import { SITE_URL } from "@/lib/seo";
 import dynamic from "next/dynamic";
 
 const Footer = dynamic(() => import("@/components/Footer"), { ssr: false });
 
-const shareMessage = [
-    "Just participated in #Web3Ceylon Kandy 2025 🚀",
-    "Thanks to @web3ceylontour & @CeylonCash for bringing together builders, thinkers, and innovators to dive into #Web3, #Blockchain",
-    "",
-    "#BybitSriLanka #CeylonCash",
-].join("\n");
-
-const sharePageUrl = `${SITE_URL}create-and-share`;
-const encodedMessage = encodeURIComponent(shareMessage);
-const encodedShareUrl = encodeURIComponent(sharePageUrl);
-
-const shareLinks = [
-    {
-        label: "Share on X",
-        href: `https://twitter.com/intent/tweet?text=${encodedMessage}&url=${encodedShareUrl}`,
-        icon: IconBrandX,
-        accentClass: "bg-black text-white hover:bg-gray-800",
-    },
-    {
-        label: "Post to Facebook",
-        href: `https://www.facebook.com/sharer/sharer.php?u=${encodedShareUrl}&quote=${encodedMessage}`,
-        icon: IconBrandFacebook,
-        accentClass: "bg-[#1877F2] text-white hover:bg-[#166fe5]",
-    },
-    {
-        label: "Share on LinkedIn",
-        href: `https://www.linkedin.com/shareArticle?mini=true&url=${encodedShareUrl}&title=${encodedMessage}`,
-        icon: IconBrandLinkedin,
-        accentClass: "bg-[#0077B5] text-white hover:bg-[#005885]",
-    },
+const socialCaptions = [
+    "Just wrapped up an inspiring day at #Web3Ceylon Kandy 2025 🚀 Huge thanks to @web3ceylontour & @CeylonCash for creating an incredible space for businesses and freelancers to dive into #Web3 and #Blockchain 🔥 #CeylonCash #BybitSriLanka",
+    "Thrilled to be part of the #Web3Ceylon Kandy event today! 🙌 Big shoutout to @web3ceylontour & @CeylonCash for empowering businesses and freelancers to explore #Web3 opportunities! #CeylonCash #Blockchain #BybitSriLanka",
+    "Had a fantastic time at #Web3Ceylon Kandy 2025! 🎉 Thanks to @web3ceylontour & @CeylonCash for bringing together #businesses & #freelancers to explore the power of #Web3 and #Blockchain! 💡🚀 #CeylonCash #BybitSriLanka",
+    "Exploring the future of #Web3 at #Web3Ceylon Kandy 2025! Grateful for @web3ceylontour & @CeylonCash for bringing together businesses, freelancers, and blockchain innovators to shape the future of Sri Lanka 🇱🇰✨ #CeylonCash #BybitSriLanka",
+    "Just participated in the #Web3Ceylon Kandy event! 💻 The power of blockchain and #Web3 for businesses and freelancers is incredible! 🚀 Thanks to @web3ceylontour & @CeylonCash for the amazing experience! #Blockchain #CeylonCash #BybitSriLanka",
+    "What an exciting day at #Web3Ceylon Kandy 2025! 🤩 Huge thanks to @web3ceylontour & @CeylonCash for an event that bridges businesses, freelancers, and #Web3. The future is bright! 💡🚀 #Blockchain #CeylonCash #BybitSriLanka",
+    "An unforgettable experience at #Web3Ceylon Kandy 2025 🎉 Thanks to @web3ceylontour & @CeylonCash for hosting an event where businesses and freelancers explore the future of #Web3 and #Blockchain! 🌍✨ #CeylonCash #BybitSriLanka",
+    "So grateful to have attended #Web3Ceylon Kandy 2025 today! 🙌 A big thank you to @web3ceylontour & @CeylonCash for helping businesses & freelancers discover new #Web3 and #Blockchain opportunities 🌟 #CeylonCash #BybitSriLanka",
+    "Exploring the potential of #Web3 and #Blockchain with businesses and freelancers at #Web3Ceylon Kandy 2025! 🚀 Big thanks to @web3ceylontour & @CeylonCash for bringing us all together for a transformative experience! 💡 #CeylonCash #BybitSriLanka",
+    "Had an incredible time at #Web3Ceylon Kandy 2025 today! 🚀 Thanks to @web3ceylontour & @CeylonCash for creating such an inspiring event for businesses & freelancers to dive into the world of #Web3 and #Blockchain! 🔥 #CeylonCash #BybitSriLanka",
+    "Learning and growing with fellow businesses and freelancers at #Web3Ceylon Kandy 2025 🌱 A huge thank you to @web3ceylontour & @CeylonCash for an event packed with #Web3 and #Blockchain knowledge! 🚀 #CeylonCash #BlockchainInnovation #BybitSriLanka",
+    "What a day at #Web3Ceylon Kandy 2025! 🏆 Thank you to @web3ceylontour & @CeylonCash for bringing entrepreneurs and freelancers together to explore the exciting world of #Web3 and #Blockchain! 🔥💡 #FutureOfTech #CeylonCash #BybitSriLanka",
+    "Had the chance to network and learn with businesses & freelancers at #Web3Ceylon Kandy 2025! 🌍 Big thanks to @web3ceylontour & @CeylonCash for hosting such an impactful event about #Web3 and #Blockchain! 🚀 #CeylonCash #BybitSriLanka",
+    "What an amazing experience at #Web3Ceylon Kandy 2025! 🙏 Thank you to @web3ceylontour & @CeylonCash for creating an event where businesses & freelancers explore the limitless possibilities of #Web3 and #Blockchain! 🌟 #CeylonCash #BybitSriLanka",
+    "Just finished a fantastic day at #Web3Ceylon Kandy 2025! 🎉 Grateful to @web3ceylontour & @CeylonCash for organizing such an amazing space for businesses and freelancers to learn, grow, and explore #Web3! 🌐🚀 #CeylonCash #BybitSriLanka",
+    "Exploring new business opportunities with #Web3Ceylon Kandy 2025! Thanks to @web3ceylontour & @CeylonCash for giving freelancers and businesses the tools to thrive in the #Blockchain era! 🚀🌟 #Web3 #CeylonCash #BybitSriLanka",
 ];
 
 const fireConfetti = () => {
@@ -82,6 +69,45 @@ const fireConfetti = () => {
 
 export default function CreateAndShare() {
     const [copyState, setCopyState] = useState<"idle" | "copied" | "error">("idle");
+    const [captionIndex, setCaptionIndex] = useState(0);
+    const [isTextRed, setIsTextRed] = useState(true);
+
+    const shareMessage = socialCaptions[captionIndex];
+    const encodedMessage = encodeURIComponent(shareMessage);
+    const shareLinks = [
+        {
+            label: "Share on X",
+            href: `https://twitter.com/intent/tweet?text=${encodedMessage}`,
+            icon: IconBrandX,
+            accentClass: "bg-black text-white hover:bg-gray-800",
+        },
+        {
+            label: "Post to Facebook",
+            href: `https://www.facebook.com/sharer/sharer.php?quote=${encodedMessage}`,
+            icon: IconBrandFacebook,
+            accentClass: "bg-[#1877F2] text-white hover:bg-[#166fe5]",
+        },
+        {
+            label: "Share on LinkedIn",
+            href: `https://www.linkedin.com/feed/?shareActive=true&text=${encodedMessage}`,
+            icon: IconBrandLinkedin,
+            accentClass: "bg-[#0077B5] text-white hover:bg-[#005885]",
+        },
+    ];
+
+    const handleShuffle = () => {
+        if (socialCaptions.length <= 1) return;
+
+        setCaptionIndex((current) => {
+            let next = Math.floor(Math.random() * socialCaptions.length);
+            if (next === current) {
+                next = (next + 1) % socialCaptions.length;
+            }
+            return next;
+        });
+        setIsTextRed((prev) => !prev);
+        setCopyState("idle");
+    };
 
     const handleCopy = async () => {
         try {
@@ -144,29 +170,50 @@ export default function CreateAndShare() {
                                     Refresh if you want a clean slate before tweaking the wording.
                                 </p>
                             </div>
-                            <button
-                                type="button"
-                                onClick={handleCopy}
-                                className="hidden items-center gap-2 rounded-full bg-[#C62828] px-4 py-2 text-sm font-semibold text-white shadow-md transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#295746] sm:inline-flex"
-                            >
-                                {copyState === "copied" ? (
-                                    <IconCheck size={18} stroke={2} />
-                                ) : (
-                                    <IconCopy size={18} stroke={2} />
-                                )}
-                                {copyState === "copied" && <span>Copied</span>}
-                                {copyState === "error" && <span>Try again</span>}
-                                {copyState === "idle" && <span>Copy message</span>}
-                            </button>
+                            <div className="flex items-center gap-2">
+                                <button
+                                    type="button"
+                                    onClick={handleShuffle}
+                                    className="hidden items-center gap-2 rounded-full border border-[#C62828] px-3 py-2 text-sm font-semibold text-[#C62828] shadow-sm transition hover:bg-[#C62828] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C62828] sm:inline-flex"
+                                >
+                                    <IconArrowsShuffle size={18} stroke={2} />
+                                    <span className="hidden sm:inline">Shuffle</span>
+                                    <span className="sm:hidden">Shuffle</span>
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={handleCopy}
+                                    className="hidden items-center gap-2 rounded-full bg-[#C62828] px-4 py-2 text-sm font-semibold text-white shadow-md transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#295746] sm:inline-flex"
+                                >
+                                    {copyState === "copied" ? (
+                                        <IconCheck size={18} stroke={2} />
+                                    ) : (
+                                        <IconCopy size={18} stroke={2} />
+                                    )}
+                                    {copyState === "copied" && <span>Copied</span>}
+                                    {copyState === "error" && <span>Try again</span>}
+                                    {copyState === "idle" && <span>Copy</span>}
+                                </button>
+                            </div>
                         </div>
                         <div className="relative mt-6">
                             <article className="relative rounded-2xl border border-[#f2d6ac]/60 bg-[#FFE5E5]/90 p-6 pb-16 shadow-inner sm:p-8 sm:pb-20">
-                                <p className="font-primary text-base leading-relaxed whitespace-pre-line text-[#1f352f] sm:text-lg">
+                                <p
+                                    className={`font-primary text-base leading-relaxed whitespace-pre-line sm:text-lg ${isTextRed ? "text-[#C62828]" : "text-black"}`}
+                                >
                                     {shareMessage}
                                 </p>
                             </article>
                         </div>
-                        <div className="mt-6 flex justify-center sm:hidden">
+                        <div className="mt-6 flex items-center justify-center gap-3 sm:hidden">
+                            <button
+                                type="button"
+                                onClick={handleShuffle}
+                                className="inline-flex items-center gap-2 rounded-full border border-[#C62828] px-4 py-2 text-sm font-semibold text-[#C62828] shadow-sm transition hover:bg-[#C62828] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C62828]"
+                            >
+                                <IconArrowsShuffle size={18} stroke={2} />
+                                Shuffle
+                            </button>
                             <button
                                 type="button"
                                 onClick={handleCopy}
@@ -207,8 +254,8 @@ export default function CreateAndShare() {
                                 Boost it on your socials
                             </h2>
                             <p className="mt-2 text-sm text-[#476060]">
-                                Each button opens in a new tab with the message queued up and the
-                                tour site linked for your followers.
+                                Each button opens in a new tab with the message queued up and ready
+                                to share.
                             </p>
                             <div className="mt-6 grid gap-4 sm:grid-cols-3">
                                 {shareLinks.map(({ label, href, icon: Icon, accentClass }) => (
