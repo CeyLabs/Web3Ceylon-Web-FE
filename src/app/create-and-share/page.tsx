@@ -17,22 +17,22 @@ import dynamic from "next/dynamic";
 const Footer = dynamic(() => import("@/components/Footer"), { ssr: false });
 
 const socialCaptions = [
-    "Just wrapped up an inspiring day at #Web3Ceylon Kandy 2025 🚀 Huge thanks to @web3ceylontour & @CeylonCash for creating an incredible space for businesses and freelancers to dive into #Web3 and #Blockchain 🔥 #CeylonCash #BybitSriLanka",
-    "Thrilled to be part of the #Web3Ceylon Kandy event today! 🙌 Big shoutout to @web3ceylontour & @CeylonCash for empowering businesses and freelancers to explore #Web3 opportunities! #CeylonCash #Blockchain #BybitSriLanka",
-    "Had a fantastic time at #Web3Ceylon Kandy 2025! 🎉 Thanks to @web3ceylontour & @CeylonCash for bringing together #businesses & #freelancers to explore the power of #Web3 and #Blockchain! 💡🚀 #CeylonCash #BybitSriLanka",
-    "Exploring the future of #Web3 at #Web3Ceylon Kandy 2025! Grateful for @web3ceylontour & @CeylonCash for bringing together businesses, freelancers, and blockchain innovators to shape the future of Sri Lanka 🇱🇰✨ #CeylonCash #BybitSriLanka",
-    "Just participated in the #Web3Ceylon Kandy event! 💻 The power of blockchain and #Web3 for businesses and freelancers is incredible! 🚀 Thanks to @web3ceylontour & @CeylonCash for the amazing experience! #Blockchain #CeylonCash #BybitSriLanka",
-    "What an exciting day at #Web3Ceylon Kandy 2025! 🤩 Huge thanks to @web3ceylontour & @CeylonCash for an event that bridges businesses, freelancers, and #Web3. The future is bright! 💡🚀 #Blockchain #CeylonCash #BybitSriLanka",
-    "An unforgettable experience at #Web3Ceylon Kandy 2025 🎉 Thanks to @web3ceylontour & @CeylonCash for hosting an event where businesses and freelancers explore the future of #Web3 and #Blockchain! 🌍✨ #CeylonCash #BybitSriLanka",
-    "So grateful to have attended #Web3Ceylon Kandy 2025 today! 🙌 A big thank you to @web3ceylontour & @CeylonCash for helping businesses & freelancers discover new #Web3 and #Blockchain opportunities 🌟 #CeylonCash #BybitSriLanka",
-    "Exploring the potential of #Web3 and #Blockchain with businesses and freelancers at #Web3Ceylon Kandy 2025! 🚀 Big thanks to @web3ceylontour & @CeylonCash for bringing us all together for a transformative experience! 💡 #CeylonCash #BybitSriLanka",
-    "Had an incredible time at #Web3Ceylon Kandy 2025 today! 🚀 Thanks to @web3ceylontour & @CeylonCash for creating such an inspiring event for businesses & freelancers to dive into the world of #Web3 and #Blockchain! 🔥 #CeylonCash #BybitSriLanka",
-    "Learning and growing with fellow businesses and freelancers at #Web3Ceylon Kandy 2025 🌱 A huge thank you to @web3ceylontour & @CeylonCash for an event packed with #Web3 and #Blockchain knowledge! 🚀 #CeylonCash #BlockchainInnovation #BybitSriLanka",
-    "What a day at #Web3Ceylon Kandy 2025! 🏆 Thank you to @web3ceylontour & @CeylonCash for bringing entrepreneurs and freelancers together to explore the exciting world of #Web3 and #Blockchain! 🔥💡 #FutureOfTech #CeylonCash #BybitSriLanka",
-    "Had the chance to network and learn with businesses & freelancers at #Web3Ceylon Kandy 2025! 🌍 Big thanks to @web3ceylontour & @CeylonCash for hosting such an impactful event about #Web3 and #Blockchain! 🚀 #CeylonCash #BybitSriLanka",
-    "What an amazing experience at #Web3Ceylon Kandy 2025! 🙏 Thank you to @web3ceylontour & @CeylonCash for creating an event where businesses & freelancers explore the limitless possibilities of #Web3 and #Blockchain! 🌟 #CeylonCash #BybitSriLanka",
-    "Just finished a fantastic day at #Web3Ceylon Kandy 2025! 🎉 Grateful to @web3ceylontour & @CeylonCash for organizing such an amazing space for businesses and freelancers to learn, grow, and explore #Web3! 🌐🚀 #CeylonCash #BybitSriLanka",
-    "Exploring new business opportunities with #Web3Ceylon Kandy 2025! Thanks to @web3ceylontour & @CeylonCash for giving freelancers and businesses the tools to thrive in the #Blockchain era! 🚀🌟 #Web3 #CeylonCash #BybitSriLanka",
+    "Just wrapped up an inspiring day at #Web3Ceylon Kandy 2025 🚀 Huge thanks to @web3ceylontour, @CeylonCash & @BybitSriLanka for creating an incredible space for businesses and freelancers to dive into #Web3 and #Blockchain 🔥 #CeylonCash #BybitSriLanka",
+    "Thrilled to be part of the #Web3Ceylon Kandy event today! 🙌 Big shoutout to @web3ceylontour, @CeylonCash & @BybitSriLanka for empowering businesses and freelancers to explore #Web3 opportunities! #CeylonCash #Blockchain #BybitSriLanka",
+    "Had a fantastic time at #Web3Ceylon Kandy 2025! 🎉 Thanks to @web3ceylontour, @CeylonCash & @BybitSriLanka for bringing together #businesses & #freelancers to explore the power of #Web3 and #Blockchain! 💡🚀 #CeylonCash #BybitSriLanka",
+    "Exploring the future of #Web3 at #Web3Ceylon Kandy 2025! Grateful for @web3ceylontour, @CeylonCash & @BybitSriLanka for bringing together businesses, freelancers, and blockchain innovators to shape the future of Sri Lanka 🇱🇰✨ #CeylonCash #BybitSriLanka",
+    "Just participated in the #Web3Ceylon Kandy event! 💻 The power of blockchain and #Web3 for businesses and freelancers is incredible! 🚀 Thanks to @web3ceylontour, @CeylonCash & @BybitSriLanka for the amazing experience! #Blockchain #CeylonCash #BybitSriLanka",
+    "What an exciting day at #Web3Ceylon Kandy 2025! 🤩 Huge thanks to @web3ceylontour, @CeylonCash & @BybitSriLanka for an event that bridges businesses, freelancers, and #Web3. The future is bright! 💡🚀 #Blockchain #CeylonCash #BybitSriLanka",
+    "An unforgettable experience at #Web3Ceylon Kandy 2025 🎉 Thanks to @web3ceylontour, @CeylonCash & @BybitSriLanka for hosting an event where businesses and freelancers explore the future of #Web3 and #Blockchain! 🌍✨ #CeylonCash #BybitSriLanka",
+    "So grateful to have attended #Web3Ceylon Kandy 2025 today! 🙌 A big thank you to @web3ceylontour, @CeylonCash & @BybitSriLanka for helping businesses & freelancers discover new #Web3 and #Blockchain opportunities 🌟 #CeylonCash #BybitSriLanka",
+    "Exploring the potential of #Web3 and #Blockchain with businesses and freelancers at #Web3Ceylon Kandy 2025! 🚀 Big thanks to @web3ceylontour, @CeylonCash & @BybitSriLanka for bringing us all together for a transformative experience! 💡 #CeylonCash #BybitSriLanka",
+    "Had an incredible time at #Web3Ceylon Kandy 2025 today! 🚀 Thanks to @web3ceylontour, @CeylonCash & @BybitSriLanka for creating such an inspiring event for businesses & freelancers to dive into the world of #Web3 and #Blockchain! 🔥 #CeylonCash #BybitSriLanka",
+    "Learning and growing with fellow businesses and freelancers at #Web3Ceylon Kandy 2025 🌱 A huge thank you to @web3ceylontour, @CeylonCash & @BybitSriLanka for an event packed with #Web3 and #Blockchain knowledge! 🚀 #CeylonCash #BlockchainInnovation #BybitSriLanka",
+    "What a day at #Web3Ceylon Kandy 2025! 🏆 Thank you to @web3ceylontour, @CeylonCash & @BybitSriLanka for bringing entrepreneurs and freelancers together to explore the exciting world of #Web3 and #Blockchain! 🔥💡 #FutureOfTech #CeylonCash #BybitSriLanka",
+    "Had the chance to network and learn with businesses & freelancers at #Web3Ceylon Kandy 2025! 🌍 Big thanks to @web3ceylontour, @CeylonCash & @BybitSriLanka for hosting such an impactful event about #Web3 and #Blockchain! 🚀 #CeylonCash #BybitSriLanka",
+    "What an amazing experience at #Web3Ceylon Kandy 2025! 🙏 Thank you to @web3ceylontour, @CeylonCash & @BybitSriLanka for creating an event where businesses & freelancers explore the limitless possibilities of #Web3 and #Blockchain! 🌟 #CeylonCash #BybitSriLanka",
+    "Just finished a fantastic day at #Web3Ceylon Kandy 2025! 🎉 Grateful to @web3ceylontour, @CeylonCash & @BybitSriLanka for organizing such an amazing space for businesses and freelancers to learn, grow, and explore #Web3! 🌐🚀 #CeylonCash #BybitSriLanka",
+    "Exploring new business opportunities with #Web3Ceylon Kandy 2025! Thanks to @web3ceylontour, @CeylonCash & @BybitSriLanka for giving freelancers and businesses the tools to thrive in the #Blockchain era! 🚀🌟 #Web3 #CeylonCash #BybitSriLanka",
 ];
 
 const fireConfetti = () => {
@@ -139,7 +139,7 @@ export default function CreateAndShare() {
                             className="mx-auto h-56 w-auto"
                         />
                         <h1 className="font-primary mt-4 text-3xl leading-tight text-[#C62828] sm:text-4xl">
-                            Let the island know you joined the web3ceylon tour
+                            Create! Share! Win!
                         </h1>
                         <p className="font-secondary mx-auto mt-4 max-w-2xl text-base text-[#345252] sm:text-lg">
                             Share your Kandy vibes! Customize the message or post it straight to
