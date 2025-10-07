@@ -93,14 +93,6 @@ export const speakers: SpeakerGroups = {
       image: "/assets/speakers/Kasum Asanka.webp",
     },
     {
-      name: "Shaqeeq Khan",
-      org: "Metana",
-      linkedin: "https://www.linkedin.com/in/shaqeeqkhan/",
-      x: "https://x.com/ShaqeeqKhan",
-      telegram: "https://t.me/shaqeeqkhan",
-      image: "/assets/speakers/Shaqeeq Khan.webp",
-    },
-    {
       name: "ManiyaWeb3",
       org: "Solana Sri Lanka",
       linkedin: "https://www.linkedin.com/in/maniyaweb3/",
@@ -116,6 +108,14 @@ export const speakers: SpeakerGroups = {
       telegram: "https://t.me/dumindukanishka",
       image: "/assets/speakers/Dumindu Kanishka.webp",
     },
+    {
+      name: "Chirath Rajapaksha",
+      org: "Digital Assets LK",
+      linkedin: "https://www.linkedin.com/in/chirathrajapaksha/",
+      x: "https://x.com/krazychirz",
+      telegram: "#",
+      image: "/assets/speakers/Chirath Rajapaksha .webp",
+    },
   ],
   // Guest Panel (placed under the Galle section in UI) — use Galle's color for visual consistency
   panel: [
@@ -127,14 +127,6 @@ export const speakers: SpeakerGroups = {
       telegram: "https://t.me/dilshanabeygunawardana",
       image: "/assets/speakers/Dilshan Abeygunawardana.webp",
     },
-    {
-      name: "Kosala Jayasekara",
-      org: "Fixel Digital",
-      linkedin: "https://www.linkedin.com/in/kosalajayasekara/",
-      x: "https://x.com/kjayasekara",
-      telegram: "https://t.me/kosalajayasekara",
-      image: "/assets/speakers/Kosala Jayasekara.webp",
-    },
      {
       name: "Prabodha Lakshan",
       org: "Technews.LK",
@@ -142,6 +134,14 @@ export const speakers: SpeakerGroups = {
       x: "https://x.com/prabodhaonline",
       telegram: "https://t.me/prabodhalakshan",
       image: "/assets/speakers/Prabodha Lakshan.webp",
+    },
+    {
+      name: "Kalith Yuran",
+      org: "Digital Assets LK",
+      linkedin: "https://www.linkedin.com/in/kalith-yuran-9bb863211/",
+      x: "https://x.com/officialkaali",
+      telegram: "#",
+      image: "/assets/speakers/Kalith Yuran.webp",
     },
   ],
   ella: [{ name: "TBA", org: "TBA", linkedin: "#", x: "#", telegram: "#" }, { name: "TBA", org: "TBA", linkedin: "#", x: "#", telegram: "#" }, { name: "TBA", org: "TBA", linkedin: "#", x: "#", telegram: "#" }],
