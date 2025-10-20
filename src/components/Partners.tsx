@@ -7,6 +7,7 @@ interface LogoItem {
     name: string;
     src?: string; // path under /public
     className?: string;
+    link?: string; // optional hyperlink
 }
 
 interface PartnersProps {
@@ -132,21 +133,69 @@ const Partners: React.FC<PartnersProps> = ({ className }) => {
     const communityPartners: LogoItem[] = [
         { name: "Colombo Crypto Club", src: "/assets/partners/svg/ccc.svg" },
         { name: "Crypto Cirqle", src: "/assets/partners/svg/cryptocirqle.svg" },
-        { name: "Crypto Lanka", src: "/assets/partners/svg/cryptolanka.svg" },
-        { name: "Crypto With Duni", src: "/assets/partners/svg/cryptowithduni.svg" },
-        { name: "Digital Asset Lanka", src: "/assets/partners/svg/dal.svg" },
-        { name: "FounderFlow", src: "/assets/partners/svg/founderflow.svg" },
-        { name: "GDG Sri Lanka", src: "/assets/partners/svg/gdgsrilanka.svg" },
-        { name: "Solana Sri Lanka Community", src: "/assets/partners/svg/solanasl.svg" },
-        { name: "Spike Community", src: "/assets/partners/svg/spike.svg" },
-        { name: "TechNews.LK", src: "/assets/partners/svg/technewslk.svg" },
-        { name: "Telegram Creators", src: "/assets/partners/svg/tonconnect.svg" },
-        { name: "TON Sri Lanka", src: "/assets/partners/svg/tonsl.svg" },
-        { name: "Cosmos Sri Lanka", src: "/assets/partners/svg/cosmossrilanka.svg" },
+        {
+            name: "Crypto Lanka",
+            src: "/assets/partners/svg/cryptolanka.svg",
+            link: "https://t.me/cryptoLankaAnnouncement",
+        },
+        {
+            name: "Crypto With Duni",
+            src: "/assets/partners/svg/cryptowithduni.svg",
+            link: "https://www.facebook.com/cryptoduni/",
+        },
+        {
+            name: "Digital Asset Lanka",
+            src: "/assets/partners/svg/dal.svg",
+            link: "https://t.me/DigitalAssetsLanka",
+        },
+        {
+            name: "FounderFlow",
+            src: "/assets/partners/svg/founderflow.svg",
+            link: "https://founderflow.lk/",
+        },
+        {
+            name: "GDG Sri Lanka",
+            src: "/assets/partners/svg/gdgsrilanka.svg",
+            link: "https://gdgsrilanka.org/",
+        },
+        {
+            name: "Solana Sri Lanka Community",
+            src: "/assets/partners/svg/solanasl.svg",
+            link: "https://t.me/SolanaSriLanka",
+        },
+        {
+            name: "Spike Community",
+            src: "/assets/partners/svg/spike.svg",
+            link: "https://linktr.ee/spikecommunity",
+        },
+        {
+            name: "TechNews.LK",
+            src: "/assets/partners/svg/technewslk.svg",
+            link: "https://technews.lk/",
+        },
+        {
+            name: "Telegram Creators",
+            src: "/assets/partners/svg/tonconnect.svg",
+            link: "https://www.telegramcreators.com/",
+        },
+        {
+            name: "TON Sri Lanka",
+            src: "/assets/partners/svg/tonsl.svg",
+            link: "https://t.me/TonSocietySL",
+        },
+        {
+            name: "Cosmos Sri Lanka",
+            src: "/assets/partners/svg/cosmossrilanka.svg",
+            link: "https://t.me/CosmosEcoDiscussion",
+        },
         { name: "Crypto Anbu", src: "/assets/partners/svg/cryptoanbu.svg" },
-        { name: "Metana", src: "/assets/partners/svg/metana.svg" },
+        { name: "Metana", src: "/assets/partners/svg/metana.svg", link: "https://metana.io/" },
         { name: "Monkey Drops Community", src: "/assets/partners/svg/MonkeyDrops.svg" },
-        { name: "Testnet Hunters Community", src: "/assets/partners/svg/testnet_hunters.svg" },
+        {
+            name: "Testnet Hunters Community",
+            src: "/assets/partners/svg/testnet_hunters.svg",
+            link: "https://t.me/announcementtestnethunters",
+        },
     ];
 
     return (
@@ -252,18 +301,42 @@ const Partners: React.FC<PartnersProps> = ({ className }) => {
                                     key={`${partner.name}-${i}`}
                                     className="flex w-1/3 flex-shrink-0 flex-col items-center gap-2 px-2 sm:w-1/3 md:w-1/4 lg:w-1/6"
                                 >
-                                    <div className="flex h-16 w-16 items-center justify-center sm:h-20 sm:w-20 md:h-24 md:w-24">
-                                        <img
-                                            src={partner.src}
-                                            alt={partner.name}
-                                            className="h-12 w-12 object-contain sm:h-16 sm:w-16 md:h-20 md:w-20"
-                                            loading="lazy"
-                                            style={{ clipPath: "circle(calc(50% - 5px))" }}
-                                        />
-                                    </div>
-                                    <span className="font-secondary max-w-[80px] text-center text-xs leading-tight text-gray-800 sm:max-w-[100px] sm:text-sm">
-                                        {partner.name}
-                                    </span>
+                                    {partner.link ? (
+                                        <a
+                                            href={partner.link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="flex flex-col items-center gap-2"
+                                        >
+                                            <div className="flex h-16 w-16 items-center justify-center sm:h-20 sm:w-20 md:h-24 md:w-24">
+                                                <img
+                                                    src={partner.src}
+                                                    alt={partner.name}
+                                                    className="h-12 w-12 object-contain sm:h-16 sm:w-16 md:h-20 md:w-20"
+                                                    loading="lazy"
+                                                    style={{ clipPath: "circle(calc(50% - 5px))" }}
+                                                />
+                                            </div>
+                                            <span className="font-secondary max-w-[80px] text-center text-xs leading-tight text-gray-800 sm:max-w-[100px] sm:text-sm">
+                                                {partner.name}
+                                            </span>
+                                        </a>
+                                    ) : (
+                                        <>
+                                            <div className="flex h-16 w-16 items-center justify-center sm:h-20 sm:w-20 md:h-24 md:w-24">
+                                                <img
+                                                    src={partner.src}
+                                                    alt={partner.name}
+                                                    className="h-12 w-12 object-contain sm:h-16 sm:w-16 md:h-20 md:w-20"
+                                                    loading="lazy"
+                                                    style={{ clipPath: "circle(calc(50% - 5px))" }}
+                                                />
+                                            </div>
+                                            <span className="font-secondary max-w-[80px] text-center text-xs leading-tight text-gray-800 sm:max-w-[100px] sm:text-sm">
+                                                {partner.name}
+                                            </span>
+                                        </>
+                                    )}
                                 </div>
                             ))}
                         </div>
