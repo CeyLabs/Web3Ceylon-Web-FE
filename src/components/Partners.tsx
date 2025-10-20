@@ -116,6 +116,7 @@ const Partners: React.FC<PartnersProps> = ({ className }) => {
     const sponsoredBy: LogoItem = {
         name: "Bybit",
         src: "/assets/partners/ByBit_Black.png",
+        className: "h-12 md:h-16",
     };
 
     const knowledgePartners: LogoItem[] = [
@@ -238,7 +239,7 @@ const Partners: React.FC<PartnersProps> = ({ className }) => {
                             <p className="mb-6 text-center text-xs font-semibold tracking-[0.25em] text-gray-500 md:text-sm lg:text-base">
                                 ORGANIZED BY
                             </p>
-                            <div className="mx-auto flex max-w-xs items-center justify-center">
+                            <div className="mx-auto flex max-w-xs items-center justify-center h-32">
                                 <LogoCard items={organizedBy} size="lg" noBorder />
                             </div>
                         </div>
@@ -248,7 +249,7 @@ const Partners: React.FC<PartnersProps> = ({ className }) => {
                             <p className="mb-6 text-center text-xs font-semibold tracking-[0.25em] text-gray-500 md:text-sm lg:text-base">
                                 SPONSORED BY
                             </p>
-                            <div className="mx-auto flex max-w-xs items-center justify-center">
+                            <div className="mx-auto flex max-w-xs items-center justify-center h-32">
                                 <LogoCard items={sponsoredBy} size="lg" noBorder />
                             </div>
                         </div>
