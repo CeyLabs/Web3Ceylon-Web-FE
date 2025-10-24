@@ -23,6 +23,17 @@ export default function ThankYouPage() {
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
+            // Don't prevent space key if user is typing in an input field
+            const activeElement = document.activeElement;
+            if (
+                event.code === "Space" &&
+                (activeElement?.tagName === "INPUT" ||
+                    activeElement?.tagName === "TEXTAREA" ||
+                    (activeElement as HTMLElement)?.contentEditable === "true")
+            ) {
+                return;
+            }
+
             if (event.code === "Space") {
                 event.preventDefault();
                 setIsSpacePressed(true);
@@ -96,7 +107,7 @@ export default function ThankYouPage() {
 
                         <div className="absolute inset-0 flex items-center justify-center">
                             <Image
-                                src="/2025/Main_BBG.png"
+                                src="/Main_BBG.svg"
                                 alt="Web3Ceylon logo"
                                 width={128}
                                 height={128}

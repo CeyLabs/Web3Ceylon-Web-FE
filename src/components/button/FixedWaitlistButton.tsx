@@ -1,0 +1,161 @@
+"use client";
+
+import { motion, useInView } from "framer-motion";
+import { IconMail, IconSend2 } from "@tabler/icons-react";
+import { useWaitlistModalStore } from "@/lib/zustand/stores";
+import useWindowSize from "@/hooks/useWindowSize";
+import { useRef, useState, useEffect } from "react";
+import type { WaitlistFormRef } from "@/components/form/WaitlistForm";
+
+interface FixedWaitlistButtonProps {
+    formRef: React.RefObject<WaitlistFormRef>;
+    onSubmitAnimating?: (animating: boolean) => void;
+}
+
+export default function FixedWaitlistButton({
+    formRef,
+    onSubmitAnimating,
+}: FixedWaitlistButtonProps) {
+    const isModalOpen = useWaitlistModalStore((state) => state.isModalOpen);
+    const toggleModal = useWaitlistModalStore((state) => state.toggleModal);
+
+    const { width } = useWindowSize();
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [isSubmitAnimating, setIsSubmitAnimating] = useState(false);
+
+    // If footer context exists we could hide near footer; for now keep always visible
+    const containerRef = useRef<HTMLDivElement>(null);
+    const isContainerInView = useInView(containerRef as React.RefObject<Element>, {
+        amount: 0.01,
+    });
+
+    const [isInitialLoad, setIsInitialLoad] = useState(true);
+    useEffect(() => {
+        const t = setTimeout(() => setIsInitialLoad(false), 1500);
+        return () => clearTimeout(t);
+    }, []);
+
+    // Update parent when animation state changes
+    useEffect(() => {
+        onSubmitAnimating?.(isSubmitAnimating);
+    }, [isSubmitAnimating, onSubmitAnimating]);
+
+    const handleClick = () => {
+        if (isModalOpen && formRef.current) {
+            // Trigger submit animation
+            setIsSubmitAnimating(true);
+            formRef.current.submit();
+            // Reset animation after delay
+            setTimeout(() => setIsSubmitAnimating(false), 800);
+        } else {
+            toggleModal();
+        }
+    };
+
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => setMounted(true), []);
+    const iconSize = mounted && width < 728 ? 20 : 30;
+
+    const slideImages = [
+        "/assets/logos/Main_Circle.png",
+        "/assets/logos/Colombo_Circle.png",
+        "/assets/logos/Ella_Circle.png",
+        "/assets/logos/Galle_Circle.png",
+        "/assets/logos/Kandy_Circle.png",
+    ];
+    const [slideIndex, setSlideIndex] = useState(0);
+    useEffect(() => {
+        slideImages.forEach((src) => {
+            const img = new Image();
+            img.src = encodeURI(src);
+        });
+        const id = setInterval(() => setSlideIndex((i) => (i + 1) % slideImages.length), 2500);
+        return () => clearInterval(id);
+    }, []);
+
+    return (
+        <motion.button
+            initial={{ y: 200, scale: 0.8, opacity: 0 }}
+            animate={
+                isModalOpen
+                    ? isSubmitAnimating
+                        ? { y: 0, scale: 1.15, opacity: 1 }
+                        : { y: 0, scale: 1, opacity: 1 }
+                    : { y: 200, scale: 0.8, opacity: 0 }
+            }
+            transition={{
+                duration: isSubmitAnimating ? 0.5 : 0.6,
+                ease: [0.22, 1, 0.36, 1],
+                delay: isInitialLoad ? 1.2 : 0,
+            }}
+            onClick={handleClick}
+            ref={buttonRef}
+            transformTemplate={(_, generated) => `translateX(-50%) ${generated}`}
+            className={`${
+                isModalOpen
+                    ? "border border-white/15 bg-white/10"
+                    : "border border-white/15 bg-white/10 backdrop-blur-md"
+            } group fixed bottom-8 left-1/2 z-[10001] flex origin-center cursor-pointer items-center gap-2 rounded-full py-1 pr-4 pl-1 shadow-2xl transition-colors delay-100 duration-700 ease-in-out xl:gap-3 xl:pr-6 xl:pl-1.5`}
+            style={{ pointerEvents: isModalOpen ? "auto" : "none" }}
+            aria-label={isModalOpen ? "Submit waitlist" : "Open waitlist"}
+        >
+            <div className="relative h-12 w-12 rounded-full xl:h-16 xl:w-16">
+                <div
+                    className={`${isModalOpen ? "opacity-0" : ""} relative h-full w-full overflow-hidden rounded-full transition-all duration-200 ease-[cubic-bezier(0.64,0.57,0.67,1.53)] group-hover:scale-70 group-hover:opacity-0`}
+                >
+                    <img
+                        src={slideImages[slideIndex]}
+                        alt="waitlist-logo"
+                        className="absolute inset-0 h-full w-full origin-center animate-spin object-cover object-center will-change-transform [animation-duration:12s]"
+                        draggable={false}
+                        decoding="async"
+                    />
+                </div>
+
+                <span
+                    className={`${isModalOpen ? "opacity-0" : ""} absolute top-1/2 left-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 scale-0 items-center justify-center rounded-full bg-white/90 transition-all duration-200 ease-[cubic-bezier(0.64,0.57,0.67,1.53)] group-hover:scale-100 xl:h-16 xl:w-16`}
+                >
+                    <IconMail className="text-black" stroke={2.5} size={iconSize} />
+                </span>
+
+                <span
+                    className={`${isModalOpen ? "scale-100 opacity-100" : "scale-70 opacity-0"} absolute top-1/2 left-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-end overflow-hidden rounded-full bg-white/90 transition-all delay-200 duration-200 ease-[cubic-bezier(0.64,0.57,0.67,1.53)] xl:h-16 xl:w-16`}
+                >
+                    <motion.div
+                        animate={isSubmitAnimating ? { x: [0, -50, -50] } : { x: 0 }}
+                        transition={{ duration: 0.6, ease: "easeInOut" }}
+                        className="flex transition-transform duration-200 ease-[cubic-bezier(0.64,0.57,0.67,1.53)] group-hover:translate-x-1/2"
+                    >
+                        <div className="flex w-12 items-center justify-center xl:w-16">
+                            <IconSend2
+                                className="text-2xl text-black xl:text-5xl"
+                                stroke={2.5}
+                                size={iconSize}
+                            />
+                        </div>
+                        <div className="flex w-12 items-center justify-center xl:w-16">
+                            <IconSend2
+                                className="text-2xl text-black xl:text-5xl"
+                                stroke={2.5}
+                                size={iconSize}
+                            />
+                        </div>
+                    </motion.div>
+                </span>
+            </div>
+
+            <div
+                className={`${isModalOpen ? "text-white" : "text-white"} h-7 overflow-hidden lg:h-9`}
+            >
+                <div className="flex flex-col transition-transform duration-200 ease-[cubic-bezier(0.64,0.57,0.67,1.53)] group-hover:-translate-y-1/2">
+                    <span className="text-xl font-semibold lg:text-3xl">
+                        {isModalOpen ? "Submit" : "Waitlist"}
+                    </span>
+                    <span className="text-xl font-semibold lg:text-3xl">
+                        {isModalOpen ? "Submit" : "Waitlist"}
+                    </span>
+                </div>
+            </div>
+        </motion.button>
+    );
+}

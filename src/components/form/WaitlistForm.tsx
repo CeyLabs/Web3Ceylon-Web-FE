@@ -1,27 +1,42 @@
 "use client";
 
-import { forwardRef, useImperativeHandle, useRef, useState } from "react";
+import { forwardRef, useImperativeHandle, useRef, useState, useEffect } from "react";
 import { useWaitlistModalStore } from "@/lib/zustand/stores";
+import { Switch } from "@/components/ui/switch";
+// use contact-form style pills for single-select profession
 
 export interface WaitlistFormRef {
     submit: () => void;
+    onSubmitAnimating?: (animating: boolean) => void;
 }
 
 const WaitlistForm = forwardRef<WaitlistFormRef>((_, ref) => {
     const formRef = useRef<HTMLFormElement>(null);
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
     const [clientData, setClientData] = useState({
         fullName: "",
         email: "",
+        profession: "",
+        consentToShareWithThirdParties: false,
     });
-    const [attendance, setAttendance] = useState<string>("");
     const [errors, setErrors] = useState({
         fullName: false,
         email: false,
-        attendance: false,
+        consentToShareWithThirdParties: false,
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitMessage, setSubmitMessage] = useState("");
     const toggleModal = useWaitlistModalStore((state) => state.toggleModal);
+
+    // Cleanup timeout on unmount
+    useEffect(() => {
+        const currentTimeout = timeoutRef.current;
+        return () => {
+            if (currentTimeout) {
+                clearTimeout(currentTimeout);
+            }
+        };
+    }, []);
 
     useImperativeHandle(ref, () => ({
         submit: () => {
@@ -37,7 +52,7 @@ const WaitlistForm = forwardRef<WaitlistFormRef>((_, ref) => {
         const newErrors = {
             fullName: clientData.fullName.trim() === "",
             email: clientData.email.trim() === "",
-            attendance: attendance === "",
+            consentToShareWithThirdParties: !clientData.consentToShareWithThirdParties,
         };
         setErrors(newErrors);
         if (Object.values(newErrors).some(Boolean)) return;
@@ -52,7 +67,8 @@ const WaitlistForm = forwardRef<WaitlistFormRef>((_, ref) => {
                 body: JSON.stringify({
                     fullName: clientData.fullName,
                     email: clientData.email,
-                    attendance: attendance,
+                    profession: clientData.profession,
+                    consentToShareWithThirdParties: clientData.consentToShareWithThirdParties,
                 }),
             });
 
@@ -68,16 +84,17 @@ const WaitlistForm = forwardRef<WaitlistFormRef>((_, ref) => {
             setClientData({
                 fullName: "",
                 email: "",
+                profession: "",
+                consentToShareWithThirdParties: false,
             });
-            setAttendance("");
             setErrors({
                 fullName: false,
                 email: false,
-                attendance: false,
+                consentToShareWithThirdParties: false,
             });
 
             // Close modal after successful submission
-            setTimeout(() => {
+            timeoutRef.current = setTimeout(() => {
                 toggleModal();
                 setSubmitMessage("");
             }, 2000);
@@ -91,30 +108,31 @@ const WaitlistForm = forwardRef<WaitlistFormRef>((_, ref) => {
 
     return (
         <div className="flex h-full flex-col">
-            <h2 className="font-primary mb-[clamp(16px,3vw,32px)] text-[clamp(32px,5vw,72px)] leading-[1] font-semibold tracking-tight">
+            <h2 className="font-instrument mb-[clamp(16px,3vw,32px)] text-[clamp(32px,5vw,72px)] leading-[1] font-semibold tracking-tight">
                 <span className="text-zinc-200">Join the</span>{" "}
                 <span className="text-zinc-100">Waitlist</span>
             </h2>
 
-            <p className="font-secondary mb-8 text-[clamp(16px,2vw,24px)] text-zinc-400">
+            <p className="mb-8 text-[clamp(16px,2vw,24px)] text-zinc-400">
                 Be the first to know when Web3Ceylon returns in 2026. We'll notify you about
                 upcoming events and exclusive updates.
             </p>
 
             <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-6">
-                <div className="flex flex-col gap-4">
+                <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-2">
                     <div
-                        className={`flex h-28 w-full flex-col justify-end rounded-2xl border-3 bg-zinc-900/50 px-6 py-4 transition-colors duration-300 focus-within:border-zinc-400 lg:h-32 lg:rounded-3xl 2xl:h-44 ${
-                            errors.fullName ? "border-red-500" : "border-zinc-700"
+                        className={`flex h-28 w-full flex-col justify-center rounded-2xl border bg-white/5 px-6 py-4 backdrop-blur-sm transition-colors duration-300 focus-within:border-white/20 lg:h-32 lg:rounded-3xl 2xl:h-44 ${
+                            errors.fullName ? "border-red-500" : "border-white/10"
                         }`}
                     >
                         <label
                             htmlFor="fullName"
                             className="text-[clamp(16px,1.2vw,24px)] font-semibold text-zinc-200"
                         >
-                            Full Name
+                            Full name
                         </label>
                         <input
+                            id="fullName"
                             type="text"
                             name="fullName"
                             value={clientData.fullName}
@@ -123,23 +141,32 @@ const WaitlistForm = forwardRef<WaitlistFormRef>((_, ref) => {
                                 setErrors({ ...errors, fullName: false });
                             }}
                             placeholder="Kasun Fernando"
-                            className="rounded-lg bg-zinc-800/50 px-2 py-1 text-[clamp(18px,1.2vw,24px)] font-semibold text-zinc-100 placeholder:text-zinc-500 focus:outline-none"
+                            autoComplete="name"
+                            aria-invalid={errors.fullName}
+                            aria-describedby={errors.fullName ? "fullName-error" : undefined}
+                            className="rounded-md bg-white/5 px-3 py-2 text-[clamp(18px,1.2vw,24px)] font-semibold text-zinc-100 ring-offset-zinc-900 backdrop-blur-sm placeholder:text-zinc-300 focus:ring-2 focus:ring-white/20 focus:outline-none"
                             disabled={isSubmitting}
                         />
+                        {errors.fullName && (
+                            <div id="fullName-error" className="mt-1 text-sm text-red-400">
+                                Full name is required
+                            </div>
+                        )}
                     </div>
 
                     <div
-                        className={`flex h-28 w-full flex-col justify-end rounded-2xl border-3 bg-zinc-900/50 px-6 py-4 transition-colors duration-300 focus-within:border-zinc-400 lg:h-32 lg:rounded-3xl 2xl:h-44 ${
-                            errors.email ? "border-red-500" : "border-zinc-700"
+                        className={`flex h-28 w-full flex-col justify-center rounded-2xl border bg-white/5 px-6 py-4 backdrop-blur-sm transition-colors duration-300 focus-within:border-white/20 lg:h-32 lg:rounded-3xl 2xl:h-44 ${
+                            errors.email ? "border-red-500" : "border-white/10"
                         }`}
                     >
                         <label
                             htmlFor="email"
                             className="text-[clamp(16px,1.2vw,24px)] font-semibold text-zinc-200"
                         >
-                            Email Address
+                            Email
                         </label>
                         <input
+                            id="email"
                             type="email"
                             name="email"
                             value={clientData.email}
@@ -148,56 +175,107 @@ const WaitlistForm = forwardRef<WaitlistFormRef>((_, ref) => {
                                 setErrors({ ...errors, email: false });
                             }}
                             placeholder="kasun@example.com"
-                            className="rounded-lg bg-zinc-800/50 px-2 py-1 text-[clamp(18px,1.2vw,24px)] font-semibold text-zinc-100 placeholder:text-zinc-500 focus:outline-none"
+                            autoComplete="email"
+                            aria-invalid={errors.email}
+                            aria-describedby={errors.email ? "email-error" : undefined}
+                            className="rounded-md bg-white/5 px-3 py-2 text-[clamp(18px,1.2vw,24px)] font-semibold text-zinc-100 ring-offset-zinc-900 backdrop-blur-sm placeholder:text-zinc-300 focus:ring-2 focus:ring-white/20 focus:outline-none"
                             disabled={isSubmitting}
                         />
+                        {errors.email && (
+                            <div id="email-error" className="mt-1 text-sm text-red-400">
+                                Valid email address is required
+                            </div>
+                        )}
                     </div>
 
-                    <div className="flex flex-col gap-4">
-                        <label className="text-[clamp(16px,1.2vw,24px)] font-semibold text-zinc-200">
-                            Have you attended any 2025 edition of Web3Ceylon?
+                    {/* full-width profession selector (contact-form style pills) */}
+                    <div className="w-full md:col-span-2">
+                        <label className="mb-2 block text-[clamp(14px,1vw,18px)] font-semibold text-zinc-200">
+                            Profession / Industry
                         </label>
-                        <div className="flex flex-wrap gap-3">
-                            {["Yes", "No", "Haven't, but I'm interested!"].map((option) => (
-                                <button
-                                    key={option}
-                                    type="button"
-                                    onClick={() => {
-                                        setAttendance(option);
-                                        setErrors({ ...errors, attendance: false });
-                                    }}
-                                    disabled={isSubmitting}
-                                    className={`rounded-full border-2 px-4 py-2 text-[clamp(14px,1vw,18px)] font-semibold transition-colors duration-300 ${
-                                        attendance === option
-                                            ? "border-zinc-400 bg-zinc-400 text-black"
-                                            : "border-zinc-600 bg-zinc-800/50 text-zinc-300 hover:border-zinc-500"
-                                    } ${errors.attendance ? "border-red-500" : ""} disabled:cursor-not-allowed disabled:opacity-50`}
+                        <ul className="flex w-full flex-wrap gap-2">
+                            {[
+                                { value: "web3", label: "Web3" },
+                                { value: "finance", label: "Finance" },
+                                { value: "retail", label: "Retail" },
+                                { value: "it", label: "IT" },
+                                { value: "education", label: "Education" },
+                                { value: "other", label: "Other" },
+                            ].map((opt) => (
+                                <li
+                                    key={opt.value}
+                                    onClick={() =>
+                                        setClientData({ ...clientData, profession: opt.value })
+                                    }
+                                    role="radio"
+                                    aria-checked={clientData.profession === opt.value}
+                                    className={`cursor-pointer rounded-full border-2 px-3.5 py-1.5 text-[clamp(14px,1vw,18px)] font-semibold transition-colors duration-300 ease-in-out 2xl:px-5 2xl:py-2 ${
+                                        clientData.profession === opt.value
+                                            ? "border-white/80 bg-white/80 text-zinc-900"
+                                            : "border-white/10 text-zinc-200"
+                                    }`}
                                 >
-                                    {option}
-                                </button>
+                                    {opt.label}
+                                </li>
                             ))}
-                        </div>
+                        </ul>
                     </div>
                 </div>
 
                 {submitMessage && (
                     <div
-                        className={`rounded-lg px-4 py-2 text-center text-[clamp(16px,1.5vw,20px)] font-semibold ${
+                        className={`rounded-lg px-4 py-2 text-center text-[clamp(16px,1.5vw,20px)] font-semibold backdrop-blur-sm ${
                             submitMessage.includes("Successfully")
-                                ? "border border-green-700 bg-green-900/20 text-green-400"
-                                : "border border-red-700 bg-red-900/20 text-red-400"
+                                ? "border border-green-500/20 bg-green-500/10 text-green-400"
+                                : "border border-red-500/20 bg-red-500/10 text-red-400"
                         }`}
                     >
                         {submitMessage}
                     </div>
                 )}
 
-                <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="h-28 w-full rounded-2xl border border-white/10 bg-white/5 px-6 py-4 text-[clamp(18px,1.5vw,24px)] font-semibold text-white transition-all duration-300 hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-50 lg:h-32 lg:rounded-3xl 2xl:h-44"
-                >
-                    {isSubmitting ? "Joining..." : "Join Waitlist"}
+                {/* Consent Switch */}
+                <div className="flex flex-col gap-3">
+                    <div className="flex w-full items-center gap-4 rounded-2xl border border-white/10 bg-white/5 px-6 py-5 backdrop-blur-sm transition-colors duration-300 hover:border-white/20 lg:rounded-3xl">
+                        <Switch
+                            id="consent"
+                            name="consentToShareWithThirdParties"
+                            checked={clientData.consentToShareWithThirdParties}
+                            onCheckedChange={(checked) => {
+                                setClientData({
+                                    ...clientData,
+                                    consentToShareWithThirdParties: checked,
+                                });
+                                setErrors({ ...errors, consentToShareWithThirdParties: false });
+                            }}
+                            aria-invalid={errors.consentToShareWithThirdParties}
+                            aria-describedby={
+                                errors.consentToShareWithThirdParties ? "consent-error" : undefined
+                            }
+                            disabled={isSubmitting}
+                        />
+                        <label
+                            htmlFor="consent"
+                            className="flex flex-1 cursor-pointer flex-col gap-1"
+                        >
+                            <span className="text-[clamp(14px,1vw,18px)] font-semibold text-zinc-200">
+                                I consent to share my email
+                            </span>
+                            <span className="text-[clamp(12px,0.9vw,14px)] text-zinc-400">
+                                For Web3Ceylon 2026 updates and event notifications
+                            </span>
+                        </label>
+                    </div>
+                    {errors.consentToShareWithThirdParties && (
+                        <div id="consent-error" className="px-6 text-sm text-red-400">
+                            Please consent to join the waitlist
+                        </div>
+                    )}
+                </div>
+
+                {/* Visually hidden submit button to keep Enter-key and AT support */}
+                <button type="submit" className="sr-only" aria-hidden>
+                    Submit
                 </button>
             </form>
         </div>

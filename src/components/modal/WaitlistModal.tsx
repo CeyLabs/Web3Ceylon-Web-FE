@@ -1,9 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useWaitlistModalStore } from "@/lib/zustand/stores";
 import WaitlistForm, { WaitlistFormRef } from "../form/WaitlistForm";
+import FixedWaitlistButton from "@/components/button/FixedWaitlistButton";
 import { IconX } from "@tabler/icons-react";
 
 export default function WaitlistModal() {
@@ -11,6 +12,7 @@ export default function WaitlistModal() {
     const formRef = useRef<WaitlistFormRef>(null);
     const isModalOpen = useWaitlistModalStore((state) => state.isModalOpen);
     const toggleModal = useWaitlistModalStore((state) => state.toggleModal);
+    const [isSubmitAnimating, setIsSubmitAnimating] = useState(false);
     // use a built-in ease to avoid typing issues
     const ease = "easeInOut" as const;
 
@@ -31,7 +33,7 @@ export default function WaitlistModal() {
                 animate={isModalOpen ? { y: "0%" } : { y: "110%" }}
                 transition={{ duration: 1, ease }}
                 ref={modalRef as React.RefObject<HTMLDivElement>}
-                className="fixed top-4 right-4 bottom-4 left-4 z-[10000] overflow-y-auto rounded-2xl bg-black px-6 py-10 pb-24 will-change-transform lg:rounded-3xl lg:p-12"
+                className="fixed top-4 right-4 bottom-4 left-4 z-[10000] overflow-y-auto rounded-2xl bg-black/95 px-6 py-10 pb-24 ring-1 ring-white/10 will-change-transform lg:rounded-3xl lg:p-12"
             >
                 <button
                     onClick={toggleModal}
@@ -47,6 +49,10 @@ export default function WaitlistModal() {
                     <WaitlistForm ref={formRef} />
                 </div>
             </motion.div>
+            <FixedWaitlistButton
+                formRef={formRef as React.RefObject<WaitlistFormRef>}
+                onSubmitAnimating={setIsSubmitAnimating}
+            />
         </>
     );
 }
