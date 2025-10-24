@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
   try {
-    const { fullName, email, consentToShareWithThirdParties } = await request.json();
+    const { fullName, email, profession, consentToShareWithThirdParties } = await request.json();
 
     // Validate input
     if (!fullName || !email) {
@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
     }
 
   // Prepare message for Telegram
-  const message = `🔔 New Waitlist Signup for Web3Ceylon 2026!\n\n👤 Name: ${fullName}\n📧 Email: ${email}\n\nDate: ${new Date().toLocaleString()}`;
+  const message = `🔔 New Waitlist Signup for Web3Ceylon 2026!\n\n👤 Name: ${fullName}\n📧 Email: ${email}\n🏢 Profession: ${profession || 'Not specified'}\n\nDate: ${new Date().toLocaleString()}`;
 
     const telegramResponse = await fetch(
       `https://api.telegram.org/bot${botToken}/sendMessage`,

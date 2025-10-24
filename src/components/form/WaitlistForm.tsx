@@ -81,6 +81,9 @@ const WaitlistForm = forwardRef<WaitlistFormRef>((_, ref) => {
             }
 
             setSubmitMessage("Successfully joined the waitlist!");
+            // Play success sound
+            const audio = new Audio('/assets/sounds/toggle_on.wav');
+            audio.play().catch(err => console.error('Failed to play sound:', err));
             setClientData({
                 fullName: "",
                 email: "",
@@ -193,7 +196,11 @@ const WaitlistForm = forwardRef<WaitlistFormRef>((_, ref) => {
                         <label className="mb-2 block text-[clamp(14px,1vw,18px)] font-semibold text-zinc-200">
                             Profession / Industry
                         </label>
-                        <ul className="flex w-full flex-wrap gap-2">
+                        <div
+                            role="radiogroup"
+                            aria-label="Profession / Industry"
+                            className="flex w-full flex-wrap gap-2"
+                        >
                             {[
                                 { value: "web3", label: "Web3" },
                                 { value: "finance", label: "Finance" },
@@ -201,14 +208,69 @@ const WaitlistForm = forwardRef<WaitlistFormRef>((_, ref) => {
                                 { value: "it", label: "IT" },
                                 { value: "education", label: "Education" },
                                 { value: "other", label: "Other" },
-                            ].map((opt) => (
-                                <li
+                            ].map((opt, index) => (
+                                <button
                                     key={opt.value}
+                                    type="button"
                                     onClick={() =>
                                         setClientData({ ...clientData, profession: opt.value })
                                     }
+                                    onKeyDown={(e) => {
+                                        if (e.key === " " || e.key === "Enter") {
+                                            e.preventDefault();
+                                            setClientData({ ...clientData, profession: opt.value });
+                                        } else if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
+                                            e.preventDefault();
+                                            const options = [
+                                                { value: "web3", label: "Web3" },
+                                                { value: "finance", label: "Finance" },
+                                                { value: "retail", label: "Retail" },
+                                                { value: "it", label: "IT" },
+                                                { value: "education", label: "Education" },
+                                                { value: "other", label: "Other" },
+                                            ];
+                                            const newIndex =
+                                                index === 0 ? options.length - 1 : index - 1;
+                                            setClientData({
+                                                ...clientData,
+                                                profession: options[newIndex].value,
+                                            });
+                                            // Focus the new option
+                                            const buttons =
+                                                e.currentTarget.parentElement?.querySelectorAll(
+                                                    'button[role="radio"]'
+                                                );
+                                            (buttons?.[newIndex] as HTMLElement)?.focus();
+                                        } else if (
+                                            e.key === "ArrowDown" ||
+                                            e.key === "ArrowRight"
+                                        ) {
+                                            e.preventDefault();
+                                            const options = [
+                                                { value: "web3", label: "Web3" },
+                                                { value: "finance", label: "Finance" },
+                                                { value: "retail", label: "Retail" },
+                                                { value: "it", label: "IT" },
+                                                { value: "education", label: "Education" },
+                                                { value: "other", label: "Other" },
+                                            ];
+                                            const newIndex =
+                                                index === options.length - 1 ? 0 : index + 1;
+                                            setClientData({
+                                                ...clientData,
+                                                profession: options[newIndex].value,
+                                            });
+                                            // Focus the new option
+                                            const buttons =
+                                                e.currentTarget.parentElement?.querySelectorAll(
+                                                    'button[role="radio"]'
+                                                );
+                                            (buttons?.[newIndex] as HTMLElement)?.focus();
+                                        }
+                                    }}
                                     role="radio"
                                     aria-checked={clientData.profession === opt.value}
+                                    tabIndex={clientData.profession === opt.value ? 0 : -1}
                                     className={`cursor-pointer rounded-full border-2 px-3.5 py-1.5 text-[clamp(14px,1vw,18px)] font-semibold transition-colors duration-300 ease-in-out 2xl:px-5 2xl:py-2 ${
                                         clientData.profession === opt.value
                                             ? "border-white/80 bg-white/80 text-zinc-900"
@@ -216,9 +278,9 @@ const WaitlistForm = forwardRef<WaitlistFormRef>((_, ref) => {
                                     }`}
                                 >
                                     {opt.label}
-                                </li>
+                                </button>
                             ))}
-                        </ul>
+                        </div>
                     </div>
                 </div>
 

@@ -17,10 +17,30 @@ export interface ChipGroupProps {
 }
 
 export function ChipGroup({ options, value, onChange, name }: ChipGroupProps) {
+    const buttonRefs = React.useRef<(HTMLButtonElement | null)[]>([]);
+
+    const handleKeyDown = (e: React.KeyboardEvent, optValue: string, index: number) => {
+        if (e.key === ' ' || e.key === 'Enter') {
+            e.preventDefault();
+            onChange?.(optValue);
+        } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+            e.preventDefault();
+            const nextIndex = (index + 1) % options.length;
+            onChange?.(options[nextIndex].value);
+            buttonRefs.current[nextIndex]?.focus();
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+            e.preventDefault();
+            const prevIndex = (index - 1 + options.length) % options.length;
+            onChange?.(options[prevIndex].value);
+            buttonRefs.current[prevIndex]?.focus();
+        }
+    };
+
     return (
         <div role="radiogroup" className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2">
-            {options.map((opt) => {
+            {options.map((opt, index) => {
                 const selected = value === opt.value;
+                const isTabbable = selected || (value == null && index === 0);
                 return (
                     <button
                         key={opt.value}
@@ -28,7 +48,11 @@ export function ChipGroup({ options, value, onChange, name }: ChipGroupProps) {
                         role="radio"
                         aria-checked={selected}
                         aria-label={opt.label}
+                        tabIndex={isTabbable ? 0 : -1}
+                        name={name}
+                        ref={(el) => { buttonRefs.current[index] = el; }}
                         onClick={() => onChange?.(opt.value)}
+                        onKeyDown={(e) => handleKeyDown(e, opt.value, index)}
                         className={cn(
                             "flex w-full items-center justify-between gap-4 rounded-2xl px-5 py-4 text-left transition-shadow duration-150",
                             selected
