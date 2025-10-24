@@ -1,90 +1,148 @@
 "use client";
-import React, { useEffect } from "react";
-import dynamic from "next/dynamic";
-import { LayoutGroup } from "framer-motion";
-import Header from "@/components/Header";
-import Hero from "@/components/Hero";
-import Intro from "@/components/Intro";
-import Cities from "@/components/Cities";
-import { SpeakersSection } from "@/components/sections/speakers";
-import Partners from "@/components/Partners";
-import FooterCTA from "@/components/Community";
-import About from "@/components/About";
-import AnimatedFAQ from "@/components/sections/AnimatedFAQ";
-import ContactModal from "@/components/modal/ContactModal";
-import RoadmapModal from "@/components/modal/RoadmapModal";
 
-const Footer = dynamic(() => import("@/components/Footer"), { ssr: false });
+import Link from "next/link";
+import Image from "next/image";
+import { ArrowUpRight } from "lucide-react";
+import { useState, useEffect } from "react";
+import useSound from "use-sound";
+import WaitlistModal from "@/components/modal/WaitlistModal";
+import { useWaitlistModalStore } from "@/lib/zustand/stores";
 
-const Home = () => {
+const thankYouCopy = {
+    headline: "Thanks for joining us, see you next year!",
+    subheading:
+        "Web3Ceylon will be back with a fresh tour in 2026. Stay tuned for the next chapter.",
+};
+
+export default function ThankYouPage() {
+    const [play, { sound }] = useSound("/assets/sounds/tap-sound-02.mp3", {
+        preload: true,
+    });
+    const [isSpacePressed, setIsSpacePressed] = useState(false);
+    const toggleWaitlistModal = useWaitlistModalStore((state) => state.toggleModal);
+
     useEffect(() => {
-        // Smooth scroll behavior for anchor links
-        const handleClick = (e: MouseEvent) => {
-            e.preventDefault();
-            const anchor = e.currentTarget as HTMLAnchorElement;
-            const targetId = anchor.getAttribute("href")?.substring(1);
-            if (!targetId) return;
-            const targetElement = document.getElementById(targetId);
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80, // Account for header height
-                    behavior: "smooth",
-                });
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.code === "Space") {
+                event.preventDefault();
+                setIsSpacePressed(true);
+                play();
+            } else {
+                play();
             }
         };
-        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-            anchor.addEventListener("click", handleClick as EventListener);
-        });
-        return () => {
-            document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-                anchor.removeEventListener("click", handleClick as EventListener);
-            });
+
+        const handleKeyUp = (event: KeyboardEvent) => {
+            if (event.code === "Space") {
+                setIsSpacePressed(false);
+            }
         };
-    }, []);
+
+        window.addEventListener("keydown", handleKeyDown);
+        window.addEventListener("keyup", handleKeyUp);
+
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown);
+            window.removeEventListener("keyup", handleKeyUp);
+        };
+    }, [play]);
 
     return (
-        <LayoutGroup id="web3-roadmap-flow">
-            <ContactModal />
-            <RoadmapModal />
-            <main className="relative">
-                <Header />
-                {/* Hero + Intro share a continuous background image (desktop only) */}
-                <div className="relative">
-                    {/* Cross-section background image that bleeds into Intro on md+ */}
+        <main className="relative min-h-screen overflow-hidden bg-black text-zinc-100 antialiased">
+            {/* Background glow */}
+            <div className="pointer-events-none absolute inset-0">
+                <div className="absolute top-[-10%] left-1/2 h-[80vh] w-[80vw] -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.12)_0%,rgba(0,0,0,0)_60%)] blur-3xl" />
+                <div className="absolute bottom-[-30%] left-1/2 h-[60vh] w-[70vw] -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(244,114,182,0.08)_0%,rgba(0,0,0,0)_55%)] blur-3xl" />
+            </div>
+
+            <section className="relative mx-auto flex min-h-screen max-w-5xl flex-col items-center justify-center px-6">
+                {/* Hero keycap button */}
+                <div
+                    className="group relative mx-auto h-[260px] w-[320px] focus-within:outline-none md:h-[320px] md:w-[420px]"
+                    onMouseEnter={() => play()}
+                    onTouchStart={() => play()}
+                >
                     <div
+                        className="absolute inset-x-10 bottom-4 h-10 rounded-[28px] bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.55)_0%,rgba(0,0,0,0)_70%)] opacity-80 blur-2xl transition-all duration-500 ease-out group-hover:scale-[1.05] group-hover:opacity-95"
+                        style={isSpacePressed ? { transform: "scale(1.05)", opacity: 0.95 } : {}}
+                    />
+
+                    <div className="absolute inset-x-4 top-14 bottom-0 rounded-[28px] bg-gradient-to-b from-neutral-900 to-black shadow-[0_40px_120px_rgba(0,0,0,0.9),inset_0_1px_0_rgba(255,255,255,0.05),inset_0_-8px_16px_rgba(0,0,0,0.5)] ring-1 ring-white/10">
+                        <div className="pointer-events-none absolute inset-x-2 top-0 h-8 rounded-t-[26px] bg-gradient-to-b from-white/12 to-transparent" />
+                        <div className="pointer-events-none absolute inset-x-2 bottom-1 h-6 rounded-b-[26px] bg-gradient-to-t from-white/5 to-transparent" />
+                        <div className="pointer-events-none absolute inset-0 rounded-[28px] ring-1 ring-white/5" />
+                    </div>
+
+                    <div
+                        className="absolute inset-x-8 top-0 bottom-16 [transform:perspective(1200px)_rotateX(22deg)] rounded-[26px] bg-gradient-to-b from-zinc-800 to-zinc-950 shadow-[inset_0_2px_0_rgba(255,255,255,0.08),0_30px_80px_rgba(0,0,0,0.75)] ring-1 ring-white/10 transition-all duration-500 ease-out group-hover:-translate-y-[16px] group-hover:[transform:perspective(1200px)_rotateX(18deg)] group-active:translate-y-[10px]"
                         aria-hidden
-                        className="pointer-events-none absolute inset-x-0 top-0 -z-10 hidden overflow-visible md:block"
+                        style={
+                            isSpacePressed
+                                ? {
+                                      transform:
+                                          "perspective(1200px) rotateX(18deg) translateY(-16px)",
+                                  }
+                                : {}
+                        }
                     >
-                        <div className="relative h-[113vh] w-full">
-                            <img
-                                src="/assets/hero-cover.svg"
-                                alt=""
-                                className="absolute inset-0 h-full w-full object-cover object-left md:object-center"
+                        <div className="pointer-events-none absolute -top-7 right-10 left-10 h-16 rounded-full bg-white/12 blur-2xl" />
+                        <div className="pointer-events-none absolute inset-x-2 top-0 h-10 rounded-t-[24px] bg-gradient-to-b from-white/15 to-transparent" />
+                        <div
+                            className="pointer-events-none absolute inset-0 rounded-[26px] bg-white/10 [mask-image:linear-gradient(120deg,transparent_35%,white_50%,transparent_65%)] opacity-20 blur-sm transition-opacity duration-500 group-hover:opacity-30"
+                            style={isSpacePressed ? { opacity: 0.3 } : {}}
+                        />
+                        <div className="pointer-events-none absolute inset-0 rounded-[26px] ring-1 ring-white/10" />
+                        <div className="pointer-events-none absolute inset-0 rounded-[26px] shadow-[inset_0_-2px_4px_rgba(0,0,0,0.45)]" />
+
+                        <div className="absolute inset-0 flex items-center justify-center">
+                            <Image
+                                src="/2025/Main_BBG.png"
+                                alt="Web3Ceylon logo"
+                                width={128}
+                                height={128}
+                                className="h-24 w-24 rounded-xl object-contain shadow-[0_6px_20px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.08)] ring-1 ring-white/15 md:h-32 md:w-32"
                                 draggable={false}
+                                onDragStart={(e) => e.preventDefault()}
                             />
-                            {/* Edge fades to blend with sand beige */}
-                            <div className="absolute top-0 right-0 left-0 h-1/2 bg-gradient-to-b from-[#F6F4D5] to-transparent md:h-1/3 md:from-[#F6F4D5]/60" />
-                            <div className="absolute right-0 bottom-0 left-0 h-1/2 bg-gradient-to-t from-[#F6F4D5] to-transparent md:h-1/3 md:from-[#F6F4D5]/60" />
-                            <div className="absolute top-0 bottom-0 left-0 w-3/5 bg-gradient-to-r from-[#F6F4D5] to-transparent md:w-1/6 md:rounded-none md:from-[#F6F4D5]/40 md:to-[#F6F4D5]/10" />
-                            <div className="absolute top-0 right-0 bottom-0 w-3/5 bg-gradient-to-l from-[#F6F4D5] to-transparent md:w-1/6 md:rounded-none md:from-[#F6F4D5]/40 md:to-[#F6F4D5]/10" />
                         </div>
                     </div>
 
-                    {/* Content stacked above the shared background */}
-                    {/* On mobile, keep Hero's default background; hide it on md+ */}
-                    <Hero bgVisibilityClass="md:hidden" />
-                    <Intro className="bg-transparent" />
-                </div>
-                <Cities />
-                <About />
-                <SpeakersSection />
-                <Partners />
-                <AnimatedFAQ />
-                <FooterCTA />
-                <Footer />
-            </main>
-        </LayoutGroup>
-    );
-};
+                    <div
+                        className="absolute inset-x-10 bottom-[70px] h-10 rounded-[26px] bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.6)_0%,rgba(0,0,0,0)_70%)] opacity-80 blur-xl transition-all duration-500 ease-out group-hover:scale-[1.04] group-hover:opacity-95"
+                        style={isSpacePressed ? { transform: "scale(1.04)", opacity: 0.95 } : {}}
+                    />
 
-export default Home;
+                    <span className="absolute bottom-9 left-10 font-mono text-[10px] tracking-[0.18em] text-amber-400 select-none">
+                        Q4 2026
+                    </span>
+                </div>
+
+                <h1 className="mt-12 text-center text-[21px] font-semibold tracking-tight text-zinc-200 md:text-[24px]">
+                    {thankYouCopy.headline}
+                </h1>
+                <p className="mt-4 max-w-xl text-center text-sm text-zinc-400 md:text-base">
+                    {thankYouCopy.subheading}
+                </p>
+
+                <div className="mt-12 flex gap-4">
+                    <button
+                        onClick={toggleWaitlistModal}
+                        className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-medium text-white transition hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black focus-visible:outline-none"
+                    >
+                        Join '26 Waitlist
+                        <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </button>
+                    <Link
+                        href="/2025/"
+                        className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-medium text-white transition hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black focus-visible:outline-none"
+                    >
+                        See 2025 Archive
+                        <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </Link>
+                </div>
+            </section>
+
+            <WaitlistModal />
+        </main>
+    );
+}
