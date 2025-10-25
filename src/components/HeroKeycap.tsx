@@ -22,7 +22,7 @@ const frameStyle = {
     "--brightness": "1",
     "--blend-mode": "color",
     width: "min(90vw, 600px)",
-} satisfies CSSProperties;
+} as React.CSSProperties;
 
 const keycapHeadStyle = {
     filter: "brightness(var(--brightness))",
@@ -50,7 +50,7 @@ const overlayStyle = {
     color: "var(--color)",
     mixBlendMode: "var(--blend-mode)",
     transition: "all var(--transition-duration) var(--transition-easing)",
-} satisfies CSSProperties;
+} as unknown as React.CSSProperties & Record<string, string>;
 
 const layerClassName =
     "pointer-events-none absolute inset-0 h-full w-full select-none object-cover [&>svg]:block [&>svg]:h-full [&>svg]:w-full [&>svg]:object-cover [&>svg]:pointer-events-none [&>svg]:select-none";
@@ -205,7 +205,7 @@ function HeroKeycap({ isPressed = false, onInteract, className }: HeroKeycapProp
     const activeFrameStyle = {
         ...frameStyle,
         "--color": isActive ? "#f79219" : "#000",
-    } satisfies CSSProperties;
+    } as React.CSSProperties;
 
     const handlePointerDown = () => setIsPointerPressed(true);
     const handlePointerRelease = () => setIsPointerPressed(false);
