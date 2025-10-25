@@ -20,15 +20,15 @@ export function ChipGroup({ options, value, onChange, name }: ChipGroupProps) {
     const buttonRefs = React.useRef<(HTMLButtonElement | null)[]>([]);
 
     const handleKeyDown = (e: React.KeyboardEvent, optValue: string, index: number) => {
-        if (e.key === ' ' || e.key === 'Enter') {
+        if (e.key === " " || e.key === "Enter") {
             e.preventDefault();
             onChange?.(optValue);
-        } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        } else if (e.key === "ArrowRight" || e.key === "ArrowDown") {
             e.preventDefault();
             const nextIndex = (index + 1) % options.length;
             onChange?.(options[nextIndex].value);
             buttonRefs.current[nextIndex]?.focus();
-        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
             e.preventDefault();
             const prevIndex = (index - 1 + options.length) % options.length;
             onChange?.(options[prevIndex].value);
@@ -50,7 +50,9 @@ export function ChipGroup({ options, value, onChange, name }: ChipGroupProps) {
                         aria-label={opt.label}
                         tabIndex={isTabbable ? 0 : -1}
                         name={name}
-                        ref={(el) => { buttonRefs.current[index] = el; }}
+                        ref={(el) => {
+                            buttonRefs.current[index] = el;
+                        }}
                         onClick={() => onChange?.(opt.value)}
                         onKeyDown={(e) => handleKeyDown(e, opt.value, index)}
                         className={cn(

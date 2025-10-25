@@ -82,8 +82,8 @@ const WaitlistForm = forwardRef<WaitlistFormRef>((_, ref) => {
 
             setSubmitMessage("Successfully joined the waitlist!");
             // Play success sound
-            const audio = new Audio('/assets/sounds/toggle_on.wav');
-            audio.play().catch(err => console.error('Failed to play sound:', err));
+            const audio = new Audio("/assets/sounds/toggle_on.wav");
+            audio.play().catch((err) => console.error("Failed to play sound:", err));
             setClientData({
                 fullName: "",
                 email: "",
