@@ -10,15 +10,16 @@ export interface SwitchProps extends Omit<React.InputHTMLAttributes<HTMLInputEle
 const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
     ({ className, onCheckedChange, ...props }, ref) => {
         return (
-            <label className="flex cursor-pointer items-center focus-within:ring-2 focus-within:ring-emerald-500 focus-within:ring-offset-2 focus-within:ring-offset-zinc-900">
+            <label className="flex cursor-pointer items-center">
                 <input
                     type="checkbox"
                     ref={ref}
                     className="sr-only"
+                    {...props}
                     onChange={(e) => {
+                        props.onChange?.(e);
                         onCheckedChange?.(e.target.checked);
                     }}
-                    {...props}
                 />
                 <div
                     className={cn(

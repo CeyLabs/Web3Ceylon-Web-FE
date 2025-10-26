@@ -2,7 +2,12 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
   try {
-    const { fullName, email, profession, consentToShareWithThirdParties } = await request.json();
+    const body = await request.json().catch(() => ({}));
+    const fullName = typeof body.fullName === 'string' ? body.fullName.trim().normalize('NFC') : '';
+    const emailRaw = typeof body.email === 'string' ? body.email.trim() : '';
+    const email = emailRaw.toLowerCase();
+    const profession = typeof body.profession === 'string' ? body.profession.trim().normalize('NFC') : '';
+    const consentToShareWithThirdParties = Boolean(body.consentToShareWithThirdParties);
 
     // Validate input
     if (!fullName || !email) {
@@ -44,6 +49,8 @@ export async function POST(request: NextRequest) {
   // Prepare message for Telegram
   const message = `🔔 New Waitlist Signup for Web3Ceylon 2026!\n\n👤 Name: ${fullName}\n📧 Email: ${email}\n🏢 Profession: ${profession || 'Not specified'}\n\nDate: ${new Date().toLocaleString()}`;
 
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 10_000);
     const telegramResponse = await fetch(
       `https://api.telegram.org/bot${botToken}/sendMessage`,
       {
@@ -55,8 +62,10 @@ export async function POST(request: NextRequest) {
           chat_id: chatId,
           text: message,
         }),
+        signal: controller.signal,
       }
     );
+    clearTimeout(timeout);
 
     if (!telegramResponse.ok) {
       console.error('Failed to send Telegram message:', await telegramResponse.text());
@@ -73,6 +82,16 @@ export async function POST(request: NextRequest) {
 
   } catch (error) {
     console.error('Waitlist API error:', error);
+    
+    // Handle timeout errors specifically
+    if (error instanceof Error && error.name === 'AbortError') {
+      console.error('Telegram request timed out');
+      return NextResponse.json(
+        { error: 'Request timed out. Please try again.' },
+        { status: 408 }
+      );
+    }
+    
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

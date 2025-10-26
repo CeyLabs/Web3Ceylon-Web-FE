@@ -1,5 +1,5 @@
 export const SITE_URL = "https://web3ceylon.com/";
-export const SITE_NAME = "Web3Ceylon 2025 - Sri Lanka's Largest Web3 Developer & Community Tour";
+export const SITE_NAME = "Web3Ceylon - Sri Lanka's Largest Web3 Developer & Community Tour";
 export const ORGANIZATION_NAME = "Ceylon Cash";
 export const ORGANIZATION_URL = "https://ceyloncash.com/";
 export const DESCRIPTION =

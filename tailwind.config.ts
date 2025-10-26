@@ -28,6 +28,7 @@ export default {
                 instrument: ["var(--font-instrument)", "Georgia", "serif"],
                 carena: ["var(--font-carena)", "Georgia", "serif"],
                 fredoka: ["var(--font-fredoka)", "system-ui", "sans-serif"],
+                goodmonolith: ["var(--font-goodmonolith)", "system-ui", "sans-serif"],
                 // Aliases
                 primary: ["var(--font-carena)", "Georgia", "serif"],
                 secondary: ["var(--font-fredoka)", "system-ui", "sans-serif"],

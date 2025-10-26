@@ -26,7 +26,6 @@ const frameStyle = {
 
 const keycapHeadStyle = {
     filter: "brightness(var(--brightness))",
-    transition: "transform var(--transition-duration) var(--transition-easing)",
 } satisfies CSSProperties;
 
 const keycapShadowStyle = {
@@ -38,7 +37,6 @@ const keycapShadowStyle = {
 const keycapLogoStyle = {
     transform:
         "translate(-50%, -45%) rotateY(0deg) rotateX(52.3deg) rotateZ(29deg) translateY(-28%) translateX(-16%)",
-    transition: "transform var(--transition-duration) var(--transition-easing)",
 } satisfies CSSProperties;
 
 const keycapTextStyle = {
@@ -51,6 +49,8 @@ const overlayStyle = {
     mixBlendMode: "var(--blend-mode)",
     transition: "all var(--transition-duration) var(--transition-easing)",
 } as unknown as React.CSSProperties & Record<string, string>;
+
+const transitionStyle = "margin-top var(--transition-duration) var(--transition-easing)";
 
 const layerClassName =
     "pointer-events-none absolute inset-0 h-full w-full select-none object-cover [&>svg]:block [&>svg]:h-full [&>svg]:w-full [&>svg]:object-cover [&>svg]:pointer-events-none [&>svg]:select-none";
@@ -201,14 +201,20 @@ const OVERLAY_SVG = `
 
 function HeroKeycap({ isPressed = false, onInteract, className }: HeroKeycapProps) {
     const [isPointerPressed, setIsPointerPressed] = useState(false);
-    const isActive = isPressed || isPointerPressed;
+    const [isHovered, setIsHovered] = useState(false);
+    const isActive = isPressed || isPointerPressed || isHovered;
     const activeFrameStyle = {
         ...frameStyle,
         "--color": isActive ? "#f79219" : "#000",
     } as React.CSSProperties;
 
-    const handlePointerDown = () => setIsPointerPressed(true);
+    const handlePointerDown = () => {
+        setIsPointerPressed(true);
+        onInteract?.();
+    };
     const handlePointerRelease = () => setIsPointerPressed(false);
+    const handlePointerEnter = () => setIsHovered(true);
+    const handlePointerLeave = () => setIsHovered(false);
 
     return (
         <div
@@ -219,11 +225,10 @@ function HeroKeycap({ isPressed = false, onInteract, className }: HeroKeycapProp
                 className
             )}
             style={activeFrameStyle}
-            onMouseEnter={onInteract}
-            onTouchStart={onInteract}
+            onPointerEnter={handlePointerEnter}
             onPointerDown={handlePointerDown}
             onPointerUp={handlePointerRelease}
-            onPointerLeave={handlePointerRelease}
+            onPointerLeave={handlePointerLeave}
             onPointerCancel={handlePointerRelease}
             role="presentation"
         >
@@ -251,34 +256,35 @@ function HeroKeycap({ isPressed = false, onInteract, className }: HeroKeycapProp
                 />
 
                 <div
-                    className={cn(
-                        "absolute inset-0 z-10 h-full w-full transform-gpu transition-transform will-change-transform",
-                        "group-hover:translate-y-[var(--hover-travel)]",
-                        "data-[pressed=true]:translate-y-[var(--press-travel)]"
-                    )}
+                    className="absolute inset-0 z-10 h-full w-full"
                     data-pressed={isActive}
                     style={keycapHeadStyle}
                 >
-                    <InlineSvg markup={BUTTON_SVG} className={layerClassName} />
+                    <InlineSvg markup={BUTTON_SVG} className={layerClassName} isActive={isActive} />
                     <InlineSvg
                         markup={OVERLAY_SVG}
                         className={layerClassName}
                         style={overlayStyle}
+                        isActive={isActive}
                     />
 
                     <img
                         src={KEYCAP_LOGO}
                         alt="Web3Ceylon Monogram"
                         draggable={false}
-                        className="pointer-events-none absolute top-[35%] left-1/2 z-20 w-2/5 select-none"
-                        style={keycapLogoStyle}
+                        className={cn(
+                            "pointer-events-none absolute top-[35%] left-1/2 z-20 w-2/5 select-none",
+                            isActive && "mt-[var(--press-travel)]",
+                            "group-hover:mt-[var(--press-travel)]"
+                        )}
+                        style={{ ...keycapLogoStyle, transition: transitionStyle }}
                         loading="eager"
                     />
                 </div>
             </div>
 
             <p
-                className="font-secondary pointer-events-none absolute top-[77%] left-[35%] z-30 w-full text-center text-[clamp(0.85rem,2.4vw,1.3rem)] text-amber-400 max-[640px]:text-[clamp(0.7rem,3.6vw,1rem)]"
+                className="font-goodmonolith pointer-events-none absolute top-[77%] left-[35%] z-30 w-full text-center text-[clamp(0.85rem,2.4vw,1.3rem)] text-amber-400 max-[640px]:text-[clamp(1.1rem,4vw,1.5rem)]"
                 style={keycapTextStyle}
                 aria-hidden
             >
@@ -293,14 +299,20 @@ const InlineSvg = memo(
         markup,
         className,
         style,
+        isActive,
     }: {
         markup: string;
         className?: string;
         style?: CSSProperties;
+        isActive?: boolean;
     }) => (
         <span
-            className={className}
-            style={style}
+            className={cn(
+                className,
+                isActive && "mt-[var(--press-travel)]",
+                "group-hover:mt-[var(--press-travel)]"
+            )}
+            style={{ ...style, transition: transitionStyle }}
             aria-hidden
             dangerouslySetInnerHTML={{ __html: markup }}
         />

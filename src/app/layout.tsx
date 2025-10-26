@@ -1,6 +1,6 @@
 import "@/styles/theme.css";
 import { AppProviders } from "@/app/providers";
-import { figtree, instrumentSerif, carena, fredoka } from "@/app/fonts";
+import { figtree, instrumentSerif, carena, fredoka, theGoodMonolith } from "@/app/fonts";
 import JsonLd from "@/components/seo/JsonLd";
 import { EVENT_JSONLD } from "@/lib/seo";
 
@@ -14,7 +14,7 @@ export default function RootLayout({
     return (
         <html
             lang="en"
-            className={`${figtree.variable} ${instrumentSerif.variable} ${carena.variable} ${fredoka.variable}`}
+            className={`${figtree.variable} ${instrumentSerif.variable} ${carena.variable} ${fredoka.variable} ${theGoodMonolith.variable}`}
         >
             <body className="font-sans antialiased">
                 <JsonLd id="event-jsonld" data={EVENT_JSONLD} />

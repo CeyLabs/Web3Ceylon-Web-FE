@@ -13,6 +13,7 @@ export interface WaitlistFormRef {
 const WaitlistForm = forwardRef<WaitlistFormRef>((_, ref) => {
     const formRef = useRef<HTMLFormElement>(null);
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const consentRef = useRef<HTMLDivElement>(null);
     const [clientData, setClientData] = useState({
         fullName: "",
         email: "",
@@ -30,10 +31,9 @@ const WaitlistForm = forwardRef<WaitlistFormRef>((_, ref) => {
 
     // Cleanup timeout on unmount
     useEffect(() => {
-        const currentTimeout = timeoutRef.current;
         return () => {
-            if (currentTimeout) {
-                clearTimeout(currentTimeout);
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
             }
         };
     }, []);
@@ -55,6 +55,18 @@ const WaitlistForm = forwardRef<WaitlistFormRef>((_, ref) => {
             consentToShareWithThirdParties: !clientData.consentToShareWithThirdParties,
         };
         setErrors(newErrors);
+
+        // Scroll to consent section if consent error exists
+        if (newErrors.consentToShareWithThirdParties && consentRef.current) {
+            setTimeout(() => {
+                consentRef.current?.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center",
+                    inline: "nearest",
+                });
+            }, 100); // Small delay to allow DOM updates
+        }
+
         if (Object.values(newErrors).some(Boolean)) return;
 
         setIsSubmitting(true);
@@ -97,6 +109,7 @@ const WaitlistForm = forwardRef<WaitlistFormRef>((_, ref) => {
             });
 
             // Close modal after successful submission
+            if (timeoutRef.current) clearTimeout(timeoutRef.current);
             timeoutRef.current = setTimeout(() => {
                 toggleModal();
                 setSubmitMessage("");
@@ -297,8 +310,14 @@ const WaitlistForm = forwardRef<WaitlistFormRef>((_, ref) => {
                 )}
 
                 {/* Consent Switch */}
-                <div className="flex flex-col gap-3">
-                    <div className="flex w-full items-center gap-4 rounded-2xl border border-white/10 bg-white/5 px-6 py-5 backdrop-blur-sm transition-colors duration-300 hover:border-white/20 lg:rounded-3xl">
+                <div ref={consentRef} className="flex flex-col gap-3">
+                    <div
+                        className={`flex w-full items-center gap-4 rounded-2xl border bg-white/5 px-6 py-5 backdrop-blur-sm transition-colors duration-300 lg:rounded-3xl ${
+                            errors.consentToShareWithThirdParties
+                                ? "border-red-500/50 bg-red-500/5"
+                                : "border-white/10 hover:border-white/20"
+                        }`}
+                    >
                         <Switch
                             id="consent"
                             name="consentToShareWithThirdParties"
@@ -326,13 +345,16 @@ const WaitlistForm = forwardRef<WaitlistFormRef>((_, ref) => {
                             <span className="text-[clamp(12px,0.9vw,14px)] text-zinc-400">
                                 For Web3Ceylon 2026 updates and event notifications
                             </span>
+                            {errors.consentToShareWithThirdParties && (
+                                <span
+                                    id="consent-error"
+                                    className="mt-1 text-sm font-medium text-red-400"
+                                >
+                                    Please consent to join the waitlist
+                                </span>
+                            )}
                         </label>
                     </div>
-                    {errors.consentToShareWithThirdParties && (
-                        <div id="consent-error" className="px-6 text-sm text-red-400">
-                            Please consent to join the waitlist
-                        </div>
-                    )}
                 </div>
 
                 {/* Visually hidden submit button to keep Enter-key and AT support */}
