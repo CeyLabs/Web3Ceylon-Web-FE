@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useLastViewedPhoto } from "@/hooks/useLastViewedPhoto";
 import type { AlbumHeroContent, ImageProps } from "@/lib/gallery/types";
@@ -35,6 +35,51 @@ export default function AlbumGallery({ images, hero, imageAlt }: AlbumGalleryPro
     const photoId = photoIdParam ? Number(photoIdParam) : null;
 
     const lastViewedPhotoRef = useRef<HTMLAnchorElement | null>(null);
+
+    // Infinite scroll functionality
+    const [visibleImages, setVisibleImages] = useState(50); // Start with 50 images
+    const [isLoadingMore, setIsLoadingMore] = useState(false);
+    const loadMoreRef = useRef<HTMLDivElement>(null);
+
+    const loadMoreImages = useCallback(() => {
+        if (isLoadingMore || visibleImages >= images.length) return;
+
+        setIsLoadingMore(true);
+        // Simulate loading delay for better UX
+        setTimeout(() => {
+            setVisibleImages((prev) => Math.min(prev + 50, images.length));
+            setIsLoadingMore(false);
+        }, 500);
+    }, [isLoadingMore, visibleImages, images.length]);
+
+    // Intersection Observer for infinite scroll
+    useEffect(() => {
+        const currentRef = loadMoreRef.current;
+        const observer = new IntersectionObserver(
+            (entries) => {
+                const target = entries[0];
+                if (target.isIntersecting && !isLoadingMore && visibleImages < images.length) {
+                    loadMoreImages();
+                }
+            },
+            {
+                rootMargin: "100px", // Start loading 100px before the element comes into view
+                threshold: 0.1,
+            }
+        );
+
+        if (currentRef) {
+            observer.observe(currentRef);
+        }
+
+        return () => {
+            if (currentRef) {
+                observer.unobserve(currentRef);
+            }
+        };
+    }, [isLoadingMore, visibleImages, images.length, loadMoreImages]);
+
+    const hasMoreImages = visibleImages < images.length;
 
     useEffect(() => {
         if (typeof lastViewedPhoto === "number" && photoId === null) {
@@ -119,43 +164,57 @@ export default function AlbumGallery({ images, hero, imageAlt }: AlbumGalleryPro
                             </div>
                         )}
                     </div>
-                    {images.map(({ id, public_id, format, blurDataUrl }) => (
-                        <Link
-                            key={id}
-                            href={{ pathname, query: { photoId: id } }}
-                            ref={id === lastViewedPhoto ? lastViewedPhotoRef : null}
-                            scroll={false}
-                            className="after:content group after:shadow-highlight relative mb-5 block w-full cursor-zoom-in after:pointer-events-none after:absolute after:inset-0 after:rounded-lg"
-                        >
-                            <Image
-                                alt={galleryImageAlt}
-                                className="transform rounded-lg brightness-90 transition will-change-auto group-hover:brightness-110"
-                                style={{ transform: "translate3d(0, 0, 0)" }}
-                                placeholder={blurDataUrl ? "blur" : "empty"}
-                                blurDataURL={blurDataUrl}
-                                src={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/c_scale,w_720/${public_id}.${format}`}
-                                width={720}
-                                height={480}
-                                sizes="(max-width: 640px) 100vw,
+                    {images
+                        .slice(0, visibleImages)
+                        .map(({ id, public_id, format, blurDataUrl, width, height }) => (
+                            <Link
+                                key={id}
+                                href={{ pathname, query: { photoId: id } }}
+                                ref={id === lastViewedPhoto ? lastViewedPhotoRef : null}
+                                scroll={false}
+                                className="after:content group after:shadow-highlight relative mb-5 block w-full cursor-zoom-in after:pointer-events-none after:absolute after:inset-0 after:rounded-lg"
+                            >
+                                <Image
+                                    alt={galleryImageAlt}
+                                    className="transform rounded-lg brightness-90 transition will-change-auto group-hover:brightness-110"
+                                    style={{
+                                        transform: "translate3d(0, 0, 0)",
+                                        width: "100%",
+                                        height: "auto",
+                                    }}
+                                    placeholder={blurDataUrl ? "blur" : "empty"}
+                                    blurDataURL={blurDataUrl}
+                                    src={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/c_scale,w_720/${public_id}.${format}`}
+                                    width={width}
+                                    height={height}
+                                    sizes="(max-width: 640px) 100vw,
                   (max-width: 1280px) 50vw,
                   (max-width: 1536px) 33vw,
                   25vw"
-                            />
-                        </Link>
-                    ))}
+                                />
+                            </Link>
+                        ))}
+                    {hasMoreImages && (
+                        <div ref={loadMoreRef} className="flex items-center justify-center py-8">
+                            {isLoadingMore ? (
+                                // Single skeleton loading card
+                                <div className="flex w-full justify-center">
+                                    <div className="after:content group after:shadow-highlight relative mb-5 block w-full max-w-sm animate-pulse cursor-zoom-in after:pointer-events-none after:absolute after:inset-0 after:rounded-lg">
+                                        <div className="aspect-[3/4] w-full rounded-lg bg-white/10 shadow-lg"></div>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="py-4 text-sm text-white/50">
+                                    Scroll for more photos
+                                </div>
+                            )}
+                        </div>
+                    )}
                 </div>
             </main>
             <footer className="p-6 text-center text-white/80 sm:p-12">
-                Captured by{" "}
-                <a
-                    href="https://www.instagram.com/web3ceylon"
-                    target="_blank"
-                    className="font-semibold hover:text-white"
-                    rel="noreferrer"
-                >
-                    Web3Ceylon Creators
-                </a>{" "}
-                &amp; community partners. Download and share with proper credit. #Web3Ceylon
+                Share the vibe on socials using the hashtags #Web3Ceylon, @web3ceylontour,
+                @CeylonCash & @BybitSriLanka #Web3 #CeylonCash #BybitSriLanka
             </footer>
         </>
     );

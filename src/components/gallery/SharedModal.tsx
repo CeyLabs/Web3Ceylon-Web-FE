@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
     ArrowDownTrayIcon,
@@ -10,7 +10,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSwipeable } from "react-swipeable";
 import { variants } from "@/lib/gallery/animation-variants";
 import downloadPhoto from "@/lib/gallery/download-photo";
@@ -53,6 +53,30 @@ export default function SharedModal({
     }
 
     const resolvedAlt = imageAlt ?? "Web3Ceylon event photo";
+    const naturalWidth = currentImage.width ?? 1280;
+    const naturalHeight = currentImage.height ?? 853;
+    const maxModalWidth = navigation ? 1280 : 1920;
+    const cloudinaryWidth = Math.max(1, Math.min(maxModalWidth, Math.round(naturalWidth)));
+
+    // Preload adjacent images for smoother navigation
+    useEffect(() => {
+        if (loaded && images) {
+            const preloadImage = (img: ImageProps) => {
+                const imgElement = new window.Image();
+                imgElement.src = `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/c_scale,w_${cloudinaryWidth}/${img.public_id}.${img.format}`;
+            };
+
+            // Preload previous image
+            if (index > 0) {
+                preloadImage(images[index - 1]);
+            }
+
+            // Preload next image
+            if (index < images.length - 1) {
+                preloadImage(images[index + 1]);
+            }
+        }
+    }, [loaded, index, images, cloudinaryWidth]);
 
     return (
         <MotionConfig
@@ -62,13 +86,20 @@ export default function SharedModal({
             }}
         >
             <div
-                className="relative z-50 flex aspect-[3/2] w-full max-w-7xl items-center wide:h-full xl:taller-than-854:h-auto"
+                className="relative z-50 flex w-full items-center justify-center px-1 md:px-8"
+                style={{ maxWidth: "min(112rem, calc(100vw - 16px))" }}
                 {...handlers}
                 onClick={(event) => event.stopPropagation()}
             >
                 {/* Main image */}
-                <div className="w-full overflow-hidden">
-                    <div className="relative flex aspect-[3/2] items-center justify-center">
+                <div
+                    className="w-full"
+                    style={{
+                        aspectRatio: `${naturalWidth} / ${naturalHeight}`,
+                        maxHeight: "calc(100vh - 60px)",
+                    }}
+                >
+                    <div className="relative h-full w-full">
                         <AnimatePresence initial={false} custom={direction}>
                             <motion.div
                                 key={index}
@@ -77,18 +108,19 @@ export default function SharedModal({
                                 initial="enter"
                                 animate="center"
                                 exit="exit"
-                                className="absolute"
+                                className="absolute inset-0 flex items-center justify-center overflow-hidden rounded-md"
                             >
                                 <Image
-                                    src={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/c_scale,${
-                                        navigation ? "w_1280" : "w_1920"
-                                    }/${currentImage.public_id}.${currentImage.format}`}
-                                width={navigation ? 1280 : 1920}
-                                height={navigation ? 853 : 1280}
-                                priority
-                                alt={resolvedAlt}
-                                onLoad={() => setLoaded(true)}
-                            />
+                                    fill
+                                    className="h-full w-full rounded-md object-contain"
+                                    src={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/c_scale,w_${cloudinaryWidth}/${currentImage.public_id}.${currentImage.format}`}
+                                    priority
+                                    alt={resolvedAlt}
+                                    onLoad={() => setLoaded(true)}
+                                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 80vw, 60vw"
+                                    placeholder={currentImage.blurDataUrl ? "blur" : "empty"}
+                                    blurDataURL={currentImage.blurDataUrl}
+                                />
                             </motion.div>
                         </AnimatePresence>
                     </div>
@@ -98,12 +130,12 @@ export default function SharedModal({
                 <div className="absolute inset-0 mx-auto flex max-w-7xl items-center justify-center">
                     {/* Buttons */}
                     {loaded && (
-                        <div className="relative aspect-[3/2] max-h-full w-full">
+                        <div className="relative h-full w-full">
                             {navigation && (
                                 <>
                                     {index > 0 && (
                                         <button
-                                            className="absolute left-3 top-[calc(50%-16px)] rounded-full bg-black/50 p-3 text-white/75 backdrop-blur-lg transition hover:bg-black/75 hover:text-white focus:outline-none"
+                                            className="absolute top-1/2 left-2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white/75 backdrop-blur-lg transition hover:bg-black/75 hover:text-white focus:outline-none sm:left-3 sm:p-3"
                                             style={{ transform: "translate3d(0, 0, 0)" }}
                                             onClick={() => changePhotoId(index - 1)}
                                         >
@@ -112,7 +144,7 @@ export default function SharedModal({
                                     )}
                                     {images && index + 1 < images.length && (
                                         <button
-                                            className="absolute right-3 top-[calc(50%-16px)] rounded-full bg-black/50 p-3 text-white/75 backdrop-blur-lg transition hover:bg-black/75 hover:text-white focus:outline-none"
+                                            className="absolute top-1/2 right-2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white/75 backdrop-blur-lg transition hover:bg-black/75 hover:text-white focus:outline-none sm:right-3 sm:p-3"
                                             style={{ transform: "translate3d(0, 0, 0)" }}
                                             onClick={() => changePhotoId(index + 1)}
                                         >
@@ -121,7 +153,7 @@ export default function SharedModal({
                                     )}
                                 </>
                             )}
-                            <div className="absolute right-0 top-0 flex items-center gap-2 p-3 text-white">
+                            <div className="absolute top-2 right-2 flex flex-wrap items-center gap-1 rounded-full bg-black/30 p-1 text-white backdrop-blur-lg sm:top-3 sm:right-3 sm:flex-nowrap sm:gap-2 sm:bg-transparent sm:p-3">
                                 {navigation ? (
                                     <a
                                         href={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/${currentImage.public_id}.${currentImage.format}`}
@@ -147,7 +179,7 @@ export default function SharedModal({
                                     onClick={() =>
                                         downloadPhoto(
                                             `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/${currentImage.public_id}.${currentImage.format}`,
-                                            `${index}.jpg`,
+                                            `${index}.jpg`
                                         )
                                     }
                                     className="rounded-full bg-black/50 p-2 text-white/75 backdrop-blur-lg transition hover:bg-black/75 hover:text-white"
@@ -156,7 +188,7 @@ export default function SharedModal({
                                     <ArrowDownTrayIcon className="h-5 w-5" />
                                 </button>
                             </div>
-                            <div className="absolute left-0 top-0 flex items-center gap-2 p-3 text-white">
+                            <div className="absolute top-2 left-2 flex items-center gap-1 rounded-full bg-black/30 p-1 text-white backdrop-blur-lg sm:top-3 sm:left-3 sm:gap-2 sm:bg-transparent sm:p-3">
                                 <button
                                     onClick={() => closeModal()}
                                     className="rounded-full bg-black/50 p-2 text-white/75 backdrop-blur-lg transition hover:bg-black/75 hover:text-white"
@@ -173,7 +205,10 @@ export default function SharedModal({
                     {/* Bottom Nav bar */}
                     {navigation && images && (
                         <div className="fixed inset-x-0 bottom-0 z-40 overflow-hidden bg-gradient-to-b from-black/0 to-black/60">
-                            <motion.div initial={false} className="mx-auto mb-6 mt-6 flex aspect-[3/2] h-14">
+                            <motion.div
+                                initial={false}
+                                className="mx-auto mt-2 mb-2 flex aspect-[3/2] h-10 md:h-14"
+                            >
                                 <AnimatePresence initial={false}>
                                     {filteredImages.map(({ public_id, format, id }) => (
                                         <motion.button
@@ -190,9 +225,13 @@ export default function SharedModal({
                                             onClick={() => changePhotoId(id)}
                                             key={id}
                                             className={`${
-                                                id === index ? "z-20 rounded-md shadow shadow-black/50" : "z-10"
+                                                id === index
+                                                    ? "z-20 rounded-md shadow shadow-black/50"
+                                                    : "z-10"
                                             } ${id === 0 ? "rounded-l-md" : ""} ${
-                                                images && id === images.length - 1 ? "rounded-r-md" : ""
+                                                images && id === images.length - 1
+                                                    ? "rounded-r-md"
+                                                    : ""
                                             } relative inline-block w-full shrink-0 transform-gpu overflow-hidden focus:outline-none`}
                                         >
                                             <Image
