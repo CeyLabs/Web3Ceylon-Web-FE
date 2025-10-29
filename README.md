@@ -31,6 +31,11 @@ This is our standard Next.js project structure and setup guidelines. Follow thes
 6. **Environment Variables**:
     - Use `.env.local` for local environment variables
     - Never commit `.env.local` to version control
+    - Album gallery requires the following Cloudinary variables:
+        - `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME`
+        - `CLOUDINARY_API_KEY`
+        - `CLOUDINARY_API_SECRET`
+        - `CLOUDINARY_FOLDER`
 
 ## Font Size Scale
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useWaitlistModalStore } from "@/lib/zustand/stores";
 import WaitlistForm, { WaitlistFormRef } from "../form/WaitlistForm";
 import FixedWaitlistButton from "@/components/button/FixedWaitlistButton";
@@ -15,6 +15,23 @@ export default function WaitlistModal() {
     const [isSubmitAnimating, setIsSubmitAnimating] = useState(false);
     // use a built-in ease to avoid typing issues
     const ease = "easeInOut" as const;
+
+    // Handle Escape key to close modal
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === 'Escape' && isModalOpen) {
+                toggleModal();
+            }
+        };
+
+        if (isModalOpen) {
+            document.addEventListener('keydown', handleKeyDown);
+        }
+
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [isModalOpen, toggleModal]);
 
     return (
         <>

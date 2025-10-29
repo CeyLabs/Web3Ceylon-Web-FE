@@ -17,7 +17,7 @@ const WaitlistForm = forwardRef<WaitlistFormRef>((_, ref) => {
     const [clientData, setClientData] = useState({
         fullName: "",
         email: "",
-        profession: "",
+        profession: "web3",
         consentToShareWithThirdParties: false,
     });
     const [errors, setErrors] = useState({
@@ -99,7 +99,7 @@ const WaitlistForm = forwardRef<WaitlistFormRef>((_, ref) => {
             setClientData({
                 fullName: "",
                 email: "",
-                profession: "",
+                profession: "web3",
                 consentToShareWithThirdParties: false,
             });
             setErrors({
@@ -124,7 +124,7 @@ const WaitlistForm = forwardRef<WaitlistFormRef>((_, ref) => {
 
     return (
         <div className="flex h-full flex-col">
-            <h2 className="font-instrument mb-[clamp(16px,3vw,32px)] text-[clamp(32px,5vw,72px)] leading-[1] font-semibold tracking-tight">
+            <h2 className="font-primary mb-[clamp(16px,3vw,32px)] text-[clamp(32px,5vw,72px)] leading-[1] tracking-tight">
                 <span className="text-zinc-200">Join the</span>{" "}
                 <span className="text-zinc-100">Waitlist</span>
             </h2>
@@ -156,7 +156,7 @@ const WaitlistForm = forwardRef<WaitlistFormRef>((_, ref) => {
                                 setClientData({ ...clientData, fullName: e.target.value });
                                 setErrors({ ...errors, fullName: false });
                             }}
-                            placeholder="Kasun Fernando"
+                            placeholder="Full name"
                             autoComplete="name"
                             aria-invalid={errors.fullName}
                             aria-describedby={errors.fullName ? "fullName-error" : undefined}
@@ -190,7 +190,7 @@ const WaitlistForm = forwardRef<WaitlistFormRef>((_, ref) => {
                                 setClientData({ ...clientData, email: e.target.value });
                                 setErrors({ ...errors, email: false });
                             }}
-                            placeholder="kasun@example.com"
+                            placeholder="Email"
                             autoComplete="email"
                             aria-invalid={errors.email}
                             aria-describedby={errors.email ? "email-error" : undefined}
