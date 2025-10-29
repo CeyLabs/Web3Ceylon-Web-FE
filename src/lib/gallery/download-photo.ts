@@ -19,6 +19,7 @@ export default function downloadPhoto(url: string, filename: string) {
         .then((blob) => {
             const blobUrl = window.URL.createObjectURL(blob);
             forceDownload(blobUrl, resolvedFilename);
+            window.URL.revokeObjectURL(blobUrl);
         })
         .catch((error) => console.error(error));
 }

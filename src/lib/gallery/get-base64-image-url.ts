@@ -10,9 +10,15 @@ export default async function getBase64ImageUrl(image: ImageProps): Promise<stri
     }
 
     try {
+        if (!process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME) {
+            throw new Error('NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME environment variable is not set');
+        }
         const response = await fetch(
             `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/f_jpg,w_8,q_70/${image.public_id}.${image.format}`,
         );
+        if (!response.ok) {
+            throw new Error(`Cloudinary fetch failed with status ${response.status}`);
+        }
         const buffer = await response.arrayBuffer();
         // Cloudinary already returns a tiny, compressed JPEG. No further optimization is necessary here.
         const url = `data:image/jpeg;base64,${Buffer.from(buffer).toString("base64")}`;

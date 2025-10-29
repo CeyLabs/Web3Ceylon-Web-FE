@@ -21,8 +21,14 @@ export default function Modal({ images, onClose, imageAlt }: ModalProps) {
     const searchParams = useSearchParams();
 
     const photoIdParam = searchParams.get("photoId");
-    const isOpen = photoIdParam !== null;
-    const index = isOpen ? Number(photoIdParam) : 0;
+    const rawIndex = photoIdParam !== null ? Number(photoIdParam) : null;
+    const isIndexValid =
+        rawIndex !== null &&
+        Number.isInteger(rawIndex) &&
+        rawIndex >= 0 &&
+        rawIndex < images.length;
+    const isOpen = isIndexValid;
+    const index = isIndexValid ? (rawIndex as number) : 0;
 
     const [direction, setDirection] = useState(0);
     const [curIndex, setCurIndex] = useState(index);
@@ -71,7 +77,7 @@ export default function Modal({ images, onClose, imageAlt }: ModalProps) {
         }
     });
 
-    if (!isOpen || Number.isNaN(index)) {
+    if (!isOpen) {
         return null;
     }
 
@@ -87,6 +93,7 @@ export default function Modal({ images, onClose, imageAlt }: ModalProps) {
                 ref={overlayRef}
                 as={motion.div}
                 key="backdrop"
+                tabIndex={-1}
                 className="fixed inset-0 z-30 bg-black/70 backdrop-blur-2xl"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
