@@ -23,3 +23,13 @@ export const useRoadmapModalStore = create<RoadmapModalStore>((set) => ({
   openModal: (cityId: string) => set({ isModalOpen: true, activeCityId: cityId }),
   closeModal: () => set({ isModalOpen: false, activeCityId: null }),
 }));
+
+interface WaitlistModalStore {
+  isModalOpen: boolean;
+  toggleModal: () => void;
+}
+
+export const useWaitlistModalStore = create<WaitlistModalStore>((set) => ({
+  isModalOpen: false,
+  toggleModal: () => set((state) => ({ isModalOpen: !state.isModalOpen })),
+}));

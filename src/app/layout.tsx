@@ -1,10 +1,8 @@
 import "@/styles/theme.css";
 import { AppProviders } from "@/app/providers";
-import { figtree, instrumentSerif, carena, fredoka } from "@/app/fonts";
-import { SiteLoaderProvider } from "@/app/site-loader-provider";
+import { figtree, instrumentSerif, carena, fredoka, theGoodMonolith } from "@/app/fonts";
 import JsonLd from "@/components/seo/JsonLd";
 import { EVENT_JSONLD } from "@/lib/seo";
-import DynamicFavicon from "@/components/DynamicFavicon";
 
 export { metadata } from "@/app/metadata";
 
@@ -16,37 +14,12 @@ export default function RootLayout({
     return (
         <html
             lang="en"
-            className={`${figtree.variable} ${instrumentSerif.variable} ${carena.variable} ${fredoka.variable}`}
+            className={`${figtree.variable} ${instrumentSerif.variable} ${carena.variable} ${fredoka.variable} ${theGoodMonolith.variable}`}
         >
             <body className="font-sans antialiased">
                 <JsonLd id="event-jsonld" data={EVENT_JSONLD} />
-                <DynamicFavicon />
-                {/* SSR overlay to prevent initial flash before client hydration */}
-                <div
-                    id="ssr-site-loader"
-                    style={{
-                        position: "fixed",
-                        inset: 0,
-                        zIndex: 9998,
-                        pointerEvents: "none",
-                        // Match sitewide background
-                        background: "hsl(var(--background))",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                    }}
-                >
-                    <img
-                        src="/Main-Logo.svg"
-                        alt="Site logo"
-                        style={{ height: "min(96px, 12vh)", width: "auto" }}
-                        draggable={false}
-                    />
-                </div>
 
-                <AppProviders>
-                    <SiteLoaderProvider>{children}</SiteLoaderProvider>
-                </AppProviders>
+                <AppProviders>{children}</AppProviders>
             </body>
         </html>
     );

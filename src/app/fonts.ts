@@ -37,6 +37,20 @@ export const carena = localFont({
   variable: "--font-carena",
 });
 
+// Local TheGoodMonolith font (uploaded under public/assets/fonts)
+// Expose as CSS variable for Tailwind usage
+export const theGoodMonolith = localFont({
+  src: [
+    {
+      path: "../../public/assets/fonts/TheGoodMonolith.ttf",
+      weight: "400",
+      style: "normal",
+    },
+  ],
+  display: "swap",
+  variable: "--font-goodmonolith",
+});
+
 // Google Fredoka font as secondary
 export const fredoka = Fredoka({
   subsets: ["latin"],

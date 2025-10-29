@@ -20,6 +20,9 @@ export default {
             },
         },
         extend: {
+            boxShadow: {
+                highlight: "inset 0 0 0 1px rgba(255, 255, 255, 0.05)",
+            },
             fontFamily: {
                 // Use next/font variables exposed on <html>
                 sans: ["var(--font-figtree)", "SF Pro Display", "system-ui", "sans-serif"],
@@ -28,6 +31,7 @@ export default {
                 instrument: ["var(--font-instrument)", "Georgia", "serif"],
                 carena: ["var(--font-carena)", "Georgia", "serif"],
                 fredoka: ["var(--font-fredoka)", "system-ui", "sans-serif"],
+                goodmonolith: ["var(--font-goodmonolith)", "system-ui", "sans-serif"],
                 // Aliases
                 primary: ["var(--font-carena)", "Georgia", "serif"],
                 secondary: ["var(--font-fredoka)", "system-ui", "sans-serif"],
@@ -109,6 +113,11 @@ export default {
                 lg: "var(--radius)",
                 md: "calc(var(--radius) - 2px)",
                 sm: "calc(var(--radius) - 4px)",
+            },
+            screens: {
+                narrow: { raw: "(max-aspect-ratio: 3 / 2)" },
+                wide: { raw: "(min-aspect-ratio: 3 / 2)" },
+                "taller-than-854": { raw: "(min-height: 854px)" },
             },
             keyframes: {
                 "accordion-down": {

@@ -1,19 +1,17 @@
 export const SITE_URL = "https://web3ceylon.com/";
-export const SITE_NAME = "Web3Ceylon 2025 - Sri Lanka's Largest Web3 Developer & Community Tour";
+export const SITE_NAME = "Web3Ceylon - Sri Lanka's Largest Web3 Developer & Community Tour";
 export const ORGANIZATION_NAME = "Ceylon Cash";
 export const ORGANIZATION_URL = "https://ceyloncash.com/";
 export const DESCRIPTION =
-    "Ceylon Cash presents Web3Ceylon 2025, a four-city educational tour across Colombo, Kandy, Galle & Ella. Learn blockchain development, crypto essentials, NFT creation & connect with Sri Lanka's Web3 community. Powered by Bybit.";
+    "Ceylon Cash presents Web3Ceylon, Sri Lanka's largest Web3 developer and community tour. Learn blockchain development, crypto essentials, NFT creation & connect with Sri Lanka's Web3 community. Powered by Bybit.";
 export const OG_IMAGE = `${SITE_URL}og-image.png`;
 export const TWITTER_HANDLE = "@web3ceylontour";
 
 export const EVENT_JSONLD = {
     "@context": "https://schema.org",
     "@type": "Event",
-    name: "Web3Ceylon 2025",
+    name: "Web3Ceylon",
     description: DESCRIPTION,
-    startDate: "2025-09-20T00:00:00+05:30",
-    endDate: "2025-10-12T23:59:59+05:30",
     location: {
         "@type": "Place",
         name: "Sri Lanka",
