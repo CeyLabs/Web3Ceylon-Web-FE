@@ -65,42 +65,46 @@ export default function ThankYouPage() {
                 <div className="absolute bottom-[-30%] left-1/2 h-[60vh] w-[70vw] -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(244,114,182,0.08)_0%,rgba(0,0,0,0)_55%)] blur-3xl" />
             </div>
 
-            <section className="relative mx-auto flex h-full max-w-5xl flex-col items-center justify-center px-6">
-                {/* Hero keycap button */}
-                <HeroKeycap isPressed={isSpacePressed} onInteract={play} />
+            <div className="relative z-10 flex h-full w-full overflow-y-auto">
+                <section className="relative mx-auto flex min-h-full w-full max-w-5xl scale-90 transform flex-col items-center justify-center px-6">
+                    {/* Hero keycap button */}
+                    <HeroKeycap isPressed={isSpacePressed} onInteract={play} />
 
-                <h1 className="font-primary mt-12 text-center text-[21px] font-semibold tracking-wide text-zinc-200 md:text-[24px]">
-                    <span className="block sm:inline">Thanks for joining us,</span>{" "}
-                    <span className="block sm:inline">see you next year!</span>
-                </h1>
-                <p className="font-goodmonolith mt-4 max-w-xl text-center text-sm text-zinc-400 md:text-base">
-                    {thankYouCopy.subheading}
-                </p>
+                    <h1 className="font-primary mt-12 text-center text-[21px] font-semibold tracking-wide text-zinc-200 md:text-[24px]">
+                        <span className="block sm:inline">Thanks for joining us,</span>{" "}
+                        <span className="block sm:inline">see you next year!</span>
+                    </h1>
+                    <p className="font-goodmonolith mt-4 max-w-xl text-center text-sm text-zinc-400 md:text-base">
+                        {thankYouCopy.subheading}
+                    </p>
 
-                <div className="mt-12 flex justify-center gap-4">
-                    <button
-                        onClick={toggleWaitlistModal}
-                        className="font-secondary group inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-medium whitespace-nowrap text-white transition hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black focus-visible:outline-none"
-                    >
-                        Join '26 Waitlist
-                        <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </button>
-                    <Link
-                        href="/2025"
-                        className="font-secondary group inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-medium whitespace-nowrap text-white transition hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black focus-visible:outline-none"
-                    >
-                        Rewind 2025 Site
-                        <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </Link>
-                    <Link
-                        href="/2025/album"
-                        className="font-secondary group inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-medium whitespace-nowrap text-white transition hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black focus-visible:outline-none"
-                    >
-                        <span className="hidden sm:inline">See </span>2025 Album
-                        <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </Link>
-                </div>
-            </section>
+                    <div className="mt-12 flex flex-col gap-4 sm:flex-row sm:justify-center sm:gap-4">
+                        <button
+                            onClick={toggleWaitlistModal}
+                            className="font-secondary group inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-medium whitespace-nowrap text-white transition hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black focus-visible:outline-none sm:w-auto"
+                        >
+                            Join '26 Waitlist
+                            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                        </button>
+                        <div className="flex justify-center gap-4">
+                            <Link
+                                href="/2025"
+                                className="font-secondary group inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-medium whitespace-nowrap text-white transition hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black focus-visible:outline-none"
+                            >
+                                Rewind 2025 Site
+                                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                            </Link>
+                            <Link
+                                href="/2025/album"
+                                className="font-secondary group inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-medium whitespace-nowrap text-white transition hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black focus-visible:outline-none"
+                            >
+                                <span className="hidden sm:inline">See </span>2025 Album
+                                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                            </Link>
+                        </div>
+                    </div>
+                </section>
+            </div>
 
             <WaitlistModal />
         </main>
