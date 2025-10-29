@@ -43,7 +43,7 @@ export default function Modal({ images, onClose, imageAlt }: ModalProps) {
 
         const query = params.toString();
         const url = query ? `${pathname}?${query}` : pathname;
-        router.push(url, { scroll: false });
+        router.replace(url, { scroll: false });
     };
 
     const handleClose = () => {

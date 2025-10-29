@@ -48,13 +48,8 @@ export default function SharedModal({
     });
 
     const currentImage = images ? images[index] : currentPhoto;
-    if (!currentImage) {
-        return null;
-    }
-
-    const resolvedAlt = imageAlt ?? "Web3Ceylon event photo";
-    const naturalWidth = currentImage.width ?? 1280;
-    const naturalHeight = currentImage.height ?? 853;
+    const naturalWidth = currentImage?.width ?? 1280;
+    const naturalHeight = currentImage?.height ?? 853;
     const maxModalWidth = navigation ? 1280 : 1920;
     const cloudinaryWidth = Math.max(1, Math.min(maxModalWidth, Math.round(naturalWidth)));
 
@@ -77,6 +72,12 @@ export default function SharedModal({
             }
         }
     }, [loaded, index, images, cloudinaryWidth]);
+
+    if (!currentImage) {
+        return null;
+    }
+
+    const resolvedAlt = imageAlt ?? "Web3Ceylon event photo";
 
     return (
         <MotionConfig

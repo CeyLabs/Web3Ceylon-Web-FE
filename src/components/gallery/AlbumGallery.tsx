@@ -88,6 +88,24 @@ export default function AlbumGallery({ images, hero, imageAlt }: AlbumGalleryPro
         }
     }, [photoId, lastViewedPhoto, setLastViewedPhoto]);
 
+    useEffect(() => {
+        router.prefetch("/2025/album");
+    }, [router]);
+
+    useEffect(() => {
+        const handleEscapeKey = (event: KeyboardEvent) => {
+            if (event.key === "Escape") {
+                event.preventDefault();
+                router.push("/2025/album");
+            }
+        };
+
+        window.addEventListener("keydown", handleEscapeKey);
+        return () => {
+            window.removeEventListener("keydown", handleEscapeKey);
+        };
+    }, [router]);
+
     const heroContent = hero ?? defaultHero;
     const galleryImageAlt = imageAlt ?? defaultImageAlt;
     const heroImage = heroContent.image;
@@ -163,6 +181,7 @@ export default function AlbumGallery({ images, hero, imageAlt }: AlbumGalleryPro
                                 </a>
                             </div>
                         )}
+                        <p className="text-sm text-white/50">Press Esc to exit</p>
                     </div>
                     {images
                         .slice(0, visibleImages)
