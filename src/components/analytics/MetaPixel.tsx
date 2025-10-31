@@ -31,6 +31,9 @@ export function MetaPixel() {
                     width="1"
                     src={`https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1`}
                     alt=""
+                    aria-hidden="true"
+                    role="presentation"
+                    style={{ display: "none" }}
                 />
             </noscript>
         </>
