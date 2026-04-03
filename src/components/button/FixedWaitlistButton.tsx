@@ -42,6 +42,7 @@ export default function FixedWaitlistButton({
 
     const handleClick = () => {
         if (isModalOpen && formRef.current) {
+            if (formRef.current.isSubmitting()) return;
             // Trigger submit animation
             setIsSubmitAnimating(true);
             formRef.current.submit();
