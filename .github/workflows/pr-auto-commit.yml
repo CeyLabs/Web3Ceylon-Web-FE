@@ -1,0 +1,57 @@
+name: Vercel Kickstart
+
+on:
+  push:
+    branches:
+      - dev
+  pull_request:
+    types:
+      - synchronize
+      - opened
+  issue_comment:
+permissions:
+  contents: write
+jobs:
+  commit_as_user:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.ref || github.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
+          token: ${{ secrets.USER_PAT }}
+
+      - name: Check commit message
+        id: check
+        run: |
+          MESSAGE=$(git log --format=%B -n 1 HEAD)
+          if echo "$MESSAGE" | grep -q "Vercel Magic 🪄"; then
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Set up Git with the target user info
+        if: steps.check.outputs.skip == 'false'
+        env:
+          GIT_USER_NAME: ${{ secrets.GIT_USER_NAME }}
+          GIT_USER_EMAIL: ${{ secrets.GIT_USER_EMAIL }}
+        run: |
+          git config user.name "$GIT_USER_NAME"
+          git config user.email "$GIT_USER_EMAIL"
+
+      - name: Update timestamp.txt with current time
+        if: steps.check.outputs.skip == 'false'
+        run: |
+          echo "Last updated: $(date)" > timestamp.txt
+          git add timestamp.txt
+          git commit -m "Vercel Magic 🪄 - Update timestamp.txt with latest date"
+
+      - name: Push changes
+        if: steps.check.outputs.skip == 'false'
+        env:
+          TARGET_REF: ${{ github.event.pull_request.head.ref || github.ref_name }}
+        run: |
+          git push --force-with-lease origin HEAD:$TARGET_REF
