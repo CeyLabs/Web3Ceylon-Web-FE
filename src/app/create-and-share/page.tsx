@@ -12,7 +12,7 @@ import {
     IconCopy,
 } from "@tabler/icons-react";
 import dynamic from "next/dynamic";
-import { useCompletion } from "ai/react";
+import { useCompletion } from "@ai-sdk/react";
 
 const Footer = dynamic(() => import("@/components/Footer"), { ssr: false });
 

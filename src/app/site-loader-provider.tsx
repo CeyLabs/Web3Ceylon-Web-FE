@@ -44,13 +44,15 @@ export function SiteLoaderProvider({
     safety = window.setTimeout(() => setShow(false), maxWait);
     // Remove SSR overlay once client overlay is mounted
     const ssr = document.getElementById("ssr-site-loader");
+    let ssrHideTimer: number | undefined;
     if (ssr) {
       ssr.style.transition = "opacity 300ms ease";
       ssr.style.opacity = "0";
-      window.setTimeout(() => ssr.remove(), 320);
+      ssrHideTimer = window.setTimeout(() => { ssr.style.display = "none"; }, 320);
     }
     return () => {
       if (safety) window.clearTimeout(safety);
+      if (ssrHideTimer) window.clearTimeout(ssrHideTimer);
     };
   }, [maxWait]);
 

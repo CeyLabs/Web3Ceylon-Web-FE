@@ -369,8 +369,8 @@ export const SpeakersSection: React.FC<{ className?: string }> = ({ className })
                     <ChromaGrid items={toItems("panel")} className="justify-center" />
                 </div>
 
-                {/* Ella (TBA) */}
-                <div className="mx-auto max-w-6xl">
+                {/* Ella — Retreat & Global Connect (temporarily hidden) */}
+                {/* <div className="mx-auto max-w-6xl">
                     <h3
                         className="font-primary mb-12 text-center text-xl font-semibold md:mb-14"
                         style={{ color: "#388E3C" }}
@@ -378,7 +378,7 @@ export const SpeakersSection: React.FC<{ className?: string }> = ({ className })
                         {speakerGroupTitles.ella}
                     </h3>
                     <ChromaGrid items={toItems("ella")} className="justify-center" />
-                </div>
+                </div> */}
             </div>
         </section>
     );
