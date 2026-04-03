@@ -72,7 +72,7 @@ export async function POST(req: Request): Promise<Response> {
             ],
         });
 
-        return result.toAIStreamResponse();
+        return result.toTextStreamResponse();
     } catch (error) {
         console.error("Failed to generate Bybit assistant response:", error);
         return new Response(

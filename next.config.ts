@@ -1,8 +1,7 @@
 import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  eslint: { ignoreDuringBuilds: true },
-  images: {
+images: {
     remotePatterns: [
       {
         protocol: 'https',

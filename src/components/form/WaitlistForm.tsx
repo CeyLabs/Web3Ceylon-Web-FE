@@ -7,7 +7,7 @@ import { Switch } from "@/components/ui/switch";
 
 export interface WaitlistFormRef {
     submit: () => void;
-    onSubmitAnimating?: (animating: boolean) => void;
+    isSubmitting: () => boolean;
 }
 
 const WaitlistForm = forwardRef<WaitlistFormRef>((_, ref) => {
@@ -44,10 +44,12 @@ const WaitlistForm = forwardRef<WaitlistFormRef>((_, ref) => {
                 formRef.current.requestSubmit();
             }
         },
+        isSubmitting: () => isSubmitting,
     }));
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (isSubmitting) return;
 
         const newErrors = {
             fullName: clientData.fullName.trim() === "",

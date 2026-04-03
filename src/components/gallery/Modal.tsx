@@ -1,6 +1,6 @@
 "use client";
 
-import { Dialog } from "@headlessui/react";
+import { Dialog, DialogBackdrop } from "@headlessui/react";
 import { motion } from "framer-motion";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -89,7 +89,7 @@ export default function Modal({ images, onClose, imageAlt }: ModalProps) {
             initialFocus={overlayRef}
             className="fixed inset-0 z-10 flex items-center justify-center"
         >
-            <Dialog.Overlay
+            <DialogBackdrop
                 ref={overlayRef}
                 as={motion.div}
                 key="backdrop"
